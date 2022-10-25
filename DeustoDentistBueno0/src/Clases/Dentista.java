@@ -10,7 +10,7 @@ public class Dentista {
 	private int telefono;
 	private String genero;
 	
-	
+	 
 	
 	public Dentista(String dni, String nombre, String apellido, String fechaNacimiento, String direccion, int telefono,
 			String genero) {
