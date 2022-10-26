@@ -11,9 +11,6 @@ public class Persona {
 	private int telefono;
 	private String genero;
 	
-	
-	
-	
 	public Persona() {
 		super();
 	}
