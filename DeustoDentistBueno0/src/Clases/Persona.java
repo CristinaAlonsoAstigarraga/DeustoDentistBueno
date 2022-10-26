@@ -1,6 +1,7 @@
 package Clases;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Persona {
 
@@ -8,6 +9,7 @@ public class Persona {
 	private String nombre;
 	private String apellido;
 	private Date fechaNacimiento;
+	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
 	private int telefono;
 	private String genero;
 	
