@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
 
 public class VentanaInventario extends JFrame {
 
@@ -58,6 +59,9 @@ public class VentanaInventario extends JFrame {
 		
 		JPanel panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
+		
+		JMenuBar menuBar = new JMenuBar();
+		panelOeste.add(menuBar);
 		
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
