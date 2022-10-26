@@ -17,7 +17,7 @@ public class Persona {
 		super();
 	}
 
-	public Persona(String dni, String nombre, String apellido, Date fechaNacimiento, int telefono, String genero) {
+	public Persona(String dni, String nombre, String apellido, SimpleDateFormat sdfFecha, int telefono, String genero) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -46,11 +46,11 @@ public class Persona {
 		this.apellido = apellido;
 	}
 	
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public SimpleDateFormat getFechaNacimiento() {
+		return sdfFecha;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNacimiento(SimpleDateFormat sdfFecha) {
+		this.sdfFecha = sdfFecha;
 	}
 	public int getTelefono() {
 		return telefono;
