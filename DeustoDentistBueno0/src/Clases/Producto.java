@@ -4,9 +4,9 @@ public class Producto {
 	private int codigo;
 	private String nombre;
 	private String descripcion;
-	private int precio; //creo q deberia ser float
+	private float precio; 
 	
-	public Producto(int codigo, String nombre, String descripcion, int precio) {
+	public Producto(int codigo, String nombre, String descripcion, float precio) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -33,10 +33,10 @@ public class Producto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public int getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
-	public void setPrecio(int precio) {
+	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
 
