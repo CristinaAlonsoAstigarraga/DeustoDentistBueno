@@ -110,7 +110,56 @@ public class BD {
 	
 	public static void crearTablaInventario(Connection con, int cod, String nom) {
 		//mirar int mirar foreign producto
-		String sql = "CREATE TABLE IF NOT EXISTS Inventario ("+cod+", "+nom+", cant int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Inventario (\r\n"
+				+ "cod_p INTEGER PRIMARY KEY, \r\n"
+				+ "nom VARCHAR(20), \r\n"
+				+ "cantidad INTEGER, \r\n"
+				+ "FOREIGN KEY (cod_p) REFERENCES Producto(cod_p) ON DELETE CASCADE, \r\n"
+				+ "FOREIGN KEY (nom) REFERENCES Producto(nom) ON DELETE CASCADE)";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void crearTablaCita(Connection con, int cod, String nom) {
+		//mirar int mirar foreign producto
+		String sql = "CREATE TABLE IF NOT EXISTS Cita (\r\n"
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
+				+ "dni VARCHAR(10), \r\n"
+				+ "nom_p VARCHAR(25),\r\n"
+				+ "fyh DATE, \r\n" /*mirar con marian*/
+				+ "tipo VARCHAR(25),\r\n"
+				+ "nom_d  VARCHAR(25),\r\n"
+				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
+				+ "FOREIGN KEY (nom_p) REFERENCES Paciente(nom) ON DELETE CASCADE, \r\n"
+				+ "FOREIGN KEY (nom_d) REFERENCES Dentista(nom) ON DELETE CASCADE)";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+	public static void crearTablaHistorial(Connection con, int cod, String nom) {
+		//mirar int mirar foreign producto
+		String sql = "CREATE TABLE IF NOT EXISTS Historial (\r\n"
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
+				+ "dni VARCHAR(10) PRIMARY KEY, \r\n"
+				+ "nom_p VARCHAR(25),\r\n"
+				+ "tipo VARCHAR(25),\r\n"
+				+ "desc VARCHAR(200),\r\n"
+				+ "FOREIGN KEY (tipo) REFERENCES Cita(tipo) ON DELETE CASCADE)"
+				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
+				+ "FOREIGN KEY (nom_p) REFERENCES Paciente(nom) ON DELETE CASCADE, \r\n";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
