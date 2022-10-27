@@ -44,7 +44,17 @@ public class BD {
 	
 	public static void crearTablaPaciente(Connection con) {
 		//mirar int
-		String sql = "CREATE TABLE IF NOT EXISTS Paciente (dni String, nom String,apellidos String, fechaNacimiento String, dir String, telf int, gen String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Paciente(\r\n"
+				+ "dni VARCHAR(10) PRIMARY KEY, \r\n"
+				+ "nom VARCHAR(25),\r\n"
+				+ "apellidos VARCHAR(30), \r\n"
+				+ "fechaNacimiento Date, \r\n"
+				+ "dir VARCHAR(30), \r\n"
+				+ "telf INETEGR, \r\n"
+				+ "gen VARCHAR(10)\r\n"
+				+ ")";
+		
+		//String sql = "CREATE TABLE IF NOT EXISTS Paciente (dni String, nom String,apellidos String, fechaNacimiento String, dir String, telf int, gen String)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -57,7 +67,18 @@ public class BD {
 	
 	public static void crearTablaDentista(Connection con) {
 		//falta enum mirar int 
-		String sql = "CREATE TABLE IF NOT EXISTS Dentista (dni String, nom String,apellidos String, fechaNacimiento String, dir String, telf int, gen String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Dentista (\r\n"
+				+ "dni  VARCHAR(10) PRIMARY KEY, \r\n"
+				+ "nom  VARCHAR(25),\r\n"
+				+ "apellidos  VARCHAR(25), \r\n"
+				+ "fechaNacimiento Date, \r\n"
+				+ "dir  VARCHAR(35), \r\n"
+				+ "telf INTEGER, \r\n"
+				+ "gen VARCHAR(10)\r\n"
+				+ ")\r\n"
+				+ "";
+		
+		//String sql = "CREATE TABLE IF NOT EXISTS Dentista (dni String, nom String,apellidos String, fechaNacimiento String, dir String, telf int, gen String)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
