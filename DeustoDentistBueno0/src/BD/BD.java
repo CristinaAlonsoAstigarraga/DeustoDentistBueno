@@ -91,7 +91,13 @@ public class BD {
 	
 	public static void crearTablaProducto(Connection con) {
 		//mirar int 
-		String sql = "CREATE TABLE IF NOT EXISTS Producto (cod int, nom String, desc String, precio int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Producto (\r\n"
+				+ "cod_p INTEGER PRIMARY KEY, \r\n"
+				+ "nom VARCHAR(20), \r\n"
+				+ "desc VARCHAR(40), \r\n"
+				+ "precio INTEGER)";
+		
+		//String sql = "CREATE TABLE IF NOT EXISTS Producto (cod int, nom String, desc String, precio int)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
