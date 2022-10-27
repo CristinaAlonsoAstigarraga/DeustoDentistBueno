@@ -111,7 +111,8 @@ public class BD {
 	public static void crearTablaInventario(Connection con, int cod, String nom) {
 		//mirar int mirar foreign producto
 		String sql = "CREATE TABLE IF NOT EXISTS Inventario (\r\n"
-				+ "cod_p INTEGER PRIMARY KEY, \r\n"
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
+				+ "cod_p INTEGER, \r\n"
 				+ "nom VARCHAR(20), \r\n"
 				+ "cantidad INTEGER, \r\n"
 				+ "FOREIGN KEY (cod_p) REFERENCES Producto(cod_p) ON DELETE CASCADE, \r\n"
