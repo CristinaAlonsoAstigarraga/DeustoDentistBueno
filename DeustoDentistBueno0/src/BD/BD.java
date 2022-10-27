@@ -158,7 +158,7 @@ public class BD {
 				+ "nom_p VARCHAR(25),\r\n"
 				+ "tipo VARCHAR(25),\r\n"
 				+ "desc VARCHAR(200),\r\n"
-				+ "FOREIGN KEY (tipo) REFERENCES Cita(tipo) ON DELETE CASCADE)"
+				+ "FOREIGN KEY (tipo) REFERENCES Cita(tipo) ON DELETE CASCADE, \r\n"
 				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
 				+ "FOREIGN KEY (nom_p) REFERENCES Paciente(nom) ON DELETE CASCADE)";
 		try {
