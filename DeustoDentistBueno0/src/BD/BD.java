@@ -57,7 +57,7 @@ public class BD {
 	
 	public static void crearTablaDentista(Connection con) {
 		//falta enum mirar int 
-		String sql = "CREATE TABLE IF NOT EXISTS Paciente (dni String, nom String,apellidos String, fechaNacimiento String, dir String, telf int, gen String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Dentista (dni String, nom String,apellidos String, fechaNacimiento String, dir String, telf int, gen String)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
