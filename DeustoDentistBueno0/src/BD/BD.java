@@ -160,7 +160,7 @@ public class BD {
 				+ "desc VARCHAR(200),\r\n"
 				+ "FOREIGN KEY (tipo) REFERENCES Cita(tipo) ON DELETE CASCADE)"
 				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
-				+ "FOREIGN KEY (nom_p) REFERENCES Paciente(nom) ON DELETE CASCADE, \r\n";
+				+ "FOREIGN KEY (nom_p) REFERENCES Paciente(nom) ON DELETE CASCADE)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
