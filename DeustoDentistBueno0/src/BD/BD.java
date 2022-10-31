@@ -187,4 +187,16 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void borrarTablaPaciente(Connection con) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Paciente";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
