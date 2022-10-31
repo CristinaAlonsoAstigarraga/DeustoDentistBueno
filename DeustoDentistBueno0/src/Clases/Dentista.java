@@ -4,7 +4,10 @@ public class Dentista extends Persona{
 	
 	private float salario;
 	
-
+	public Dentista() {
+		
+	}
+	
 	public Dentista(float salario) {
 		super();
 		this.salario = salario;

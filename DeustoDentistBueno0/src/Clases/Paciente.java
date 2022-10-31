@@ -4,6 +4,10 @@ public class Paciente extends Persona{
 	
 	private String direccion;
 	
+	public Paciente() {
+	
+	}
+	
 
 	public Paciente(String direccion) {
 		super();

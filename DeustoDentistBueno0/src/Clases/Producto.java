@@ -6,6 +6,10 @@ public class Producto {
 	private String descripcion;
 	private float precio; 
 	
+	public Producto() {
+		
+	}
+	
 	public Producto(int codigo, String nombre, String descripcion, float precio) {
 		super();
 		this.codigo = codigo;

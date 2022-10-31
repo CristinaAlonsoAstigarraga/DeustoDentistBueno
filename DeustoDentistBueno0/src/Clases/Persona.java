@@ -14,8 +14,11 @@ public class Persona {
 	private int telefono;
 	private String genero;
 	
+	/**
+	 * Constructor por defecto
+	 */
 	public Persona() {
-		super();
+	
 	}
 
 	public Persona(String dni, String nombre, String apellido, SimpleDateFormat sdfFecha, int telefono, String genero) {

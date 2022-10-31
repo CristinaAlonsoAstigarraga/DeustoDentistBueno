@@ -4,7 +4,11 @@ public class Inventario {
 	private int codigoProducto;
 	private String nombreProducto;
 	private int cantidad;
+
 	
+	public Inventario() {
+		
+	}
 	
 	public Inventario(int codigoProducto, String nombreProducto, int cantidad) {
 		super();
