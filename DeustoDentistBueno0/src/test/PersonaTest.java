@@ -20,6 +20,7 @@ public class PersonaTest {
 	private String apellido = "apellido";
 	private String newApellido = "New Apellido";
 	// Comprobar test de getFecha() y setFecha()
+	private String er = "[0-9]{2}-[0-9]{2}-[0-9]{4}";
 	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
 	SimpleDateFormat sdfNewFecha = new SimpleDateFormat("dd-MM-yyyy");
 	private int telefono = 609609609;
@@ -94,12 +95,12 @@ public class PersonaTest {
 	}
 
 	// Comprobar
-	@Test
+	/*@Test
 	public void testSetFechaNacimiento() {
-		persona.setFechaNacimiento(sdfNewFecha);
+		persona.setFechaNacimiento(fechaNacimiento);
 		assertEquals(sdfNewFecha, persona.getFechaNacimiento());
 	}
-
+*/
 	@Test
 	public void testSetTelefono() {
 		persona.setTelefono(newTelefono);
