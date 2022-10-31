@@ -188,10 +188,140 @@ public class BD {
 		}
 	}
 	
+	public static void anadirDentista(Connection con, String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen ) {
+		
+		String sql = "INSERT INTO Dentista VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void anadirProducto(Connection con, int cod_p, String nom, String desc, int precio) {
+		
+		String sql = "INSERT INTO Producto VALUES ('"+cod_p+"', '"+nom+"','"+desc+"','"+precio+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void anadirInventario(Connection con, int id, int cod_p, String nom, int cantidad) {
+		
+		String sql = "INSERT INTO Inventario VALUES ('"+id+"', '"+cod_p+"','"+nom+"','"+cantidad+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void anadirCita(Connection con, int id, String dni, String nom_p, Date fyh, String tipo, String nom_d) {
+		
+		String sql = "INSERT INTO Cita VALUES ('"+id+"', '"+dni+"','"+nom_p+"','"+fyh+"', '"+tipo+"', '"+nom_d+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void anadirHistoria(Connection con, int id, String dni, String nom_p, String tipo, String desc) {
+		
+		String sql = "INSERT INTO Historial VALUES ('"+id+"', '"+dni+"','"+nom_p+"', '"+tipo+"', '"+desc+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void borrarTablaPaciente(Connection con) {
 		try {
 			Statement st = con.createStatement();
 			String sql = "DELETE FROM Paciente";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void borrarTablaDentista(Connection con) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Dentista";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void borrarTablaCita(Connection con) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Cita";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void borrarTablaProducto(Connection con) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Producto";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void borrarTablaInventario(Connection con) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Inventario";
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void borrarTablaHistorial(Connection con) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Historial";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
