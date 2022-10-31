@@ -1,9 +1,12 @@
 package BD;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.swing.JOptionPane;
 
 //mirar mismo nombre en diferentes clases
 
@@ -170,5 +173,18 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public static void anadirPaciente(Connection con, String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen ) {
+		
+		String sql = "INSERT INTO Paciente VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
