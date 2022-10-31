@@ -136,7 +136,7 @@ public class BD {
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
 				+ "dni VARCHAR(10), \r\n"
 				+ "nom_p VARCHAR(25),\r\n"
-				+ "fyh DATE, \r\n" /*mirar con marian*/
+				+ "fyh DATE, \r\n"
 				+ "tipo VARCHAR(25),\r\n"
 				+ "nom_d  VARCHAR(25),\r\n"
 				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
