@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import Clases.Cita;
 import Clases.Paciente;
+import Clases.Producto;
 
 //mirar mismo nombre en diferentes clases
 
@@ -209,9 +210,9 @@ public class BD {
 		}
 	}
 	
-	public static void anadirProducto(Connection con, int cod_p, String nom, String desc, int precio) {
+	public static void anadirProducto(Connection con,Producto prod) {
 		
-		String sql = "INSERT INTO Producto VALUES ('"+cod_p+"', '"+nom+"','"+desc+"','"+precio+"')";
+		String sql = "INSERT INTO Producto VALUES ('"+prod.getCodigo()+"', '"+prod.getNombre()+"','"+prod.getDescripcion()+"','"+prod.getPrecio()+"')";
 		
 		try {
 			Statement st = con.createStatement();

@@ -28,6 +28,11 @@ public class Main {
 		// c=new Cita("83736514w", "Maria", "Alberto", "","","", "",TipoCita.BLANQUEAMIENTO);
 
 		BD.anadirCita(con,c);
+		
+		
+		/*---------insertar producto a bbdd--------------*/
+		Producto prod=new Producto(23545,"Gomas elasticas","Gomas elasticass ortodoncia",30);
+		BD.anadirProducto(con,prod);
 	
 	
 	}
