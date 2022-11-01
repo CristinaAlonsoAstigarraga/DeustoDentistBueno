@@ -8,6 +8,9 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
+import Clases.Cita;
+import Clases.Paciente;
+
 //mirar mismo nombre en diferentes clases
 
 public class BD {
@@ -174,10 +177,13 @@ public class BD {
 		}
 	}
 	
-	public static void anadirPaciente(Connection con, String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen ) {
-		
-		String sql = "INSERT INTO Paciente VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
-		
+	// String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen
+	
+	public static void anadirPaciente(Connection con, Paciente p) {
+		//String sql = "INSERT INTO Paciente VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
+		String sql = "INSERT INTO Paciente VALUES ('" + p.getDni() + "', '" + p.getNombre() + "','" + p.getApellido()
+				+ "','" + p.getFechaNacimiento() + "', '" + p.getDireccion() + "','" + p.getTelefono() + "', '"
+				+ p.getGenero() + "')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -187,6 +193,7 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public static void anadirDentista(Connection con, String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen ) {
 		
@@ -230,9 +237,13 @@ public class BD {
 		}
 	}
 	
-	public static void anadirCita(Connection con, int id, String dni, String nom_p, Date fyh, String tipo, String nom_d) {
+	//public static void anadirCita(Connection con, int id, String dni, String nom_p, Date fyh, String tipo, String nom_d) {
+	public static void anadirCita(Connection con,Cita c) {
 		
-		String sql = "INSERT INTO Cita VALUES ('"+id+"', '"+dni+"','"+nom_p+"','"+fyh+"', '"+tipo+"', '"+nom_d+"')";
+		//EL ID NO SE INSERTA SE INCREMENTA SOLO!!
+		
+		//String sql = "INSERT INTO Cita VALUES ('"+.id+"', '"+dni+"','"+nom_p+"','"+fyh+"', '"+tipo+"', '"+nom_d+"')";
+		String sql = "INSERT INTO Cita VALUES ('"+c.getDniPaciente()+"','"+c.getNombreDentista()+"','"+c.getFecha()+"', '"+c.getTipo()+"','"+c.getNombreDentista()+"')";
 		
 		try {
 			Statement st = con.createStatement();
@@ -329,4 +340,6 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+
+	
 }

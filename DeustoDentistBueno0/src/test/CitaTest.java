@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Clases.Cita;
+import Clases.TipoCita;
 
 public class CitaTest {
 
@@ -30,7 +31,7 @@ public class CitaTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cita = new Cita(dniPaciente, nombrePaciente, nombreDentista, fecha, sdfFecha, hora, sdfHora);
+		cita = new Cita(dniPaciente, nombrePaciente, nombreDentista, fecha, sdfFecha, hora, sdfHora,TipoCita.EMPASTE);
 	}
 
 //	@After

@@ -10,13 +10,14 @@ public class Cita {
 		SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
 		private Date hora;
 		SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
+		private TipoCita tipo;
 		
 		public Cita() {
 			
 		}
 		
 		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, Date fecha,
-				SimpleDateFormat sdfFecha, Date hora, SimpleDateFormat sdfHora) {
+				SimpleDateFormat sdfFecha, Date hora, SimpleDateFormat sdfHora,TipoCita tipo) {
 			super();
 			this.dniPaciente = dniPaciente;
 			this.nombrePaciente = nombrePaciente;
@@ -25,6 +26,7 @@ public class Cita {
 			this.sdfFecha = sdfFecha;
 			this.hora = hora;
 			this.sdfHora = sdfHora;
+			this.tipo=tipo;
 		}
 		public String getDniPaciente() {
 			return dniPaciente;
@@ -56,5 +58,6 @@ public class Cita {
 		public void setHora(Date hora) {
 			this.hora = hora;
 		}
+		public TipoCita getTipo(){return tipo;}
 		
 }
