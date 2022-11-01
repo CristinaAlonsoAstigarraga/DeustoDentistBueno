@@ -31,9 +31,12 @@ public class Main {
 		
 		
 		/*---------insertar producto a bbdd--------------*/
-		Producto prod=new Producto(23545,"Gomas elasticas","Gomas elasticass ortodoncia",30);
+		Producto prod=new Producto(23545,"Caja Gomas elasticas","Gomas elasticass ortodoncia",30);
 		BD.anadirProducto(con,prod);
-	
+		
+		/*---------insertar Inventario a bbdd--------------*/
+		Inventario inv=new Inventario(23545,"Caja Gomas elasticas",130);
+		BD.anadirInventario(con,inv);
 	
 	}
 

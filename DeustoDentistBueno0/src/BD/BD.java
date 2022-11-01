@@ -9,6 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Clases.Cita;
+import Clases.Inventario;
 import Clases.Paciente;
 import Clases.Producto;
 
@@ -224,9 +225,13 @@ public class BD {
 		}
 	}
 	
-	public static void anadirInventario(Connection con, int id, int cod_p, String nom, int cantidad) {
+	
+	//(Connection con, int id, int cod_p, String nom, int cantidad) {
+	public static void anadirInventario(Connection con,Inventario inv) {
 		
-		String sql = "INSERT INTO Inventario VALUES ('"+id+"', '"+cod_p+"','"+nom+"','"+cantidad+"')";
+		//EL ID DEL INVENTARIO ES AUTOINCREMENT
+		//String sql = "INSERT INTO Inventario VALUES ('"+id+"', '"+cod_p+"','"+nom+"','"+cantidad+"')";
+		String sql = "INSERT INTO Inventario VALUES ('"+inv.getCodigoProducto()+"','"+inv.getNombreProducto()+"','"+inv.getCantidad()+"')";
 		
 		try {
 			Statement st = con.createStatement();
