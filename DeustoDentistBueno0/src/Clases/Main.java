@@ -15,6 +15,7 @@ public class Main {
 		/*Esto luego se camba cuando esten los constructores bien hechos*/
 		Paciente p=null;
 		Cita c=null;
+		Dentista d=null;
 		
 		/*---------insertar Paciente a bbdd--------------*/
 		
@@ -31,12 +32,21 @@ public class Main {
 		
 		
 		/*---------insertar producto a bbdd--------------*/
+		
 		Producto prod=new Producto(23545,"Caja Gomas elasticas","Gomas elasticass ortodoncia",30);
 		BD.anadirProducto(con,prod);
 		
 		/*---------insertar Inventario a bbdd--------------*/
+		
 		Inventario inv=new Inventario(23545,"Caja Gomas elasticas",130);
 		BD.anadirInventario(con,inv);
+		
+		/*---------insertar Inventario a bbdd--------------*/
+		
+		//String dni, String nombre, String apellido, SimpleDateFormat sdfFecha, int telefono, String genero,float salario) {
+		//Dentista d=new Dentista("54332356q","Alberto","Martinez","",345678456,"masculino",2330);
+		
+		BD.anadirDentista(con,d);
 	
 	}
 

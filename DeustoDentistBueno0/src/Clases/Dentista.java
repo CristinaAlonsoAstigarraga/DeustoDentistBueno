@@ -1,5 +1,7 @@
 package Clases;
 
+import java.text.SimpleDateFormat;
+
 public class Dentista extends Persona{
 	
 	private float salario;
@@ -8,8 +10,8 @@ public class Dentista extends Persona{
 		
 	}
 	
-	public Dentista(float salario) {
-		super();
+	public Dentista(String dni, String nombre, String apellido, SimpleDateFormat sdfFecha, int telefono, String genero,float salario) {
+		super(dni,nombre,apellido,sdfFecha,telefono,genero);
 		this.salario = salario;
 	}
 

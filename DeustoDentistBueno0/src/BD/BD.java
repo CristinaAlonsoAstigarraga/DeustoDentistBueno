@@ -9,6 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Clases.Cita;
+import Clases.Dentista;
 import Clases.Inventario;
 import Clases.Paciente;
 import Clases.Producto;
@@ -80,7 +81,6 @@ public class BD {
 				+ "nom  VARCHAR(25),\r\n"
 				+ "apellidos  VARCHAR(25), \r\n"
 				+ "fechaNacimiento Date, \r\n"
-				+ "dir  VARCHAR(35), \r\n"
 				+ "telf INTEGER, \r\n"
 				+ "gen VARCHAR(10)\r\n"
 				+ ")\r\n"
@@ -196,11 +196,12 @@ public class BD {
 		}
 	}
 	
+	//Connection con, String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen ) {
+	public static void anadirDentista(Connection con,Dentista d) {
+		
 	
-	public static void anadirDentista(Connection con, String dni, String nom, String apellidos, Date fechaNacimiento, String dir, int telf, String gen ) {
-		
-		String sql = "INSERT INTO Dentista VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
-		
+		//String sql = "INSERT INTO Dentista VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
+		String sql = "INSERT INTO Dentista VALUES ('"+d.getNombre()+"', '"+d.getApellido()+"','"+d.getFechaNacimiento()+"',"+d.getTelefono()+", '"+d.getGenero()+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
