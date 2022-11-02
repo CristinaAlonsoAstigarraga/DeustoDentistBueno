@@ -12,6 +12,13 @@ public class Dentista extends Persona{
 		super(dni,nombre,apellido,fechaNacimiento,telefono,genero);
 		this.salario = salario;
 	}
+	
+	@Override
+	public String toString() {
+		return "Dentista [Dni=" + getDni() + ", Nombre=" + getNombre() + ", Apellido=" + getApellido()
+				+ ", FechaNacimiento=" + getFechaNacimiento() + ", Telefono=" + getTelefono()
+				+ ", Genero=" + getGenero() + ", Salario=" + getSalario()+"]";
+	}
 
 	public float getSalario() {
 		return salario;

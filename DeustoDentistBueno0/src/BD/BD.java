@@ -201,7 +201,7 @@ public class BD {
 		
 	
 		//String sql = "INSERT INTO Dentista VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
-		String sql = "INSERT INTO Dentista VALUES ('"+d.getDni()+"','"+d.getNombre()+"', '"+d.getApellido()+"','"+d.getFechaNacimiento()+"',"+d.getTelefono()+", '"+d.getGenero()+"')";
+		String sql = "INSERT INTO Dentista VALUES ('"+d.getDni()+"','"+d.getNombre()+"', '"+d.getApellido()+"','"+d.getFechaNacimiento()+"',"+d.getTelefono()+", '"+d.getGenero()+"', "+d.getSalario()+")";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -527,16 +527,6 @@ public class BD {
 			String sql = "SELECT * FROM paciente";
 			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()) { 
-				/*
-				p.setDni(rs.getString("dni"));
-				p.setNombre(rs.getString("nom"));
-				p.setApellido(rs.getString("apellidos"));
-				p.setFechaNacimiento(rs.getString("fechaNacimiento"));
-				p.setDireccion(rs.getString("dir"));
-				p.setTelefono(rs.getInt("telf"));
-				p.setGenero(rs.getString("gen"));
-				lista.add(p);
-				*/
 				String dni=rs.getString("dni");
 				String nom=rs.getString("nom");
 				String apellidos=rs.getString("apellidos");
@@ -544,7 +534,6 @@ public class BD {
 				String dir=rs.getString("dir");
 				int telf=rs.getInt("telf");
 				String gen=rs.getString("gen");
-				//String dni, String nombre, String apellido, String fechaNacimiento, int telefono, String genero,String direccion)
 				Paciente p=new Paciente(dni,nom,apellidos,fechaNacimiento,telf,gen,dir);
 				lista.add(p);
 				
@@ -558,6 +547,59 @@ public class BD {
 		return lista;
 	}
 	
+	public static ArrayList<Dentista> obtenerListaDentista(Connection con){
+		ArrayList<Dentista> lista = new ArrayList<>();
+		
+		try {
+			
+			Statement st = con.createStatement();
+			String sql = "SELECT * FROM dentista";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) { 
+				String dni=rs.getString("dni");
+				String nom=rs.getString("nom");
+				String apellidos=rs.getString("apellidos");
+				String fechaNacimiento=rs.getString("fechaNacimiento");
+				int telf=rs.getInt("telf");
+				String gen=rs.getString("gen");
+				int sal=rs.getInt("sal");
+				Dentista d=new Dentista(dni,nom,apellidos,fechaNacimiento,telf,gen,sal);
+				lista.add(d);
+				
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
+
+//	public static ArrayList<Historial> obtenerListaHistorial(Connection con){
+//		ArrayList<Historial> lista = new ArrayList<>();
+//		
+//		try {
+//			
+//			Statement st = con.createStatement();
+//			String sql = "SELECT * FROM historial";
+//			ResultSet rs = st.executeQuery(sql);
+//			while(rs.next()) { 
+//				String dni=rs.getString("dni");
+//				String nom=rs.getString("nom");
+//				String des=rs.getString("des");
+//				Historial h=new Historial(dni,nom,des);
+//				lista.add(h);
+//				
+//			}
+//			rs.close();
+//			st.close();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return lista;
+//	}
 	
 	
 }

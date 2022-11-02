@@ -36,9 +36,9 @@ public class Main {
 		
 		/*---------insertar Dentista a bbdd--------------*/
 		
-		//Dentista d=new Dentista("54332386q","Alberto","Martinez","04-12-1990",345678456,"masculino",2330);
+//		Dentista d=new Dentista("66332386q","Jon","Martinez","04-12-1990",345678456,"masculino",2330);
 		
-		//BD.anadirDentista(con,d);
+//		BD.anadirDentista(con,d);
 		
 		/*---------insertar Historial a bbdd--------------*/
 
@@ -100,14 +100,27 @@ public class Main {
 	  	
 	  	
 		
+	  //Select Pacientes
 	  	ArrayList<Paciente> aPersonas = BD.obtenerListaPaciente(con); 
-	  	
 	  	 for(Paciente p: aPersonas) { 
-			
 			System.out.println(p);
 		}
-	
+	  	 
+	  //Select Dentistas
+	  	ArrayList<Dentista> aDentistas = BD.obtenerListaDentista(con); 
+	  	 for(Dentista d: aDentistas) { 
+			System.out.println(d);
+		}
 	  }
+	
+	//Select Historiales
+		//ArrayList<Historial> aHistoriales = BD.obtenerListaHistorial(con); 
+//		ArrayList<Historial> aHistoriales = BD.obtenerListaHistorial(null);
+//	  	 for(Historial h: aHistoriales) { 
+//			System.out.println(h);
+//		}
+//  }
+	
 	
 }
 
