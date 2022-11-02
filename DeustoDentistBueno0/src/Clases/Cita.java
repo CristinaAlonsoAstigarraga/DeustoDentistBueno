@@ -15,14 +15,12 @@ public class Cita {
 			
 		}
 		
-		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, String fecha,
-				String hora,TipoCita tipo) {
+		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, String fecha,TipoCita tipo) {
 			super();
 			this.dniPaciente = dniPaciente;
 			this.nombrePaciente = nombrePaciente;
 			this.nombreDentista = nombreDentista;
 			this.fecha = fecha;
-			this.hora = hora;
 			this.tipo=tipo;
 		}
 		public String getDniPaciente() {

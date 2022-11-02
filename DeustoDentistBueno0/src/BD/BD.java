@@ -15,6 +15,7 @@ import Clases.Historial;
 import Clases.Inventario;
 import Clases.Paciente;
 import Clases.Producto;
+import Clases.TipoCita;
 
 public class BD {
 
@@ -632,6 +633,35 @@ public class BD {
 				int cantidad = rs.getInt("cantidad");
 				Inventario i=new Inventario(cod_p,nom,cantidad);
 				lista.add(i);
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
+	
+	public static ArrayList<Cita> obtenerListaCitas(Connection con){
+		ArrayList<Cita> lista = new ArrayList<>();
+		
+		try {
+			TipoCita tipo;
+			Statement st = con.createStatement();
+			String sql = "SELECT dni, nom_p, fyh, tipo, nom_d FROM cita";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) { 
+
+				String dni=rs.getString("dni");
+				String nom_p=rs.getString("nom_p");
+				String fyh=rs.getString("fyh");
+				String t = rs.getString("tipo");
+				tipo=TipoCita.valueOf(t);
+				String nom_d=rs.getString("nom_d");
+				Cita c=new Cita(dni,nom_p,nom_d,fyh,tipo);
+				lista.add(c);
+				
 			}
 			rs.close();
 			st.close();

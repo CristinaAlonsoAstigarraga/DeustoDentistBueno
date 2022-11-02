@@ -129,7 +129,12 @@ public class Main {
 			   for(Inventario i: aInventario) {
 			   System.out.println(i);
 			   }
+			   
+		//Select Citas
+		ArrayList<Cita> aCitas = BD.obtenerListaCitas(con); 
+		for(Cita c: aCitas) { 
+			System.out.println(c);
+			}
+		}
 
 	}
-
-}

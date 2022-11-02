@@ -29,7 +29,7 @@ public class CitaTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cita = new Cita(dniPaciente, nombrePaciente, nombreDentista, fecha, hora,TipoCita.EMPASTE);
+		cita = new Cita(dniPaciente, nombrePaciente, nombreDentista, fecha, TipoCita.EMPASTE);
 	}
 
 //	@After
