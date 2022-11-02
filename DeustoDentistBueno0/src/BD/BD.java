@@ -490,6 +490,19 @@ public class BD {
 		
 	}
 	
+	/*---------Borrar un dentista de la bbdd--------------*/
+	public static void eliminarDentistaPorDni(Connection con, String dni) {
+		String sentSQL = "DELETE FROM Dentista WHERE dni ='" + dni + "'";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sentSQL);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+	}
+
 	
 	
 	

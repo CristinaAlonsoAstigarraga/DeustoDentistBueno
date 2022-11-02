@@ -90,6 +90,9 @@ public class Main {
 	  	int idp = 1;
 	  	BD.eliminarCitaPorId(con, idp);
 	  	
+	  	/*---------Eliminar Dentista por DNI a BBDD---------*/
+	  	String dniD = "54332386q";
+	  	BD.eliminarDentistaPorDni(con, dniD);
 	  	
 	  	
 	  	
