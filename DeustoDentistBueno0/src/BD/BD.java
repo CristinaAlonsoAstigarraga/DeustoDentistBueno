@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import Clases.Cita;
 import Clases.Dentista;
+import Clases.Historial;
 import Clases.Inventario;
 import Clases.Paciente;
 import Clases.Producto;
@@ -57,9 +58,9 @@ public class BD {
 				+ "dni VARCHAR(10) PRIMARY KEY, \r\n"
 				+ "nom VARCHAR(25),\r\n"
 				+ "apellidos VARCHAR(30), \r\n"
-				+ "fechaNacimiento Date, \r\n"
+				+ "fechaNacimiento VARCHAR(25), \r\n"
 				+ "dir VARCHAR(30), \r\n"
-				+ "telf INETEGR, \r\n"
+				+ "telf INTEGER, \r\n"
 				+ "gen VARCHAR(10)\r\n"
 				+ ")";
 		
@@ -80,7 +81,7 @@ public class BD {
 				+ "dni  VARCHAR(10) PRIMARY KEY, \r\n"
 				+ "nom  VARCHAR(25),\r\n"
 				+ "apellidos  VARCHAR(25), \r\n"
-				+ "fechaNacimiento Date, \r\n"
+				+ "fechaNacimiento VARCHAR(25), \r\n"
 				+ "telf INTEGER, \r\n"
 				+ "gen VARCHAR(10)\r\n"
 				+ ")\r\n"
@@ -103,7 +104,7 @@ public class BD {
 				+ "cod_p INTEGER PRIMARY KEY, \r\n"
 				+ "nom VARCHAR(20), \r\n"
 				+ "desc VARCHAR(40), \r\n"
-				+ "precio INTEGER)";
+				+ "precio FLOAT)";
 		
 		//String sql = "CREATE TABLE IF NOT EXISTS Producto (cod int, nom String, desc String, precio int)";
 		try {
@@ -141,7 +142,7 @@ public class BD {
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
 				+ "dni VARCHAR(10), \r\n"
 				+ "nom_p VARCHAR(25),\r\n"
-				+ "fyh DATE, \r\n"
+				+ "fyh VARCHAR(25), \r\n"
 				+ "tipo VARCHAR(25),\r\n"
 				+ "nom_d  VARCHAR(25),\r\n"
 				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
@@ -161,12 +162,9 @@ public class BD {
 	public static void crearTablaHistorial(Connection con, int cod, String nom) {
 		//mirar int mirar foreign producto
 		String sql = "CREATE TABLE IF NOT EXISTS Historial (\r\n"
-				+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
-				+ "dni VARCHAR(10) PRIMARY KEY, \r\n"
+				+ "dni VARCHAR(10)PRIMARY KEY, \r\n"
 				+ "nom_p VARCHAR(25),\r\n"
-				+ "tipo VARCHAR(25),\r\n"
 				+ "desc VARCHAR(200),\r\n"
-				+ "FOREIGN KEY (tipo) REFERENCES Cita(tipo) ON DELETE CASCADE, \r\n"
 				+ "FOREIGN KEY (dni) REFERENCES Paciente(dni) ON DELETE CASCADE, \r\n"
 				+ "FOREIGN KEY (nom_p) REFERENCES Paciente(nom) ON DELETE CASCADE)";
 		try {
@@ -184,7 +182,7 @@ public class BD {
 	public static void anadirPaciente(Connection con, Paciente p) {
 		//String sql = "INSERT INTO Paciente VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
 		String sql = "INSERT INTO Paciente VALUES ('" + p.getDni() + "', '" + p.getNombre() + "','" + p.getApellido()
-				+ "','" + p.getFechaNacimiento() + "', '" + p.getDireccion() + "','" + p.getTelefono() + "', '"
+				+ "','" + p.getFechaNacimiento() + "', '" + p.getDireccion() + "'," + p.getTelefono() + ", '"
 				+ p.getGenero() + "')";
 		try {
 			Statement st = con.createStatement();
@@ -201,7 +199,7 @@ public class BD {
 		
 	
 		//String sql = "INSERT INTO Dentista VALUES ('"+dni+"', '"+nom+"','"+apellidos+"','"+fechaNacimiento+"', '"+dir+"','"+telf+"', '"+gen+"')";
-		String sql = "INSERT INTO Dentista VALUES ('"+d.getNombre()+"', '"+d.getApellido()+"','"+d.getFechaNacimiento()+"',"+d.getTelefono()+", '"+d.getGenero()+"')";
+		String sql = "INSERT INTO Dentista VALUES ('"+d.getDni()+"','"+d.getNombre()+"', '"+d.getApellido()+"','"+d.getFechaNacimiento()+"',"+d.getTelefono()+", '"+d.getGenero()+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -214,7 +212,7 @@ public class BD {
 	
 	public static void anadirProducto(Connection con,Producto prod) {
 		
-		String sql = "INSERT INTO Producto VALUES ('"+prod.getCodigo()+"', '"+prod.getNombre()+"','"+prod.getDescripcion()+"','"+prod.getPrecio()+"')";
+		String sql = "INSERT INTO Producto VALUES ("+prod.getCodigo()+", '"+prod.getNombre()+"','"+prod.getDescripcion()+"',"+prod.getPrecio()+")";
 		
 		try {
 			Statement st = con.createStatement();
@@ -232,7 +230,7 @@ public class BD {
 		
 		//EL ID DEL INVENTARIO ES AUTOINCREMENT
 		//String sql = "INSERT INTO Inventario VALUES ('"+id+"', '"+cod_p+"','"+nom+"','"+cantidad+"')";
-		String sql = "INSERT INTO Inventario VALUES ('"+inv.getCodigoProducto()+"','"+inv.getNombreProducto()+"','"+inv.getCantidad()+"')";
+		String sql = "INSERT INTO Inventario (cod_p,nom,cantidad) VALUES ("+inv.getCodigoProducto()+",'"+inv.getNombreProducto()+"',"+inv.getCantidad()+")";
 		
 		try {
 			Statement st = con.createStatement();
@@ -250,7 +248,7 @@ public class BD {
 		//EL ID NO SE INSERTA SE INCREMENTA SOLO!!
 		
 		//String sql = "INSERT INTO Cita VALUES ('"+.id+"', '"+dni+"','"+nom_p+"','"+fyh+"', '"+tipo+"', '"+nom_d+"')";
-		String sql = "INSERT INTO Cita VALUES ('"+c.getDniPaciente()+"','"+c.getNombreDentista()+"','"+c.getFecha()+"', '"+c.getTipo()+"','"+c.getNombreDentista()+"')";
+		String sql = "INSERT INTO Cita (dni,nom_p,fyh,tipo,nom_d) VALUES ('"+c.getDniPaciente()+"','"+c.getNombrePaciente()+"','"+c.getFecha()+"', '"+c.getTipo()+"','"+c.getNombreDentista()+"')";
 		
 		try {
 			Statement st = con.createStatement();
@@ -262,9 +260,9 @@ public class BD {
 		}
 	}
 	
-	public static void anadirHistoria(Connection con, int id, String dni, String nom_p, String tipo, String desc) {
+	public static void anadirHistorial(Connection con,Historial h) {
 		
-		String sql = "INSERT INTO Historial VALUES ('"+id+"', '"+dni+"','"+nom_p+"', '"+tipo+"', '"+desc+"')";
+		String sql = "INSERT INTO Historial VALUES ('"+h.getDni()+"', '"+h.getNombre()+"','"+h.getDesc()+"')";
 		
 		try {
 			Statement st = con.createStatement();
@@ -279,7 +277,7 @@ public class BD {
 	public static void borrarTablaPaciente(Connection con) {
 		try {
 			Statement st = con.createStatement();
-			String sql = "DELETE FROM Paciente";
+			String sql = "DROP TABLE Paciente";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
@@ -291,7 +289,7 @@ public class BD {
 	public static void borrarTablaDentista(Connection con) {
 		try {
 			Statement st = con.createStatement();
-			String sql = "DELETE FROM Dentista";
+			String sql = "DROP TABLE Dentista";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
@@ -303,7 +301,7 @@ public class BD {
 	public static void borrarTablaCita(Connection con) {
 		try {
 			Statement st = con.createStatement();
-			String sql = "DELETE FROM Cita";
+			String sql = "DROP TABLE Cita";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
@@ -315,7 +313,7 @@ public class BD {
 	public static void borrarTablaProducto(Connection con) {
 		try {
 			Statement st = con.createStatement();
-			String sql = "DELETE FROM Producto";
+			String sql = "DROP TABLE Producto";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
@@ -327,7 +325,7 @@ public class BD {
 	public static void borrarTablaInventario(Connection con) {
 		try {
 			Statement st = con.createStatement();
-			String sql = "DELETE FROM Inventario";
+			String sql = "DROP TABLE Inventario";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
@@ -339,7 +337,7 @@ public class BD {
 	public static void borrarTablaHistorial(Connection con) {
 		try {
 			Statement st = con.createStatement();
-			String sql = "DELETE FROM Historial";
+			String sql = "DROP TABLE Historial";
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
