@@ -502,6 +502,19 @@ public class BD {
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
 		}
 	}
+	
+	/*---------Borrar un historial de la bbdd--------------*/
+	public static void eliminarHistorialPorDni(Connection con, String dni) {
+		String sentSQL = "DELETE FROM Historial WHERE dni ='" + dni + "'";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sentSQL);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+	}
 
 	
 	

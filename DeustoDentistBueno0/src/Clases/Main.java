@@ -94,6 +94,9 @@ public class Main {
 	  	String dniD = "54332386q";
 	  	BD.eliminarDentistaPorDni(con, dniD);
 	  	
+	  	/*---------Eliminar Historial por DNI a BBDD---------*/
+	  	String dniP = "54332386q";
+	  	BD.eliminarHistorialPorDni(con, dniP);
 	  	
 	  	
 	  }
