@@ -47,6 +47,24 @@ public class Main {
 		//BD.anadirHistorial(con,h);
 		
 		
+		
+		/*---------Modificar direccion Paciente a bbdd--------------*/
+		String dir="nuevadireccion";
+		String dni="83736514w";
+		//BD.modificarPaciente(con, dir, dni);
+		
+		
+		/*---------Modificar telefono Dentista a bbdd--------------*/
+		int telf=111111;
+	    dni="232222d";
+	   // BD.modificarDentista(con, telf, dni);
+	    
+	    /*---------Modificar cantidad inventario a bbdd--------------*/
+		int cant=100;
+	    int cod_p=23045;
+	    //BD.modificarInventario(con, cant, cod_p);
+	    
+	
 	
 	}
 

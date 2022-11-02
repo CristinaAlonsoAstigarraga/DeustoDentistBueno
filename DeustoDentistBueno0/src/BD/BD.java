@@ -346,5 +346,52 @@ public class BD {
 		}
 	}
 
+	public static void modificarPaciente(Connection con, String dir, String dni) {
+
+		String sentSQL = "UPDATE  paciente set dir='" + dir + "' WHERE dni ='" + dni + "' ";
+
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+
+	}
+
+	public static void modificarDentista(Connection con, int telf, String dni) {
+
+		String sentSQL = "UPDATE  dentista set telf=" + telf + " WHERE dni ='" + dni + "' ";
+
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+
+	}
+	
+	public static void modificarInventario(Connection con, int cant, int cod_p) {
+
+		String sentSQL = "UPDATE  inventario set cantidad=" + cant + " WHERE cod_p =" + cod_p + " ";
+
+		Statement stmt = null;
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+
+	}
 	
 }
