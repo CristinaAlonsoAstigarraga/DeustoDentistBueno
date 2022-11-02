@@ -64,8 +64,18 @@ public class Main {
 	    int cod_p=23045;
 	    //BD.modificarInventario(con, cant, cod_p);
 	    
+	    /*---------Modificar precio Producto a bbdd--------------*/
+	  	float precio=9;
+	  	cod_p=23045;
+	  	//BD.modificarProducto(con, precio, cod_p);
+	  	
+	  	/*---------Modificar fecha Cita a bbdd--------------*/
+	  	String fecha="13-06-2023";
+	  	int id=1;
+	  	BD.modificarCita(con, fecha, id);
+	  	
+	  }
 	
-	
-	}
-
 }
+
+

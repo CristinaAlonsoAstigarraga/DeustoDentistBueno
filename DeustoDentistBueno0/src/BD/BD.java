@@ -394,4 +394,38 @@ public class BD {
 
 	}
 	
+
+	public static void modificarProducto(Connection con, float precio, int cod_p) {
+		String sentSQL = "UPDATE producto set precio=" + precio + " WHERE cod_p =" + cod_p + " ";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+		
+	}
+	
+	
+	public static void modificarCita(Connection con, String fecha, int id) {
+		String sentSQL = "UPDATE cita set fyh='" + fecha + "' WHERE id =" + id + "";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+		
+	}
+	
 }
