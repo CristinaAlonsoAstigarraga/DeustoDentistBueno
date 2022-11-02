@@ -600,6 +600,32 @@ public class BD {
 		}
 		return lista;
 	}
+	public static ArrayList<Producto> obtenerListaProducto(Connection con){
+		ArrayList<Producto> lista = new ArrayList<>();
+		
+		try {
+			
+			Statement st = con.createStatement();
+			String sql = "SELECT * FROM producto";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) { 
+				int cod_p=rs.getInt("cod_p");
+				String nom=rs.getString("nom");
+				String desc=rs.getString("desc");
+				float precio=rs.getFloat("precio");
+				
+				Producto p=new Producto(cod_p,nom,desc,precio);
+				lista.add(p);
+				
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
 	
 	
 }
