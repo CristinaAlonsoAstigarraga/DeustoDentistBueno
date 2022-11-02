@@ -24,7 +24,7 @@ class BDTest {
 		con.close();
 	}
 	@Test
-	void test() {
+	void test() { 
 		
 	}
 

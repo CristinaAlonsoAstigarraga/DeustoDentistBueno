@@ -2,10 +2,8 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,17 +19,17 @@ public class CitaTest {
 	private String newNombrePaciente = "New Nombre Paciente";
 	private String nombreDentista = "Nombre Dentista";
 	private String newNombreDentista = "New Nombre Dentista";
-
+ 
 	
 	//Comprobar cómo hay que hacer estos test y hacerlos.
-	private Date fecha;
+	private String fecha;
 	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
-	private Date hora;
+	private String hora;
 	SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 
 	@Before
 	public void setUp() throws Exception {
-		cita = new Cita(dniPaciente, nombrePaciente, nombreDentista, fecha, sdfFecha, hora, sdfHora,TipoCita.EMPASTE);
+		cita = new Cita(dniPaciente, nombrePaciente, nombreDentista, fecha, hora,TipoCita.EMPASTE);
 	}
 
 //	@After

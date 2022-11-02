@@ -1,31 +1,28 @@
 package Clases;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Cita {
 		private String dniPaciente;
 		private String nombrePaciente;
 		private String nombreDentista;
-		private Date fecha; 
+		private String fecha; 
 		SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
-		private Date hora;
+		private String hora;
 		SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 		private TipoCita tipo;
-		
+		 
 		public Cita() {
 			
 		}
 		
-		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, Date fecha,
-				SimpleDateFormat sdfFecha, Date hora, SimpleDateFormat sdfHora,TipoCita tipo) {
+		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, String fecha,
+				String hora,TipoCita tipo) {
 			super();
 			this.dniPaciente = dniPaciente;
 			this.nombrePaciente = nombrePaciente;
 			this.nombreDentista = nombreDentista;
 			this.fecha = fecha;
-			this.sdfFecha = sdfFecha;
 			this.hora = hora;
-			this.sdfHora = sdfHora;
 			this.tipo=tipo;
 		}
 		public String getDniPaciente() {
@@ -46,18 +43,23 @@ public class Cita {
 		public void setNombreDentista(String nombreDentista) {
 			this.nombreDentista = nombreDentista;
 		}
-		public Date getFecha() {
+		
+		public String getFecha() {
 			return fecha;
 		}
-		public void setFecha(Date fecha) {
+
+		public void setFecha(String fecha) {
 			this.fecha = fecha;
 		}
-		public Date getHora() {
+
+		public String getHora() {
 			return hora;
 		}
-		public void setHora(Date hora) {
+
+		public void setHora(String hora) {
 			this.hora = hora;
 		}
+
 		public TipoCita getTipo(){return tipo;}
 		
 }
