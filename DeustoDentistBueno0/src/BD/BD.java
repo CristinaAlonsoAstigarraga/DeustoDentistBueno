@@ -643,6 +643,7 @@ public class BD {
 		return lista;
 	}
 	
+	/*Obtiene lista de citas*/
 	public static ArrayList<Cita> obtenerListaCitas(Connection con){
 		ArrayList<Cita> lista = new ArrayList<>();
 		

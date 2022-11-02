@@ -19,8 +19,6 @@ public class Historial {
 		return "Historial [dni=" + dni + ", nombre=" + nombre + ", desc=" + desc + "]";
 	}
 
-
-
 	public String getDni() {
 		return dni;
 	}
@@ -44,10 +42,4 @@ public class Historial {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	
-	
-	
-	
-	
-
 }

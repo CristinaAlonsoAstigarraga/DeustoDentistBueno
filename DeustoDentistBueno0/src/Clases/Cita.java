@@ -7,8 +7,6 @@ public class Cita {
 		private String nombreDentista;
 		private String fecha; 
 		SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
-		private String hora;
-		SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 		private TipoCita tipo;
 		 
 		public Cita() {
@@ -46,18 +44,20 @@ public class Cita {
 			return fecha;
 		}
 
+		@Override
+		public String toString() {
+			return "Cita [dniPaciente=" + dniPaciente + ", nombrePaciente=" + nombrePaciente + ", nombreDentista="
+					+ nombreDentista + ", fecha=" + fecha + ", tipo=" + tipo + "]";
+		}
+
 		public void setFecha(String fecha) {
 			this.fecha = fecha;
 		}
 
-		public String getHora() {
-			return hora;
+		public TipoCita getTipo(){
+			return tipo;
 		}
-
-		public void setHora(String hora) {
-			this.hora = hora;
-		}
-
-		public TipoCita getTipo(){return tipo;}
+		
+		
 		
 }
