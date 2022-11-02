@@ -1,7 +1,5 @@
 package Clases;
 
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Persona {
@@ -9,7 +7,7 @@ public class Persona {
 	private String dni;
 	private String nombre;
 	private String apellido;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
 	private int telefono;
 	private String genero;
@@ -21,7 +19,7 @@ public class Persona {
 	
 	}
 
-	public Persona(String dni, String nombre, String apellido, SimpleDateFormat sdfFecha, int telefono, String genero) {
+	public Persona(String dni, String nombre, String apellido, String fechaNacimiento, int telefono, String genero) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -50,19 +48,25 @@ public class Persona {
 		this.apellido = apellido;
 	}
 	
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(String fecha) {
+	/*public void setFechaNacimiento(String fecha) {
 		try{
 			this.fechaNacimiento = (Date) sdfFecha.parse(fecha);
 		}catch(ParseException e) {
 			this.fechaNacimiento = new Date(System.currentTimeMillis());
 		}
 	}
+*/
+	
 	public int getTelefono() {
 		return telefono;
 	}
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}

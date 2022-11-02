@@ -2,8 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
-
 //import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,9 +18,11 @@ public class PersonaTest {
 	private String apellido = "apellido";
 	private String newApellido = "New Apellido";
 	// Comprobar test de getFecha() y setFecha()
-	private String er = "[0-9]{2}-[0-9]{2}-[0-9]{4}";
-	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
-	SimpleDateFormat sdfNewFecha = new SimpleDateFormat("dd-MM-yyyy");
+	//private String er = "[0-9]{2}-[0-9]{2}-[0-9]{4}";
+	private String fechaNacimiento = "11-03-2003";
+	private String newfechaNacimiento = "12-03-2003";
+	//SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
+	//SimpleDateFormat sdfNewFecha = new SimpleDateFormat("dd-MM-yyyy");
 	private int telefono = 609609609;
 	private int newTelefono = 600600600;
 	private String genero = "femenino";
@@ -30,7 +30,7 @@ public class PersonaTest {
 
 	@Before
 	public void setUp() throws Exception {
-		persona = new Persona(dni, nombre, apellido, sdfFecha, telefono, genero);
+		persona = new Persona(dni, nombre, apellido, fechaNacimiento, telefono, genero);
 	}
 
 //	@After
@@ -57,7 +57,7 @@ public class PersonaTest {
 	// Comprobar
 	@Test
 	public void testGetFechaNacimiento() {
-		assertEquals(sdfFecha, persona.getFechaNacimiento());
+		assertEquals(fechaNacimiento, persona.getFechaNacimiento());
 	}
 
 	@Test
@@ -95,12 +95,12 @@ public class PersonaTest {
 	}
 
 	// Comprobar
-	/*@Test
+	@Test
 	public void testSetFechaNacimiento() {
-		persona.setFechaNacimiento(fechaNacimiento);
-		assertEquals(sdfNewFecha, persona.getFechaNacimiento());
+		persona.setFechaNacimiento(newfechaNacimiento);
+		assertEquals(newfechaNacimiento, persona.getFechaNacimiento());
 	}
-*/
+
 	@Test
 	public void testSetTelefono() {
 		persona.setTelefono(newTelefono);

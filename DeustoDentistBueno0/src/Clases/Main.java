@@ -14,7 +14,7 @@ public class Main {
 		
 		/*Esto luego se camba cuando esten los constructores bien hechos*/
 		Paciente p=null;
-		Cita c=null;
+		Cita c=null; 
 		Dentista d=null;
 		
 		/*---------insertar Paciente a bbdd--------------*/
