@@ -428,4 +428,52 @@ public class BD {
 		
 	}
 	
+	public static void eliminarPacientePorDni(Connection con, String dni) {
+		
+		String sentSQL = "DELETE FROM Paciente WHERE dni ='" + dni + "'";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+	}
+	
+	public static void eliminarProductoPorId(Connection con, int cod_p) {
+		
+		String sentSQL = "DELETE FROM Producto WHERE cod_p =" + cod_p + "";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+	}
+	
+	public static void eliminarInventarioPorIddeProducto(Connection con, int cod_p) {
+		
+		String sentSQL = "DELETE FROM Inventario WHERE cod_p =" + cod_p + "";
+		
+		Statement stmt = null;
+		
+		try {
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+	}
+	
 }

@@ -74,6 +74,18 @@ public class Main {
 	  	int id=1;
 	  	BD.modificarCita(con, fecha, id);
 	  	
+		/*---------Eliminar Paciente por DNI a BBDD---------*/
+	  	String dni2 = "345546w";
+	  	BD.eliminarPacientePorDni(con, dni2);
+	  	
+	  	/*--------Eliminar Producto por ID a BBDD---------*/
+	  	int id2 = 23045;
+	  	BD.eliminarProductoPorId(con, id2);
+	  	
+	  	/*Eliminar Inventario por ID de Producto a BBDD-----*/
+	  	int id3 = 23045;
+	  	BD.eliminarInventarioPorIddeProducto(con, id3);
+	  	
 	  }
 	
 }
