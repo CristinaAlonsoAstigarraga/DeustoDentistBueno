@@ -11,6 +11,15 @@ public class Historial {
 		this.nombre = nombre;
 		this.desc = desc;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "Historial [dni=" + dni + ", nombre=" + nombre + ", desc=" + desc + "]";
+	}
+
+
 
 	public String getDni() {
 		return dni;

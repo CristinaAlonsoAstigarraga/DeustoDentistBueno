@@ -111,15 +111,16 @@ public class Main {
 	  	 for(Dentista d: aDentistas) { 
 			System.out.println(d);
 		}
+	  	 
+	  	//Select Historiales
+		ArrayList<Historial> aHistoriales = BD.obtenerListaHistorial(con);
+		   for(Historial h: aHistoriales) { 
+			System.out.println(h);
+			
 	  }
 	
-	//Select Historiales
-		//ArrayList<Historial> aHistoriales = BD.obtenerListaHistorial(con); 
-//		ArrayList<Historial> aHistoriales = BD.obtenerListaHistorial(null);
-//	  	 for(Historial h: aHistoriales) { 
-//			System.out.println(h);
-//		}
-//  }
+	
+  }
 	
 	
 }

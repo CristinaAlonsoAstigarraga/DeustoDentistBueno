@@ -576,30 +576,30 @@ public class BD {
 		return lista;
 	}
 
-//	public static ArrayList<Historial> obtenerListaHistorial(Connection con){
-//		ArrayList<Historial> lista = new ArrayList<>();
-//		
-//		try {
-//			
-//			Statement st = con.createStatement();
-//			String sql = "SELECT * FROM historial";
-//			ResultSet rs = st.executeQuery(sql);
-//			while(rs.next()) { 
-//				String dni=rs.getString("dni");
-//				String nom=rs.getString("nom");
-//				String des=rs.getString("des");
-//				Historial h=new Historial(dni,nom,des);
-//				lista.add(h);
-//				
-//			}
-//			rs.close();
-//			st.close();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return lista;
-//	}
+	public static ArrayList<Historial> obtenerListaHistorial(Connection con){
+		ArrayList<Historial> lista = new ArrayList<>();
+		
+		try {
+			
+			Statement st = con.createStatement();
+			String sql = "SELECT * FROM historial";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) { 
+				String dni=rs.getString("dni");
+				String nom=rs.getString("nom");
+				String des=rs.getString("des");
+				Historial h=new Historial(dni,nom,des);
+				lista.add(h);
+				
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
 	
 	
 }
