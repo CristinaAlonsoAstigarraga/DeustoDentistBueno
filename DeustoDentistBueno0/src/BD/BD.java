@@ -3,8 +3,10 @@ package BD;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -516,6 +518,45 @@ public class BD {
 		}
 	}
 
+	public static ArrayList<Paciente> obtenerListaPaciente(Connection con){
+		ArrayList<Paciente> lista = new ArrayList<>();
+		
+		try {
+			
+			Statement st = con.createStatement();
+			String sql = "SELECT * FROM paciente";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) { 
+				/*
+				p.setDni(rs.getString("dni"));
+				p.setNombre(rs.getString("nom"));
+				p.setApellido(rs.getString("apellidos"));
+				p.setFechaNacimiento(rs.getString("fechaNacimiento"));
+				p.setDireccion(rs.getString("dir"));
+				p.setTelefono(rs.getInt("telf"));
+				p.setGenero(rs.getString("gen"));
+				lista.add(p);
+				*/
+				String dni=rs.getString("dni");
+				String nom=rs.getString("nom");
+				String apellidos=rs.getString("apellidos");
+				String fechaNacimiento=rs.getString("fechaNacimiento");
+				String dir=rs.getString("dir");
+				int telf=rs.getInt("telf");
+				String gen=rs.getString("gen");
+				//String dni, String nombre, String apellido, String fechaNacimiento, int telefono, String genero,String direccion)
+				Paciente p=new Paciente(dni,nom,apellidos,fechaNacimiento,telf,gen,dir);
+				lista.add(p);
+				
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
 	
 	
 	

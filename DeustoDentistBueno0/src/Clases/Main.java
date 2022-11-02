@@ -1,6 +1,6 @@
 package Clases;
 import java.sql.Connection;
-
+import java.util.ArrayList;
 
 import BD.BD;
 
@@ -88,17 +88,25 @@ public class Main {
 	  	
 	  	/*---------Borrar una cita de la bbdd--------------*/	
 	  	int idp = 1;
-	  	BD.eliminarCitaPorId(con, idp);
+	  //	BD.eliminarCitaPorId(con, idp);
 	  	
 	  	/*---------Eliminar Dentista por DNI a BBDD---------*/
 	  	String dniD = "54332386q";
-	  	BD.eliminarDentistaPorDni(con, dniD);
+	  //	BD.eliminarDentistaPorDni(con, dniD);
 	  	
 	  	/*---------Eliminar Historial por DNI a BBDD---------*/
 	  	String dniP = "54332386q";
-	  	BD.eliminarHistorialPorDni(con, dniP);
+	  //	BD.eliminarHistorialPorDni(con, dniP);
 	  	
 	  	
+		
+	  	ArrayList<Paciente> aPersonas = BD.obtenerListaPaciente(con); 
+	  	
+	  	 for(Paciente p: aPersonas) { 
+			
+			System.out.println(p);
+		}
+	
 	  }
 	
 }

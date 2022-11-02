@@ -23,5 +23,12 @@ public class Paciente extends Persona{
 		this.direccion = direccion;
 	}
 	
+	@Override
+	public String toString() {
+		return "Paciente ["
+				+ "Dni=" + getDni() + ", Nombre=" + getNombre() + ", Apellido=" + getApellido()
+				+ ", Fecha Nacimiento=" + getFechaNacimiento() + ", Telefono=" + getTelefono() + ", Direccion=" + getDireccion()
+				+ ", Genero=" + getGenero() + "]";
+	}
 	
 }
