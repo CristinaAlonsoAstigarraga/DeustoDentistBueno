@@ -616,5 +616,30 @@ public class BD {
 		}
 		return lista;
 	}
+	
+	/*Obtiene lista de inventario*/
+	public static ArrayList<Inventario> obtenerListaInventario(Connection con){
+		ArrayList<Inventario> lista = new ArrayList<>();
+		
+		try {
+			
+			Statement st = con.createStatement();
+			String sql = "SELECT cod_p, nom, cantidad FROM inventario";
+			ResultSet rs = st.executeQuery(sql);
+			while(rs.next()) { 
+				int cod_p=rs.getInt("cod_p");
+				String nom=rs.getString("nom");
+				int cantidad = rs.getInt("cantidad");
+				Inventario i=new Inventario(cod_p,nom,cantidad);
+				lista.add(i);
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista;
+	}
 
 }

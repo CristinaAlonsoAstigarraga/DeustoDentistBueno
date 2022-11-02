@@ -123,6 +123,12 @@ public class Main {
 
 			System.out.println(p);
 		}
+		
+		//Select Inventario
+		ArrayList<Inventario> aInventario = BD.obtenerListaInventario(con);
+			   for(Inventario i: aInventario) {
+			   System.out.println(i);
+			   }
 
 	}
 

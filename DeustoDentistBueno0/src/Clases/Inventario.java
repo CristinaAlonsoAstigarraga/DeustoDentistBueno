@@ -34,6 +34,12 @@ public class Inventario {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+
+	@Override
+	public String toString() {
+		return "Inventario [codigoProducto=" + codigoProducto + ", nombreProducto=" + nombreProducto + ", cantidad="
+				+ cantidad + "]";
+	}
 	
 	
 	
