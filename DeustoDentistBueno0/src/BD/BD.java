@@ -476,4 +476,21 @@ public class BD {
 		}
 	}
 	
+	/*---------Borrar una cita de la bbdd--------------*/	
+	public static void eliminarCitaPorId(Connection con, int id) {
+		String sql = "DELETE FROM Cita WHERE id = "+id+"";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+		
+	}
+	
+	
+	
+	
 }

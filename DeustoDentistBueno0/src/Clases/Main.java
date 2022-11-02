@@ -86,6 +86,13 @@ public class Main {
 	  	int id3 = 23045;
 	  	BD.eliminarInventarioPorIddeProducto(con, id3);
 	  	
+	  	/*---------Borrar una cita de la bbdd--------------*/	
+	  	int idp = 1;
+	  	BD.eliminarCitaPorId(con, idp);
+	  	
+	  	
+	  	
+	  	
 	  }
 	
 }
