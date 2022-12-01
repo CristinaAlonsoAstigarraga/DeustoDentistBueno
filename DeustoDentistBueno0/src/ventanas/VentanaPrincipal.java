@@ -19,6 +19,12 @@ import java.awt.BorderLayout;
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	VentanaGestionPacientes vgp = new VentanaGestionPacientes();
+	VentanaAgenda va = new VentanaAgenda();
+	VentanaExportarDatos ved = new VentanaExportarDatos();
+	VentanaImportarDatos vid = new VentanaImportarDatos();
+	VentanaHistorialClinico vhc = new VentanaHistorialClinico();
+	VentanaInventario vi = new VentanaInventario();
 
 	/**
 	 * Launch the application.
@@ -75,6 +81,13 @@ public class VentanaPrincipal extends JFrame {
 		panelGestionPacientes.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnNewButton = new JButton("GESTIÓN PACIENTES");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vgp.setVisible(true);
+				setVisible(false);
+			}
+			
+		});
 		panelGestionPacientes.add(btnNewButton);
 		
 		JPanel panelAgenda = new JPanel();
@@ -82,6 +95,12 @@ public class VentanaPrincipal extends JFrame {
 		panelAgenda.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnAgenda = new JButton("AGENDA (citas)");
+		btnAgenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				va.setVisible(true);
+				setVisible(false);
+			}
+		});
 		panelAgenda.add(btnAgenda);
 		
 		JPanel panelImportarDatos = new JPanel();
@@ -89,6 +108,12 @@ public class VentanaPrincipal extends JFrame {
 		panelImportarDatos.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnImportarDatos = new JButton("IMPORTAR DATOS");
+		btnImportarDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vid.setVisible(true);
+				setVisible(false);
+			}
+		});
 		panelImportarDatos.add(btnImportarDatos);
 		
 		JPanel panelInventario = new JPanel();
@@ -96,6 +121,12 @@ public class VentanaPrincipal extends JFrame {
 		panelInventario.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnInventario = new JButton("INVENTARIO");
+		btnInventario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vi.setVisible(true);
+				setVisible(false);
+			}
+		});
 		panelInventario.add(btnInventario);
 		
 		JPanel panelExportarDatos = new JPanel();
@@ -103,6 +134,12 @@ public class VentanaPrincipal extends JFrame {
 		panelExportarDatos.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnExportarDatos = new JButton("EXPORTAR DATOS");
+		btnExportarDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ved.setVisible(true);
+				setVisible(false);
+			}
+		});
 		panelExportarDatos.add(btnExportarDatos);
 		
 		JPanel panelHistorialClinico = new JPanel();
@@ -110,6 +147,12 @@ public class VentanaPrincipal extends JFrame {
 		panelHistorialClinico.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnHistorialClinico = new JButton("HISTORIAL CLÍNICO");
+		btnHistorialClinico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vhc.setVisible(true);
+				setVisible(false);
+			}
+		});
 		panelHistorialClinico.add(btnHistorialClinico);
 	}
 

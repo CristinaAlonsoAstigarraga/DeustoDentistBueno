@@ -20,11 +20,14 @@ import ventanas.VentanaRegistro;
 public class VentanaInicio extends JFrame {
 
 	private JPanel contentPane;
-	public VentanaInicioSesion vis;
+	
 	
 	// ventana 
 	private JFrame ventanaAnterior;
 	private static JFrame ventanaActual;
+	
+	VentanaRegistro vr = new VentanaRegistro();
+	VentanaInicioSesion vis = new VentanaInicioSesion();
 
 	/**
 	 * Launch the application.
@@ -79,7 +82,8 @@ public class VentanaInicio extends JFrame {
 		JButton btnInicioSesion = new JButton("INICIAR SESIÓN");
 		btnInicioSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				vis.setVisible(true);
+				setVisible(false);
 //				dispose();
 //				VentanaInicioSesion.setVisible(true);
 //				
@@ -90,6 +94,8 @@ public class VentanaInicio extends JFrame {
 		JButton btnRegistrarse = new JButton("REGISTRARSE");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				vr.setVisible(true);
+				setVisible(false);
 			}
 		});
 		panelCentro.add(btnRegistrarse);
