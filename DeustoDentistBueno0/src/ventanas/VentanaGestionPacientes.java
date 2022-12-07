@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BD.BD;
+
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
@@ -12,13 +15,19 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
+import java.sql.Connection;
+
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaGestionPacientes extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tablaGestionPacientes;
+	
+	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
 	 * Launch the application.
@@ -75,12 +84,27 @@ public class VentanaGestionPacientes extends JFrame {
 		panelSur.add(btnBuscar); 
 		
 		JButton btnAnadir = new JButton("AÑADIR");
+		btnAnadir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BD.anadirPaciente(con, null);
+			}
+		});
 		panelSur.add(btnAnadir);
 		
 		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BD.eliminarPacientePorDni(con, getWarningString());
+			}
+		});
 		panelSur.add(btnBorrar);
 		
 		JButton btnModificar = new JButton("MODIFICAR");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BD.modificarPaciente(con, getName(), getWarningString());
+			}
+		});
 		panelSur.add(btnModificar);
 		
 		JPanel panelEste = new JPanel();

@@ -24,6 +24,7 @@ import javax.swing.Box;
 public class VentanaExportarDatos extends JFrame {
 
 	private JPanel contentPane;
+	
 
 	/**
 	 * Launch the application.

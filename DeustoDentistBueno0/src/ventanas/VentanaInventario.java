@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.sql.Connection;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,11 +13,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import BD.BD;
+
 import javax.swing.JMenuBar;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaInventario extends JFrame {
 
 	private JPanel contentPane;
+	
+	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
 	 * Launch the application.
@@ -76,9 +84,19 @@ public class VentanaInventario extends JFrame {
 		panelSur.add(btnBuscar); 
 		
 		JButton btnAnadir = new JButton("AÑADIR");
+		btnAnadir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BD.anadirProducto(con, null);
+			}
+		});
 		panelSur.add(btnAnadir);
 		
 		JButton btnModificar = new JButton("MODIFICAR");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BD.modificarProducto(con, ALLBITS, ABORT);
+			}
+		});
 		panelSur.add(btnModificar);
 		
 		JPanel panelEste = new JPanel();
