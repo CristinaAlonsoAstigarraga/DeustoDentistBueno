@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 //import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,8 +21,8 @@ public class PersonaTest {
 	private String newApellido = "New Apellido";
 	// Comprobar test de getFecha() y setFecha()
 	//private String er = "[0-9]{2}-[0-9]{2}-[0-9]{4}";
-	private String fechaNacimiento = "11-03-2003";
-	private String newfechaNacimiento = "12-03-2003";
+	private Date fechaNacimiento = null;
+	private Date newfechaNacimiento = null;
 	//SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
 	//SimpleDateFormat sdfNewFecha = new SimpleDateFormat("dd-MM-yyyy");
 	private int telefono = 609609609;
@@ -94,7 +96,7 @@ public class PersonaTest {
 		assertEquals(newApellido, persona.getApellido());
 	}
 
-	// Comprobar
+	// Comprobar (MIRAR POR CAMBIO DE FECHA DE STRING A DATE)
 	@Test
 	public void testSetFechaNacimiento() {
 		persona.setFechaNacimiento(newfechaNacimiento);

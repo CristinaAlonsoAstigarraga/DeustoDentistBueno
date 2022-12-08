@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +23,10 @@ public class CitaTest {
  
 	
 	//Comprobar cómo hay que hacer estos test y hacerlos.
-	private String fecha;
+	private Date fecha;
 	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
-	private String hora;
-	SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
+//	private String hora;
+//	SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm");
 
 	@Before
 	public void setUp() throws Exception {

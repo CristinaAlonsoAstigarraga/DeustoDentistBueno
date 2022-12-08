@@ -1,19 +1,18 @@
 package Clases;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Cita {
 		private String dniPaciente;
 		private String nombrePaciente;
 		private String nombreDentista;
-		private String fecha; 
-		SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
+		private Date fecha; 
 		private TipoCita tipo;
 		 
 		public Cita() {
 			
 		}
 		
-		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, String fecha,TipoCita tipo) {
+		public Cita(String dniPaciente, String nombrePaciente, String nombreDentista, Date fecha,TipoCita tipo) {
 			super();
 			this.dniPaciente = dniPaciente;
 			this.nombrePaciente = nombrePaciente;
@@ -39,25 +38,26 @@ public class Cita {
 		public void setNombreDentista(String nombreDentista) {
 			this.nombreDentista = nombreDentista;
 		}
-		
-		public String getFecha() {
+
+		public Date getFecha() {
 			return fecha;
 		}
 
-		@Override
-		public String toString() {
-			return "Cita [dniPaciente=" + dniPaciente + ", nombrePaciente=" + nombrePaciente + ", nombreDentista="
-					+ nombreDentista + ", fecha=" + fecha + ", tipo=" + tipo + "]";
+		public void setFecha(Date fecha) {
+			this.fecha = fecha;
 		}
 
-		public void setFecha(String fecha) {
-			this.fecha = fecha;
+		public void setTipo(TipoCita tipo) {
+			this.tipo = tipo;
 		}
 
 		public TipoCita getTipo(){
 			return tipo;
 		}
-		
-		
-		
+
+		@Override
+		public String toString() {
+			return "Cita [dniPaciente=" + dniPaciente + ", nombrePaciente=" + nombrePaciente + ", nombreDentista="
+					+ nombreDentista + ", fyh=" + fecha + ", tipo=" + tipo + "]";
+		}		
 }

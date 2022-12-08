@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -17,7 +19,7 @@ import Clases.Paciente;
 import Clases.Producto;
 import Clases.TipoCita;
 
-public class BD {
+public class BD { 
 
 	/**
 	 * Método que realiza la conexión con la base de datos
@@ -72,7 +74,7 @@ public class BD {
 	public static void crearTablaDentista(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Dentista (\r\n" + "dni  VARCHAR(10) PRIMARY KEY, \r\n"
 				+ "nom  VARCHAR(25),\r\n" + "apellidos  VARCHAR(25), \r\n" + "fechaNacimiento VARCHAR(25), \r\n"
-				+ "telf INTEGER, \r\n" + "gen VARCHAR(10)\r\n" + ")\r\n" + "";
+				+ "telf INTEGER, \r\n" + "gen VARCHAR(10)\r\n" + "salario INTEGER, \r\n" + ")";
 
 		try {
 			Statement st = con.createStatement();
@@ -506,7 +508,10 @@ public class BD {
 
 	/*---------Obtiene la lista de pacientes--------------*/
 	public static ArrayList<Paciente> obtenerListaPaciente(Connection con) {
+		
 		ArrayList<Paciente> lista = new ArrayList<>();
+		
+		Date fechaDate = new Date();
 
 		try {
 
@@ -517,11 +522,17 @@ public class BD {
 				String dni = rs.getString("dni");
 				String nom = rs.getString("nom");
 				String apellidos = rs.getString("apellidos");
-				String fechaNacimiento = rs.getString("fechaNacimiento");
+				try {
+					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+					String fechaNacimiento = rs.getString("fechaNacimiento");
+					fechaDate = formato.parse(fechaNacimiento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				String dir = rs.getString("dir");
 				int telf = rs.getInt("telf");
 				String gen = rs.getString("gen");
-				Paciente p = new Paciente(dni, nom, apellidos, fechaNacimiento, telf, gen, dir);
+				Paciente p = new Paciente(dni, nom, apellidos, fechaDate, telf, gen, dir);
 				lista.add(p);
 
 			}
@@ -537,6 +548,8 @@ public class BD {
 	/*---------Obtiene la lista de dentistas--------------*/
 	public static ArrayList<Dentista> obtenerListaDentista(Connection con) {
 		ArrayList<Dentista> lista = new ArrayList<>();
+		
+		Date fechaDate = new Date();
 
 		try {
 
@@ -547,11 +560,17 @@ public class BD {
 				String dni = rs.getString("dni");
 				String nom = rs.getString("nom");
 				String apellidos = rs.getString("apellidos");
-				String fechaNacimiento = rs.getString("fechaNacimiento");
+				try {
+					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+					String fechaNacimiento = rs.getString("fechaNacimiento");
+					fechaDate = formato.parse(fechaNacimiento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				int telf = rs.getInt("telf");
 				String gen = rs.getString("gen");
 				int sal = rs.getInt("sal");
-				Dentista d = new Dentista(dni, nom, apellidos, fechaNacimiento, telf, gen, sal);
+				Dentista d = new Dentista(dni, nom, apellidos, fechaDate, telf, gen, sal);
 				lista.add(d);
 
 			}
@@ -647,6 +666,8 @@ public class BD {
 	public static ArrayList<Cita> obtenerListaCitas(Connection con){
 		ArrayList<Cita> lista = new ArrayList<>();
 		
+		Date fechaDate = new Date();
+		
 		try {
 			TipoCita tipo;
 			Statement st = con.createStatement();
@@ -656,11 +677,18 @@ public class BD {
 
 				String dni=rs.getString("dni");
 				String nom_p=rs.getString("nom_p");
-				String fyh=rs.getString("fyh");
+				try {
+					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+					String fyh = rs.getString("fyh");
+					fechaDate = formato.parse(fyh);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				String t = rs.getString("tipo");
 				tipo=TipoCita.valueOf(t);
 				String nom_d=rs.getString("nom_d");
-				Cita c=new Cita(dni,nom_p,nom_d,fyh,tipo);
+				
+				Cita c = new Cita(dni, nom_p, nom_d, fechaDate, tipo);
 				lista.add(c);
 				
 			}

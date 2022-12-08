@@ -1,14 +1,13 @@
 package Clases;
 
-import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Persona {
 
 	private String dni;
 	private String nombre;
 	private String apellido;
-	private String fechaNacimiento;
-	SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy");
+	private Date fechaNacimiento;
 	private int telefono;
 	private String genero;
 	
@@ -19,7 +18,7 @@ public class Persona {
 	
 	}
 
-	public Persona(String dni, String nombre, String apellido, String fechaNacimiento, int telefono, String genero) {
+	public Persona(String dni, String nombre, String apellido, Date fechaNacimiento, int telefono, String genero) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -48,22 +47,14 @@ public class Persona {
 		this.apellido = apellido;
 	}
 	
-	public String getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	/*public void setFechaNacimiento(String fecha) {
-		try{
-			this.fechaNacimiento = (Date) sdfFecha.parse(fecha);
-		}catch(ParseException e) {
-			this.fechaNacimiento = new Date(System.currentTimeMillis());
-		}
-	}
-*/
 	
 	public int getTelefono() {
 		return telefono;
 	}
-	public void setFechaNacimiento(String fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

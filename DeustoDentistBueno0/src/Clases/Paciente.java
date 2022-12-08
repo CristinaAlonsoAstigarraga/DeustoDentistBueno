@@ -1,5 +1,7 @@
 package Clases;
 
+import java.util.Date;
+
 public class Paciente extends Persona{
 	
 	private String direccion;
@@ -10,7 +12,7 @@ public class Paciente extends Persona{
 	}
 	
 
-	public Paciente(String dni, String nombre, String apellido, String fechaNacimiento, int telefono, String genero,String direccion) {
+	public Paciente(String dni, String nombre, String apellido, Date fechaNacimiento, int telefono, String genero,String direccion) {
 		super(dni,nombre,apellido,fechaNacimiento,telefono,genero);
 		this.direccion = direccion;
 	}

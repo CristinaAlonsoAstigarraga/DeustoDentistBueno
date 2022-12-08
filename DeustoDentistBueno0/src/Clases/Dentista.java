@@ -1,5 +1,7 @@
 package Clases;
 
+import java.util.Date;
+
 public class Dentista extends Persona{
 	
 	private float salario;
@@ -8,7 +10,7 @@ public class Dentista extends Persona{
 		
 	}
 	
-	public Dentista(String dni, String nombre, String apellido, String fechaNacimiento, int telefono, String genero,float salario) {
+	public Dentista(String dni, String nombre, String apellido, Date fechaNacimiento, int telefono, String genero,float salario) {
 		super(dni,nombre,apellido,fechaNacimiento,telefono,genero);
 		this.salario = salario;
 	}
