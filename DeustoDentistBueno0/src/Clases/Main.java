@@ -15,6 +15,10 @@ public class Main {
  * PARA PROBAR QUE FUNCIONA LOS METODOS DE BORRAR Y MODIFICAR, HACE FALTA DESCOMENTAR LAS LLAMADAS A ESTOS METODOS 
  * SI SE EJECUTA DOS VECES SIN COMENTAR LOS METODOS DE AÑADIR, DARA ERROR POR LAS PRIMARY KEYS, PARA QUE NO SE REPITAN LOS DATOS
  */
+		/*Por derfecto en sqqlite la clave externa no están activas de forma predeterminada 
+		 * EJECUTAR POR CADA INICIOL DE CONEXION
+		 * PRAGMA foreign_keys = ON;
+		 */
 		
 		Connection con = BD.initBD("BaseDatos.db");
 		// BD.crearTablas(con);
