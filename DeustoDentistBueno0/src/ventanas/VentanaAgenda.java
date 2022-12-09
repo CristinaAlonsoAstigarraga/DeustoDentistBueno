@@ -6,21 +6,29 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import BD.BD;
+import Clases.Cita;
+import Clases.Paciente;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
+	private JTable tablaGestionAgenda;
 	
 	Connection con = BD.initBD("BaseDatos.db");
 
@@ -69,8 +77,30 @@ public class VentanaAgenda extends JFrame {
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		//Meter la conexón con la Base de Datos
-//		tablaGestionPacientes = new JTable();
-//		panelCentro.add(tablaGestionPacientes);
+		String [] columnas = {"ID", "DNI", "NOMBRE PACIENTE", "FECHA", "TIPO", "NOMBRE DENTISTA"};
+		ArrayList<Cita> aCitas = BD.obtenerListaCitas(con); 
+		DefaultTableModel modelo = new DefaultTableModel(columnas, 3);
+		
+		Object O [] = null;
+		for (int i = 0; i < aCitas.size(); i++) {
+			modelo.addRow(O);
+			Cita getCita = (Cita) aCitas.get(i);
+			modelo.setValueAt(i, i, 0);
+			modelo.setValueAt(getCita.getDniPaciente(), i, 1);
+			modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
+			modelo.setValueAt(getCita.getFecha(), i, 3);
+			modelo.setValueAt(getCita.getTipo(), i, 4);
+			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
+		}
+		
+		
+		tablaGestionAgenda = new JTable(modelo);
+		tablaGestionAgenda.setBounds(100, 100, 450, 300);
+		
+		JScrollPane scrollTabla  = new JScrollPane(tablaGestionAgenda);
+		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		contentPane.add(scrollTabla, BorderLayout.CENTER);
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
