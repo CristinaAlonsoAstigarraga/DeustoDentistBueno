@@ -2,6 +2,7 @@ package Clases;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import BD.BD;
 
@@ -146,6 +147,17 @@ public class Main {
 		for(Cita ci: aCitas) { 
 			System.out.println(ci);
 			}
+		
+		
+		//Prueba combinacionesProductos
+		ArrayList<Producto> productos = BD.obtenerListaProducto(con);
+		double dineroDisponible = 2d;
+		double dineroSobrante = 1d;
+		int repetidos = 0;
+		
+		List<List<Producto>> resultado = Producto.combinacionesProductos(productos, dineroDisponible, dineroSobrante, repetidos);
+		System.out.println(String.format("Combinacions de menos de %.2f€ y sobrante máximo de %.2f€", dineroDisponible, dineroSobrante));
+		resultado.forEach(p -> System.out.println(p));
 		}
 
-	}
+}
