@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import BD.BD;
 import Clases.Cita;
 import Clases.Paciente;
+import Clases.TipoCita;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,6 +33,7 @@ public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tablaGestionAgenda;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 	
 	Connection con = BD.initBD("BaseDatos.db");
 
@@ -52,6 +57,7 @@ public class VentanaAgenda extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaAgenda() {
+		VentanaCrearCita v_cita=new VentanaCrearCita();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("AGENDA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,7 +122,9 @@ public class VentanaAgenda extends JFrame {
 		JButton btnAnadir = new JButton("AÑADIR");
 		btnAnadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BD.anadirCita(con, null);
+				v_cita.setVisible(true);
+				setVisible(false);
+				
 			}
 		});
 		panelSur.add(btnAnadir);
@@ -132,13 +140,32 @@ public class VentanaAgenda extends JFrame {
 		JButton btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BD.modificarCita(con, getName(), WIDTH);
+				try {
+					if (tablaGestionAgenda.getSelectedRow() != -1) {
+						String dni = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 1).toString();
+			            String nombre = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 2).toString();  
+						Date fecha= sdf.parse("20-02-2022 22:00");
+						//Date fecha= sdf.parse(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 3).toString());
+						TipoCita tipocita=TipoCita.valueOf(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 4).toString());
+						String nombreD=modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 5).toString();
+						Cita cita=new Cita(dni,nombre,nombreD,fecha,tipocita);
+						
+						VentanaModificarCita c=new VentanaModificarCita(cita);
+					}
+					
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		            
+				
 			}
 		});
 		panelSur.add(btnModificar);
 		
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
+		tablaGestionAgenda.getTableHeader().setReorderingAllowed(false);//bloquear columnas
 	}
 
 }

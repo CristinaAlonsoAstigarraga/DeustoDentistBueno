@@ -221,11 +221,12 @@ public class BD {
 
 	/*---------Añade una cita a la tabla--------------*/
 	public static void anadirCita(Connection con, Cita c) {
-
+		 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		 System.out.println("fecha:"+sdf.format(c.getFecha()));
 		String sql = "INSERT INTO Cita (dni,nom_p,fyh,tipo,nom_d) VALUES ('" + c.getDniPaciente() + "','"
-				+ c.getNombrePaciente() + "','" + c.getFecha() + "', '" + c.getTipo() + "','" + c.getNombreDentista()
+				+ c.getNombrePaciente() + "','" + sdf.format(c.getFecha()) + "', '" + c.getTipo().toString() + "','" + c.getNombreDentista()
 				+ "')";
-
+		
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -235,6 +236,7 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+
 
 	/*---------Añade un historial a la tabla--------------*/
 	public static void anadirHistorial(Connection con, Historial h) {
@@ -431,7 +433,25 @@ public class BD {
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
 		}
 	}
-
+	//obtener paciente segun dni
+		public static String buscarPacientePorDni(Connection con, String dni) {
+			String sql = "SELECT * FROM Paciente WHERE dni='"+dni+"'";
+			String nombre = null;
+			try {
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);
+				
+				if(rs.next()) {
+					nombre = rs.getString("nom");
+				}
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return nombre;
+		}
 	/*---------Elimina un producto por CÓDIGO--------------*/
 	public static void eliminarProductoPorId(Connection con, int cod_p) {
 
@@ -563,7 +583,7 @@ public class BD {
 				try {
 					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 					String fechaNacimiento = rs.getString("fechaNacimiento");
-					fechaDate = formato.parse(fechaNacimiento);
+					//fechaDate = formato.parse(fechaNacimiento);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
