@@ -60,7 +60,7 @@ public class VentanaGestionPacientes extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("GESTIÓN PACIENTES");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -112,13 +112,28 @@ public class VentanaGestionPacientes extends JFrame {
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
+		JButton btnVolver = new JButton("VOLVER AL MENU");
+		btnVolver.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal vp = new VentanaPrincipal();
+				vp.setVisible(true);
+				setVisible(false);
+				
+			}
+		});
+		
+		panelSur.add(btnVolver);
+		
 		JButton btnBuscar = new JButton("BUSCAR");
 		panelSur.add(btnBuscar); 
 		
 		JButton btnAnadir = new JButton("AÑADIR");
 		btnAnadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BD.anadirPaciente(con, null);
+				VentanaAnadirPaciente vap = new VentanaAnadirPaciente();
+				vap.setVisible(true);
+				setVisible(false);
 			}
 		});
 		panelSur.add(btnAnadir);
@@ -126,7 +141,7 @@ public class VentanaGestionPacientes extends JFrame {
 		JButton btnBorrar = new JButton("BORRAR");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BD.eliminarPacientePorDni(con, getWarningString());
+				BD.eliminarPacientePorDni(con, modelo.getValueAt(tablaGestionPacientes.getSelectedRow(), 0).toString());
 			}
 		});
 		panelSur.add(btnBorrar);
@@ -134,7 +149,16 @@ public class VentanaGestionPacientes extends JFrame {
 		JButton btnModificar = new JButton("MODIFICAR");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BD.modificarPaciente(con, getName(), getWarningString());
+				
+				String dni = tablaGestionPacientes.getValueAt(tablaGestionPacientes.getSelectedRow(), 0).toString();
+				String nom = tablaGestionPacientes.getValueAt(tablaGestionPacientes.getSelectedRow(), 1).toString();
+				String ape = tablaGestionPacientes.getValueAt(tablaGestionPacientes.getSelectedRow(), 2).toString();
+				String dir = tablaGestionPacientes.getValueAt(tablaGestionPacientes.getSelectedRow(), 4).toString();
+				String telf = tablaGestionPacientes.getValueAt(tablaGestionPacientes.getSelectedRow(), 5).toString();
+				int telfInt = Integer.parseInt(telf);
+				String gen = tablaGestionPacientes.getValueAt(tablaGestionPacientes.getSelectedRow(), 6).toString();
+				
+				BD.modificarTuplaPaciente(con, dni, nom, ape, dir, telfInt, gen);
 			}
 		});
 		panelSur.add(btnModificar);

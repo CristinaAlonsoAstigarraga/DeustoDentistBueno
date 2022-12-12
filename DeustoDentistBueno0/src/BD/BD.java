@@ -156,11 +156,11 @@ public class BD {
 	}
 
 	/*---------Añade un paciente a la tabla--------------*/
-	public static void anadirPaciente(Connection con, Paciente p) {
+	public static void anadirPaciente(Connection con, String dni, String nombre, String apellido, String fecha, String dir, int telf, String gen) {
 
-		String sql = "INSERT INTO Paciente VALUES ('" + p.getDni() + "', '" + p.getNombre() + "','" + p.getApellido()
-				+ "','" + p.getFechaNacimiento() + "', '" + p.getDireccion() + "'," + p.getTelefono() + ", '"
-				+ p.getGenero() + "')";
+		String sql = "INSERT INTO Paciente VALUES ('" + dni + "', '" + nombre + "','" + apellido
+				+ "','" + fecha + "', '" +dir + "'," + telf + ", '"
+				+ gen + "')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -328,6 +328,22 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+/*----------Modificacion de alguna tupla de la tabla de pacientes------------*/
+	
+	public static void modificarTuplaPaciente(Connection con, String dni, String nom, String ape, String dir, int telf, String gen) {
+		
+		String sql = "UPDATE Paciente SET nom = '" + nom + "', apellidos = '" + ape +"', dir = '" + dir + "', telf = "+ telf +", gen = '"+gen+"'"
+				+ "WHERE dni ='" + dni + "'";
+		try {
+			
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
