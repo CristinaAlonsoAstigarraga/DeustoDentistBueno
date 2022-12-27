@@ -37,6 +37,7 @@ import Clases.TipoCita;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
@@ -344,7 +345,37 @@ public class VentanaAgenda extends JFrame {
 		
 		
 		tablaGestionAgenda.getTableHeader().setReorderingAllowed(false);//bloquear columnas
-		
+
+		tablaGestionAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+			 
+	        @Override
+	        public void mouseClicked(MouseEvent e) {
+	        	System.out.println("evento de raton");
+	        	try {
+					if (tablaGestionAgenda.getSelectedRow() != -1) {
+						String dni = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 1).toString();
+			            String nombre = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 2).toString();  
+						Date fecha= sdf.parse("20-02-2022 22:00");
+						//Date fecha= sdf.parse(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 3).toString());
+						TipoCita tipocita=TipoCita.valueOf(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 4).toString());
+						String nombreD=modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 5).toString();
+						Cita cita=new Cita(dni,nombre,nombreD,fecha,tipocita);
+						
+						comboBoxDNI.setSelectedItem(cita.getDniPaciente());
+						textFieldFecha.setText(sdf.format(cita.getFecha()).toString());
+						comboBoxCITA.setSelectedItem(cita.getTipo());
+						comboBoxDENTISTA.setSelectedItem(cita.getNombreDentista());
+						
+						//VentanaModificarCita c=new VentanaModificarCita(cita);
+					}
+					
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		            
+	        }
+	        });
 		
 		CargarComboBoxDni();
 		CargarComboBoxCita();
