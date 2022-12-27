@@ -58,12 +58,12 @@ public class VentanaAgenda extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaGestionAgenda;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-	private JComboBox<String> comboBoxD;
-	private JComboBox<String> comboBoxCITA;
-	private JComboBox<String> comboBoxDENTISTA;
-	private JComboBox<String> comboBoxDNI;
-	private JTextField textFieldFecha;
-	private Date fecha;
+	private JComboBox<String> comboBoxD,comboBoxDI;
+	private JComboBox<String> comboBoxCITA,comboBoxCITAI;
+	private JComboBox<String> comboBoxDENTISTA,comboBoxDENTISTAI;
+	private JComboBox<String> comboBoxDNI,comboBoxDNII;
+	private JTextField textFieldFecha,textFieldFechaI;
+	private Date fecha,fecha1;
 	
 	Connection con = BD.initBD("BaseDatos.db");
 
@@ -127,6 +127,125 @@ public class VentanaAgenda extends JFrame {
 		tabbedPane.addTab("INSERTAR", null, panelInsertar, null);
 		panelInsertar.setLayout(new BorderLayout(0, 0));
 		
+		JPanel panelNorteI = new JPanel();
+		panelNorteI.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelNorteI.setBackground(SystemColor.inactiveCaption);
+		panelInsertar.add(panelNorteI, BorderLayout.NORTH);
+		
+		JLabel lblInsertarPaciente = new JLabel("INSERTAR PACIENTE: ");
+		lblInsertarPaciente.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelNorteI.add(lblInsertarPaciente);
+		
+		JPanel panelSurI = new JPanel();
+		panelSurI.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelSurI.setBackground(SystemColor.inactiveCaption);
+		panelInsertar.add(panelSurI, BorderLayout.SOUTH);
+		
+		JButton btnInsertar = new JButton("INSERTAR");
+		btnInsertar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertarCita();
+			}
+		});
+		btnInsertar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelSurI.add(btnInsertar);
+		
+		JPanel panelCentroI = new JPanel();
+		panelCentroI.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelInsertar.add(panelCentroI, BorderLayout.CENTER);
+		GridBagLayout gbl_pCentroI = new GridBagLayout();
+		gbl_pCentroI.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_pCentroI.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_pCentroI.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_pCentroI.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelCentroI.setLayout(gbl_pCentroI);
+		
+		JLabel lblNewLabelI = new JLabel(".");
+		lblNewLabelI.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 3;
+		gbc_lblNewLabel.gridy = 0;
+		panelCentroI.add(lblNewLabelI, gbc_lblNewLabel);
+		
+		JLabel lblDni1 = new JLabel("DNI");
+		GridBagConstraints gbc_lblDni1 = new GridBagConstraints();
+		gbc_lblDni1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDni1.anchor = GridBagConstraints.EAST;
+		gbc_lblDni1.gridx = 2;
+		gbc_lblDni1.gridy = 1;
+		panelCentroI.add(lblDni1, gbc_lblDni1);
+		
+		comboBoxDNII = new JComboBox();
+		GridBagConstraints gbc_comboBoxDNII = new GridBagConstraints();
+		gbc_comboBoxDNII.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxDNII.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxDNII.gridx = 3;
+		gbc_comboBoxDNII.gridy = 1;
+		panelCentroI.add(comboBoxDNII, gbc_comboBoxDNII);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 1;
+		gbc_lblNewLabel_1.gridy = 2;
+		panelCentroI.add(lblNewLabel_1, gbc_lblNewLabel_1);
+			
+		JLabel lblFecha = new JLabel("FECHA Y HORA");
+		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
+		gbc_lblFecha.anchor = GridBagConstraints.EAST;
+		gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFecha.gridx = 2;
+		gbc_lblFecha.gridy = 2;
+		panelCentroI.add(lblFecha, gbc_lblFecha);
+		
+		textFieldFechaI = new JTextField();
+		GridBagConstraints gbc_textFieldFecha = new GridBagConstraints();
+		gbc_textFieldFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFecha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFecha.gridx = 3;
+		gbc_textFieldFecha.gridy = 2;
+		panelCentroI.add(textFieldFechaI, gbc_textFieldFecha);
+		textFieldFechaI.setColumns(10);
+		
+		JLabel lbTipoCita = new JLabel("TIPO CITA");
+		GridBagConstraints gbc_lbTipoCita = new GridBagConstraints();
+		gbc_lbTipoCita.anchor = GridBagConstraints.EAST;
+		gbc_lbTipoCita.insets = new Insets(0, 0, 5, 5);
+		gbc_lbTipoCita.gridx = 2;
+		gbc_lbTipoCita.gridy = 3;
+		panelCentroI.add(lbTipoCita, gbc_lbTipoCita);
+		
+		 comboBoxCITAI = new JComboBox();
+		GridBagConstraints gbc_comboBoxCITA = new GridBagConstraints();
+		gbc_comboBoxCITA.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxCITA.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxCITA.gridx = 3;
+		gbc_comboBoxCITA.gridy = 3;
+		panelCentroI.add(comboBoxCITAI, gbc_comboBoxCITA);
+		
+		JLabel lblDentista = new JLabel("DENTISTA");
+		GridBagConstraints gbc_lblDentista = new GridBagConstraints();
+		gbc_lblDentista.anchor = GridBagConstraints.EAST;
+		gbc_lblDentista.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDentista.gridx = 2;
+		gbc_lblDentista.gridy = 4;
+		panelCentroI.add(lblDentista, gbc_lblDentista);
+		
+		 comboBoxDENTISTAI = new JComboBox();
+		GridBagConstraints gbc_comboBoxDENTISTA = new GridBagConstraints();
+		gbc_comboBoxDENTISTA.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBoxDENTISTA.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxDENTISTA.gridx = 3;
+		gbc_comboBoxDENTISTA.gridy = 4;
+		panelCentroI.add(comboBoxDENTISTAI, gbc_comboBoxDENTISTA);
+		
+		
+		
+		
+		
+		//+++++++++++++++++++
+		
 		JPanel panelModificar = new JPanel();
 		tabbedPane.addTab("MODIFICAR", null,panelModificar, null);
 		
@@ -141,6 +260,7 @@ public class VentanaAgenda extends JFrame {
 		panelBorrar.add(panelSurB, BorderLayout.SOUTH);
 		
 		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panelSurB.add(btnBorrar);
 		
 		JPanel panelNorteB = new JPanel();
@@ -180,7 +300,7 @@ public class VentanaAgenda extends JFrame {
 		pSurE.setBackground(SystemColor.inactiveCaption);
 		panelModificar.add(pSurE, BorderLayout.SOUTH);
 		
-		JButton btnAceptar = new JButton("ACEPTAR");
+		JButton btnAceptar = new JButton("MODIFICAR");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -204,11 +324,11 @@ public class VentanaAgenda extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel(".");
 		lblNewLabel.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 5;
-		gbc_lblNewLabel.gridy = 0;
-		pCentroE.add(lblNewLabel, gbc_lblNewLabel);
+		GridBagConstraints gbc_lblNewLabel1 = new GridBagConstraints();
+		gbc_lblNewLabel1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel1.gridx = 5;
+		gbc_lblNewLabel1.gridy = 0;
+		pCentroE.add(lblNewLabel, gbc_lblNewLabel1);
 		
 		
 		JLabel lblNombre = new JLabel("AQUI EL NOMBRE");
@@ -246,64 +366,65 @@ public class VentanaAgenda extends JFrame {
 			 	}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 2;
-		gbc_lblNewLabel_1.gridy = 4;
-		pCentroE.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		JLabel lblNewLabel_11 = new JLabel("");
+		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
+		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_11.gridx = 2;
+		gbc_lblNewLabel_11.gridy = 4;
+		pCentroE.add(lblNewLabel_11, gbc_lblNewLabel_11);
 			
-		JLabel lblFecha = new JLabel("FECHA Y HORA");
-		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
-		gbc_lblFecha.anchor = GridBagConstraints.EAST;
-		gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFecha.gridx = 3;
-		gbc_lblFecha.gridy = 4;
-		pCentroE.add(lblFecha, gbc_lblFecha);
+		JLabel lblFecha1 = new JLabel("FECHA Y HORA");
+		GridBagConstraints gbc_lblFecha1 = new GridBagConstraints();
+		gbc_lblFecha1.anchor = GridBagConstraints.EAST;
+		gbc_lblFecha1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFecha1.gridx = 3;
+		gbc_lblFecha1.gridy = 4;
+		pCentroE.add(lblFecha1, gbc_lblFecha1);
 		
 		textFieldFecha = new JTextField();
-		GridBagConstraints gbc_textFieldFecha = new GridBagConstraints();
-		gbc_textFieldFecha.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldFecha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldFecha.gridx = 5;
-		gbc_textFieldFecha.gridy = 4;
-		pCentroE.add(textFieldFecha, gbc_textFieldFecha);
+		GridBagConstraints gbc_textFieldFecha1 = new GridBagConstraints();
+		gbc_textFieldFecha1.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFecha1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFecha1.gridx = 5;
+		gbc_textFieldFecha1.gridy = 4;
+		pCentroE.add(textFieldFecha, gbc_textFieldFecha1);
 		textFieldFecha.setColumns(10);
 		
-		JLabel lbTipoCita = new JLabel("TIPO CITA");
-		GridBagConstraints gbc_lbTipoCita = new GridBagConstraints();
-		gbc_lbTipoCita.anchor = GridBagConstraints.EAST;
-		gbc_lbTipoCita.insets = new Insets(0, 0, 5, 5);
-		gbc_lbTipoCita.gridx = 3;
-		gbc_lbTipoCita.gridy = 5;
-		pCentroE.add(lbTipoCita, gbc_lbTipoCita);
+		JLabel lbTipoCita1 = new JLabel("TIPO CITA");
+		GridBagConstraints gbc_lbTipoCita1 = new GridBagConstraints();
+		gbc_lbTipoCita1.anchor = GridBagConstraints.EAST;
+		gbc_lbTipoCita1.insets = new Insets(0, 0, 5, 5);
+		gbc_lbTipoCita1.gridx = 3;
+		gbc_lbTipoCita1.gridy = 5;
+		pCentroE.add(lbTipoCita1, gbc_lbTipoCita1);
 		
 		 comboBoxCITA = new JComboBox();
-		GridBagConstraints gbc_comboBoxCITA = new GridBagConstraints();
-		gbc_comboBoxCITA.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxCITA.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxCITA.gridx = 5;
-		gbc_comboBoxCITA.gridy = 5;
-		pCentroE.add(comboBoxCITA, gbc_comboBoxCITA);
+		GridBagConstraints gbc_comboBoxCITA1 = new GridBagConstraints();
+		gbc_comboBoxCITA1.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxCITA1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxCITA1.gridx = 5;
+		gbc_comboBoxCITA1.gridy = 5;
+		pCentroE.add(comboBoxCITA, gbc_comboBoxCITA1);
 		
-		JLabel lblDentista = new JLabel("DENTISTA");
-		GridBagConstraints gbc_lblDentista = new GridBagConstraints();
-		gbc_lblDentista.anchor = GridBagConstraints.EAST;
-		gbc_lblDentista.insets = new Insets(0, 0, 0, 5);
-		gbc_lblDentista.gridx = 3;
-		gbc_lblDentista.gridy = 6;
-		pCentroE.add(lblDentista, gbc_lblDentista);
+		JLabel lblDentista1 = new JLabel("DENTISTA");
+		GridBagConstraints gbc_lblDentista1 = new GridBagConstraints();
+		gbc_lblDentista1.anchor = GridBagConstraints.EAST;
+		gbc_lblDentista1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDentista1.gridx = 3;
+		gbc_lblDentista1.gridy = 6;
+		pCentroE.add(lblDentista1, gbc_lblDentista1);
 		
 		 comboBoxDENTISTA = new JComboBox();
-		GridBagConstraints gbc_comboBoxDENTISTA = new GridBagConstraints();
-		gbc_comboBoxDENTISTA.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBoxDENTISTA.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxDENTISTA.gridx = 5;
-		gbc_comboBoxDENTISTA.gridy = 6;
-		pCentroE.add(comboBoxDENTISTA, gbc_comboBoxDENTISTA);
+		GridBagConstraints gbc_comboBoxDENTISTA1 = new GridBagConstraints();
+		gbc_comboBoxDENTISTA1.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBoxDENTISTA1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxDENTISTA1.gridx = 5;
+		gbc_comboBoxDENTISTA1.gridy = 6;
+		pCentroE.add(comboBoxDENTISTA, gbc_comboBoxDENTISTA1);
 		
 		
 		
+		//********************
 		
 		/*
 		 * AQUI ACABA
@@ -344,7 +465,7 @@ public class VentanaAgenda extends JFrame {
 		
 		
 		JPanel panelBuscar = new JPanel();
-		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelBuscar.setBackground(SystemColor.inactiveCaption);
 		panelCentro.add(panelBuscar, BorderLayout.NORTH);
 		
@@ -403,7 +524,6 @@ public class VentanaAgenda extends JFrame {
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
 		JLabel lblNewLabel_3 = new JLabel("aplicacion Dentist");
-		lblNewLabel_3.setForeground(SystemColor.inactiveCaptionBorder);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		panelSur.add(lblNewLabel_3);
 		
@@ -452,6 +572,7 @@ public class VentanaAgenda extends JFrame {
 		lista=BD.obtenerListaPaciente(con);
 		for(Paciente p: lista) {
 			comboBoxDNI.addItem(p.getDni());
+			comboBoxDNII.addItem(p.getDni());
 		}
 	}
 
@@ -462,6 +583,7 @@ public class VentanaAgenda extends JFrame {
 		
 		for(Dentista d: lista) {
 			comboBoxDENTISTA.addItem(d.getNombre());
+			comboBoxDENTISTAI.addItem(d.getNombre());
 			comboBoxD.addItem(d.getNombre());
 			
 //			comboBoxCITA.addItem(d.getNombre()+" "+d.getApellido());
@@ -474,10 +596,51 @@ public class VentanaAgenda extends JFrame {
 		// TODO Auto-generated method stub
 		for(TipoCita n:TipoCita.values()) {
 			comboBoxCITA.addItem(n.name());
+			comboBoxCITAI.addItem(n.name());
 		}
 			
 	}
 
+	//METODOS BOTONES
+		private void insertarCita() {
+			
+			
+				
+					//comprobar campos no nulos
+				if(!(textFieldFechaI.getText().isEmpty())) {
+					
+					//comprobar dni
+					String nombrePaciente=BD.buscarPacientePorDni(con,comboBoxDNII.getSelectedItem().toString());
+					if(nombrePaciente!=null) {
+						
+						//comprobar formato fecha
+						try {
+							fecha = sdf.parse(textFieldFechaI.getText());
+							System.out.println(sdf.format(fecha));
+						} catch (ParseException e) {
+							JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR LA FECHA EN FORMATO: \"dd-MM-yyyy hh:mm\"",
+					                "FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
+						}
+		
+						//crear cita
+						Cita c=new Cita();
+						c.setDniPaciente(comboBoxDNII.getSelectedItem().toString());
+						c.setNombrePaciente(nombrePaciente);
+						c.setFecha(fecha);
+						c.setTipo(TipoCita.valueOf(comboBoxCITAI.getSelectedItem().toString())); 
+						c.setNombreDentista((String) comboBoxDENTISTAI.getSelectedItem());
+						BD.anadirCita(con,c);
+					}else {
+						JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UN DNI VALIDO",
+				                "USUARIO NO ENCONTRADO", JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					
+					JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR TODOS LOS DATO",
+			                "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+			
+		}
 
 	
 
