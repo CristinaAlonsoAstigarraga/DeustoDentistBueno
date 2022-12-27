@@ -3,6 +3,7 @@ package ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -45,6 +46,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import java.awt.SystemColor;
@@ -56,15 +58,14 @@ public class VentanaAgenda extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaGestionAgenda;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-	
+	private JComboBox<String> comboBoxD;
 	private JComboBox<String> comboBoxCITA;
 	private JComboBox<String> comboBoxDENTISTA;
 	private JComboBox<String> comboBoxDNI;
-	private JComboBox<String> comboBoxD;
+	private JTextField textFieldFecha;
 	private Date fecha;
 	
 	Connection con = BD.initBD("BaseDatos.db");
-	private JTextField textFieldFecha;
 
 	/**
 	 * Launch the application.
@@ -109,6 +110,204 @@ public class VentanaAgenda extends JFrame {
 		lblTituloGP.setHorizontalAlignment(SwingConstants.CENTER);
 		panelNorte.add(lblTituloGP);
 		
+		
+		JPanel panelEste = new JPanel();
+		panelEste.setBackground(SystemColor.windowBorder);
+		contentPane.add(panelEste, BorderLayout.EAST);
+		panelEste.setLayout(new BorderLayout());
+		
+		/*
+		 * AQUI EMPIEZA
+		 */
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(SystemColor.menu);
+		panelEste.add(tabbedPane, BorderLayout.CENTER);
+
+		JPanel panelInsertar = new JPanel();
+		tabbedPane.addTab("INSERTAR", null, panelInsertar, null);
+		panelInsertar.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelModificar = new JPanel();
+		tabbedPane.addTab("MODIFICAR", null,panelModificar, null);
+		
+		
+		JPanel panelBorrar = new JPanel();
+		tabbedPane.addTab("BORRAR", null, panelBorrar, null);
+		panelBorrar.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelSurB = new JPanel();
+		panelSurB.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelSurB.setBackground(SystemColor.inactiveCaption);
+		panelBorrar.add(panelSurB, BorderLayout.SOUTH);
+		
+		JButton btnBorrar = new JButton("BORRAR");
+		panelSurB.add(btnBorrar);
+		
+		JPanel panelNorteB = new JPanel();
+		panelNorteB.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelNorteB.setBackground(SystemColor.inactiveCaption);
+		panelBorrar.add(panelNorteB, BorderLayout.NORTH);
+		
+		JLabel lblBorrarPaciente = new JLabel("BORRAR PACIENTE: ");
+		lblBorrarPaciente.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelNorteB.add(lblBorrarPaciente);
+		
+		JPanel panelCentralBorrar = new JPanel();
+		panelCentralBorrar.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelBorrar.add(panelCentralBorrar, BorderLayout.CENTER);
+		
+		JLabel lblNewLabel_4 = new JLabel("Borrar la cita de ");
+		panelCentralBorrar.add(lblNewLabel_4);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.ITALIC, 14));
+		
+		JLabel lblNombre2 = new JLabel("");
+		panelCentralBorrar.add(lblNombre2);
+		panelModificar.setLayout(new BorderLayout(0, 0));
+		
+
+		
+		JPanel pNorteE = new JPanel();
+		pNorteE.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		pNorteE.setBackground(SystemColor.inactiveCaption);
+		panelModificar.add(pNorteE, BorderLayout.NORTH);
+		pNorteE.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JLabel lblTitulo = new JLabel("MODIFICAR PACIENTE: ");
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 18));
+		pNorteE.add(lblTitulo);
+		
+		JPanel pSurE = new JPanel();
+		pSurE.setBorder(new LineBorder(SystemColor.desktop, 1, true));
+		pSurE.setBackground(SystemColor.inactiveCaption);
+		panelModificar.add(pSurE, BorderLayout.SOUTH);
+		
+		JButton btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+
+			
+		});
+		
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		pSurE.add(btnAceptar);
+		
+		JPanel pCentroE = new JPanel();
+		pCentroE.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelModificar.add(pCentroE);
+		GridBagLayout gbl_pCentroE = new GridBagLayout();
+		gbl_pCentroE.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pCentroE.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pCentroE.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_pCentroE.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		pCentroE.setLayout(gbl_pCentroE);
+		
+		JLabel lblNewLabel = new JLabel(".");
+		lblNewLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 5;
+		gbc_lblNewLabel.gridy = 0;
+		pCentroE.add(lblNewLabel, gbc_lblNewLabel);
+		
+		
+		JLabel lblNombre = new JLabel("AQUI EL NOMBRE");
+		lblNombre.setForeground(new Color(0, 0, 0));
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 12));
+		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombre.gridx = 5;
+		gbc_lblNombre.gridy = 1;
+		pCentroE.add(lblNombre, gbc_lblNombre);
+		
+		JLabel lblDni = new JLabel("DNI");
+		GridBagConstraints gbc_lblDni = new GridBagConstraints();
+		gbc_lblDni.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDni.anchor = GridBagConstraints.EAST;
+		gbc_lblDni.gridx = 3;
+		gbc_lblDni.gridy = 3;
+		pCentroE.add(lblDni, gbc_lblDni);
+		
+		 comboBoxDNI = new JComboBox();
+		GridBagConstraints gbc_comboBoxDNI = new GridBagConstraints();
+		gbc_comboBoxDNI.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxDNI.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxDNI.gridx = 5;
+		gbc_comboBoxDNI.gridy = 3;
+		pCentroE.add(comboBoxDNI, gbc_comboBoxDNI);
+		comboBoxDNI.addItemListener(new ItemListener() {
+			 	public void itemStateChanged(ItemEvent e) {
+			 		
+			 		String nombrePaciente=BD.buscarPacientePorDni(con, e.getItem().toString());
+					if(nombrePaciente!=null) {
+						lblNombre.setText(nombrePaciente);
+						lblNombre2.setText(nombrePaciente);
+					}
+			 	}
+		});
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 2;
+		gbc_lblNewLabel_1.gridy = 4;
+		pCentroE.add(lblNewLabel_1, gbc_lblNewLabel_1);
+			
+		JLabel lblFecha = new JLabel("FECHA Y HORA");
+		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
+		gbc_lblFecha.anchor = GridBagConstraints.EAST;
+		gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFecha.gridx = 3;
+		gbc_lblFecha.gridy = 4;
+		pCentroE.add(lblFecha, gbc_lblFecha);
+		
+		textFieldFecha = new JTextField();
+		GridBagConstraints gbc_textFieldFecha = new GridBagConstraints();
+		gbc_textFieldFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldFecha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldFecha.gridx = 5;
+		gbc_textFieldFecha.gridy = 4;
+		pCentroE.add(textFieldFecha, gbc_textFieldFecha);
+		textFieldFecha.setColumns(10);
+		
+		JLabel lbTipoCita = new JLabel("TIPO CITA");
+		GridBagConstraints gbc_lbTipoCita = new GridBagConstraints();
+		gbc_lbTipoCita.anchor = GridBagConstraints.EAST;
+		gbc_lbTipoCita.insets = new Insets(0, 0, 5, 5);
+		gbc_lbTipoCita.gridx = 3;
+		gbc_lbTipoCita.gridy = 5;
+		pCentroE.add(lbTipoCita, gbc_lbTipoCita);
+		
+		 comboBoxCITA = new JComboBox();
+		GridBagConstraints gbc_comboBoxCITA = new GridBagConstraints();
+		gbc_comboBoxCITA.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxCITA.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxCITA.gridx = 5;
+		gbc_comboBoxCITA.gridy = 5;
+		pCentroE.add(comboBoxCITA, gbc_comboBoxCITA);
+		
+		JLabel lblDentista = new JLabel("DENTISTA");
+		GridBagConstraints gbc_lblDentista = new GridBagConstraints();
+		gbc_lblDentista.anchor = GridBagConstraints.EAST;
+		gbc_lblDentista.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDentista.gridx = 3;
+		gbc_lblDentista.gridy = 6;
+		pCentroE.add(lblDentista, gbc_lblDentista);
+		
+		 comboBoxDENTISTA = new JComboBox();
+		GridBagConstraints gbc_comboBoxDENTISTA = new GridBagConstraints();
+		gbc_comboBoxDENTISTA.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBoxDENTISTA.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxDENTISTA.gridx = 5;
+		gbc_comboBoxDENTISTA.gridy = 6;
+		pCentroE.add(comboBoxDENTISTA, gbc_comboBoxDENTISTA);
+		
+		
+		
+		
+		/*
+		 * AQUI ACABA
+		 */
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		//Meter la conexón con la Base de Datos
@@ -145,7 +344,7 @@ public class VentanaAgenda extends JFrame {
 		
 		
 		JPanel panelBuscar = new JPanel();
-		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		panelBuscar.setBackground(SystemColor.inactiveCaption);
 		panelCentro.add(panelBuscar, BorderLayout.NORTH);
 		
@@ -187,6 +386,7 @@ public class VentanaAgenda extends JFrame {
 					modelo.setValueAt(getCita.getDniPaciente(), i, 1);
 					modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
 					modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
+					System.out.println("FECHA DE BBDD: "+sdf.format(getCita.getFecha()));
 					modelo.setValueAt(getCita.getTipo(), i, 4);
 					modelo.setValueAt(getCita.getNombreDentista(), i, 5);
 				}
@@ -202,160 +402,12 @@ public class VentanaAgenda extends JFrame {
 		panelSur.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
-		JButton btnAnadir = new JButton("AÑADIR");
-		btnAnadir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				v_cita.setVisible(true);
-				setVisible(false);
-				
-			}
-		});
-		panelSur.add(btnAnadir);
+		JLabel lblNewLabel_3 = new JLabel("aplicacion Dentist");
+		lblNewLabel_3.setForeground(SystemColor.inactiveCaptionBorder);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		panelSur.add(lblNewLabel_3);
 		
-		JButton btnBorrar = new JButton("BORRAR");
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BD.eliminarCitaPorId(con, WIDTH);
-			}
-		});
-		panelSur.add(btnBorrar);
-		
-		JSeparator separator = new JSeparator();
-		panelSur.add(separator);
-		
-		JPanel panelEste = new JPanel();
-		contentPane.add(panelEste, BorderLayout.EAST);
-		panelEste.setLayout(new BorderLayout(0,0));
-		
-		JPanel pNorteE = new JPanel();
-		pNorteE.setBorder(new LineBorder(SystemColor.activeCaptionText));
-		pNorteE.setBackground(SystemColor.inactiveCaption);
-		panelEste.add(pNorteE, BorderLayout.NORTH);
-		JLabel lblTitulo = new JLabel("MODIFICAR PACIENTE: ");
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 18));
-		pNorteE.add(lblTitulo);
-		
-		JPanel pSurE = new JPanel();
-		pSurE.setBorder(new LineBorder(SystemColor.desktop, 1, true));
-		pSurE.setBackground(SystemColor.inactiveCaption);
-		panelEste.add(pSurE, BorderLayout.SOUTH);
-		
-		JButton btnAceptar = new JButton("ACEPTAR");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				insertarCita();
-				
-			}
-
-			
-		});
-		
-		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		pSurE.add(btnAceptar);
-		
-		
-		JLabel lblNombre = new JLabel("AQUI EL NOMBRE");
-		pNorteE.add(lblNombre);
-		
-		JPanel pCentroE = new JPanel();
-		pCentroE.setBorder(new LineBorder(SystemColor.activeCaptionText));
-		panelEste.add(pCentroE, BorderLayout.CENTER);
-		GridBagLayout gbl_pCentroE = new GridBagLayout();
-		gbl_pCentroE.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_pCentroE.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_pCentroE.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_pCentroE.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		pCentroE.setLayout(gbl_pCentroE);
-		
-		JLabel lblNewLabel = new JLabel(".");
-		lblNewLabel.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 3;
-		gbc_lblNewLabel.gridy = 0;
-		pCentroE.add(lblNewLabel, gbc_lblNewLabel);
-		
-		JLabel lblDni = new JLabel("DNI");
-		GridBagConstraints gbc_lblDni = new GridBagConstraints();
-		gbc_lblDni.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDni.anchor = GridBagConstraints.EAST;
-		gbc_lblDni.gridx = 2;
-		gbc_lblDni.gridy = 1;
-		pCentroE.add(lblDni, gbc_lblDni);
-		
-		 comboBoxDNI = new JComboBox();
-		GridBagConstraints gbc_comboBoxDNI = new GridBagConstraints();
-		gbc_comboBoxDNI.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxDNI.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxDNI.gridx = 3;
-		gbc_comboBoxDNI.gridy = 1;
-		pCentroE.add(comboBoxDNI, gbc_comboBoxDNI);
-		comboBoxDNI.addItemListener(new ItemListener() {
-			 	public void itemStateChanged(ItemEvent e) {
-			 		
-			 		String nombrePaciente=BD.buscarPacientePorDni(con, e.getItem().toString());
-					if(nombrePaciente!=null) {
-						lblNombre.setText(nombrePaciente);
-					}
-			 	}
-		});
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 2;
-		pCentroE.add(lblNewLabel_1, gbc_lblNewLabel_1);
-			
-		JLabel lblFecha = new JLabel("FECHA Y HORA");
-		GridBagConstraints gbc_lblFecha = new GridBagConstraints();
-		gbc_lblFecha.anchor = GridBagConstraints.EAST;
-		gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFecha.gridx = 2;
-		gbc_lblFecha.gridy = 2;
-		pCentroE.add(lblFecha, gbc_lblFecha);
-		
-		textFieldFecha = new JTextField();
-		GridBagConstraints gbc_textFieldFecha = new GridBagConstraints();
-		gbc_textFieldFecha.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldFecha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldFecha.gridx = 3;
-		gbc_textFieldFecha.gridy = 2;
-		pCentroE.add(textFieldFecha, gbc_textFieldFecha);
-		textFieldFecha.setColumns(10);
-		
-		JLabel lbTipoCita = new JLabel("TIPO CITA");
-		GridBagConstraints gbc_lbTipoCita = new GridBagConstraints();
-		gbc_lbTipoCita.anchor = GridBagConstraints.EAST;
-		gbc_lbTipoCita.insets = new Insets(0, 0, 5, 5);
-		gbc_lbTipoCita.gridx = 2;
-		gbc_lbTipoCita.gridy = 3;
-		pCentroE.add(lbTipoCita, gbc_lbTipoCita);
-		
-		 comboBoxCITA = new JComboBox();
-		GridBagConstraints gbc_comboBoxCITA = new GridBagConstraints();
-		gbc_comboBoxCITA.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxCITA.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxCITA.gridx = 3;
-		gbc_comboBoxCITA.gridy = 3;
-		pCentroE.add(comboBoxCITA, gbc_comboBoxCITA);
-		
-		JLabel lblDentista = new JLabel("DENTISTA");
-		GridBagConstraints gbc_lblDentista = new GridBagConstraints();
-		gbc_lblDentista.anchor = GridBagConstraints.EAST;
-		gbc_lblDentista.insets = new Insets(0, 0, 0, 5);
-		gbc_lblDentista.gridx = 2;
-		gbc_lblDentista.gridy = 4;
-		pCentroE.add(lblDentista, gbc_lblDentista);
-		
-		 comboBoxDENTISTA = new JComboBox();
-		GridBagConstraints gbc_comboBoxDENTISTA = new GridBagConstraints();
-		gbc_comboBoxDENTISTA.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBoxDENTISTA.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxDENTISTA.gridx = 3;
-		gbc_comboBoxDENTISTA.gridy = 4;
-		pCentroE.add(comboBoxDENTISTA, gbc_comboBoxDENTISTA);
-		
+		//++++++++++++++++++++
 		
 		tablaGestionAgenda.getTableHeader().setReorderingAllowed(false);//bloquear columnas
 
@@ -393,9 +445,6 @@ public class VentanaAgenda extends JFrame {
 		CargarComboBoxDni();
 		CargarComboBoxCita();
 		CargarComBoxDentista();
-		AutoCompleteDecorator.decorate(comboBoxDNI);
-		AutoCompleteDecorator.decorate(comboBoxCITA);
-		AutoCompleteDecorator.decorate(comboBoxDENTISTA);
 	}
 	private void CargarComboBoxDni() {
 		// TODO Auto-generated method stub
@@ -404,7 +453,6 @@ public class VentanaAgenda extends JFrame {
 		for(Paciente p: lista) {
 			comboBoxDNI.addItem(p.getDni());
 		}
-		comboBoxDNI.setSelectedItem("");
 	}
 
 	private void CargarComBoxDentista() {
@@ -413,7 +461,7 @@ public class VentanaAgenda extends JFrame {
 		lista=BD.obtenerListaDentista(con);
 		
 		for(Dentista d: lista) {
-			comboBoxCITA.addItem(d.getNombre());
+			comboBoxDENTISTA.addItem(d.getNombre());
 			comboBoxD.addItem(d.getNombre());
 			
 //			comboBoxCITA.addItem(d.getNombre()+" "+d.getApellido());
@@ -425,51 +473,9 @@ public class VentanaAgenda extends JFrame {
 	private void CargarComboBoxCita() {
 		// TODO Auto-generated method stub
 		for(TipoCita n:TipoCita.values()) {
-			comboBoxDENTISTA.addItem(n.name());
+			comboBoxCITA.addItem(n.name());
 		}
 			
-	}
-	
-	
-	//METODOS BOTONES
-	private void insertarCita() {
-		
-		
-			
-				//comprobar campos no nulos
-			if(!(comboBoxDNI.getSelectedItem().toString().isEmpty()|| textFieldFecha.getText().isEmpty())) {
-				
-				//comprobar dni
-				String nombrePaciente=BD.buscarPacientePorDni(con,comboBoxDNI.getSelectedItem().toString());
-				if(nombrePaciente!=null) {
-					
-					//comprobar formato fecha
-					try {
-						fecha = sdf.parse(textFieldFecha.getText());
-						System.out.println(sdf.format(fecha));
-					} catch (ParseException e) {
-						JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR LA FECHA EN FORMATO: \"dd-MM-yyyy hh:mm\"",
-				                "FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
-					}
-	
-					//crear cita
-					Cita c=new Cita();
-					c.setDniPaciente(comboBoxDNI.getSelectedItem().toString());
-					c.setNombrePaciente(nombrePaciente);
-					c.setFecha(fecha);
-					c.setTipo(TipoCita.valueOf(comboBoxCITA.getSelectedItem().toString())); 
-					c.setNombreDentista((String) comboBoxDENTISTA.getSelectedItem());
-					BD.anadirCita(con,c);
-				}else {
-					JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UN DNI VALIDO",
-			                "USUARIO NO ENCONTRADO", JOptionPane.ERROR_MESSAGE);
-				}
-			}else {
-				
-				JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR TODOS LOS DATO",
-		                "ERROR", JOptionPane.ERROR_MESSAGE);
-			}
-		
 	}
 
 
