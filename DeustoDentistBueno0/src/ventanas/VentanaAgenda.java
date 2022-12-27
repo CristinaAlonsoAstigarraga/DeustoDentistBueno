@@ -48,6 +48,8 @@ import javax.swing.JSpinner;
 import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import java.awt.SystemColor;
+import javax.swing.BoxLayout;
+import javax.swing.border.LineBorder;
 
 public class VentanaAgenda extends JFrame {
 
@@ -58,6 +60,7 @@ public class VentanaAgenda extends JFrame {
 	private JComboBox<String> comboBoxCITA;
 	private JComboBox<String> comboBoxDENTISTA;
 	private JComboBox<String> comboBoxDNI;
+	private JComboBox<String> comboBoxD;
 	private Date fecha;
 	
 	Connection con = BD.initBD("BaseDatos.db");
@@ -106,9 +109,6 @@ public class VentanaAgenda extends JFrame {
 		lblTituloGP.setHorizontalAlignment(SwingConstants.CENTER);
 		panelNorte.add(lblTituloGP);
 		
-		JPanel panelOeste = new JPanel();
-		contentPane.add(panelOeste, BorderLayout.WEST);
-		
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		//Meter la conexón con la Base de Datos
@@ -123,9 +123,9 @@ public class VentanaAgenda extends JFrame {
 				return o1.getFecha().compareTo(o2.getFecha());
 			}
 		});
-		for(Cita c: aCitas) {
-			System.out.println(c.getFecha()+"\n");
-		}
+//		for(Cita c: aCitas) {
+//			System.out.println(c.getFecha()+"\n");
+//		}
 		Object O [] = null;
 		for (int i = 0; i < aCitas.size(); i++) {
 			modelo.addRow(O);
@@ -137,29 +137,70 @@ public class VentanaAgenda extends JFrame {
 			modelo.setValueAt(getCita.getTipo(), i, 4);
 			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
 		}
+		panelCentro.setLayout(new BorderLayout(0, 0));
 		
 		
 		tablaGestionAgenda = new JTable(modelo);
 		tablaGestionAgenda.setBounds(100, 100, 450, 300);
 		
 		
+		JPanel panelBuscar = new JPanel();
+		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panelBuscar.setBackground(SystemColor.inactiveCaption);
+		panelCentro.add(panelBuscar, BorderLayout.NORTH);
+		
+		JLabel lblNewLabel_2 = new JLabel("Realiza un filtro por un Dentista: ");
+		lblNewLabel_2.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 13));
+		panelBuscar.add(lblNewLabel_2);
+		
+	    comboBoxD = new JComboBox();
+		panelBuscar.add(comboBoxD);
+		
+		JButton btnBuscar = new JButton("BUSCAR");
+		panelBuscar.add(btnBuscar);
+		//btnBuscar.setBorder(new RoundedBorder(20));
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Cita> aCitas ;
+				
+				String nombre=comboBoxD.getSelectedItem().toString();
+				//controlar el filtro segun dentista
+				if(comboBoxD.getSelectedItem().toString()=="Todos") {
+					 aCitas = BD.obtenerListaCitas(con); 
+					System.out.println("TODOS");
+				}else {
+					 aCitas = BD.buscarCitaPorDentista(con,nombre); 
+					System.out.println("ESPECIAL");
+				}
+				
+				Object O [] = null;
+				//limpiar el modelo y volver a escribir
+				for (int i = 0; i < tablaGestionAgenda.getRowCount(); i++) {
+					modelo.removeRow(i);
+					i-=1;
+					}
+				//rellenar con la nueva busqueda-->filtro
+				for (int i = 0; i < aCitas.size(); i++) {
+					modelo.addRow(O);
+					Cita getCita = (Cita) aCitas.get(i);
+					modelo.setValueAt(i, i, 0);
+					modelo.setValueAt(getCita.getDniPaciente(), i, 1);
+					modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
+					modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
+					modelo.setValueAt(getCita.getTipo(), i, 4);
+					modelo.setValueAt(getCita.getNombreDentista(), i, 5);
+				}
+			}
+		});
+		
 		JScrollPane scrollTabla  = new JScrollPane(tablaGestionAgenda);
 		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		contentPane.add(scrollTabla, BorderLayout.CENTER);
+		panelCentro.add(scrollTabla,BorderLayout.CENTER);
 		
 		JPanel panelSur = new JPanel();
 		panelSur.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelSur, BorderLayout.SOUTH);
-		
-		JButton btnBuscar = new JButton("BUSCAR");
-		//btnBuscar.setBorder(new RoundedBorder(20));
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		panelSur.add(btnBuscar); 
 		
 		JButton btnAnadir = new JButton("AÑADIR");
 		btnAnadir.addActionListener(new ActionListener() {
@@ -179,37 +220,6 @@ public class VentanaAgenda extends JFrame {
 		});
 		panelSur.add(btnBorrar);
 		
-		JButton btnModificar = new JButton("MODIFICAR");
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (tablaGestionAgenda.getSelectedRow() != -1) {
-						String dni = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 1).toString();
-			            String nombre = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 2).toString();  
-						Date fecha= sdf.parse("20-02-2022 22:00");
-						//Date fecha= sdf.parse(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 3).toString());
-						TipoCita tipocita=TipoCita.valueOf(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 4).toString());
-						String nombreD=modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 5).toString();
-						Cita cita=new Cita(dni,nombre,nombreD,fecha,tipocita);
-						
-						comboBoxDNI.setSelectedItem(cita.getDniPaciente());
-						textFieldFecha.setText(sdf.format(cita.getFecha()).toString());
-						comboBoxCITA.setSelectedItem(cita.getTipo());
-						comboBoxDENTISTA.setSelectedItem(cita.getNombreDentista());
-						
-						//VentanaModificarCita c=new VentanaModificarCita(cita);
-					}
-					
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		            
-				
-			}
-		});
-		panelSur.add(btnModificar);
-		
 		JSeparator separator = new JSeparator();
 		panelSur.add(separator);
 		
@@ -218,14 +228,16 @@ public class VentanaAgenda extends JFrame {
 		panelEste.setLayout(new BorderLayout(0,0));
 		
 		JPanel pNorteE = new JPanel();
-		pNorteE.setBackground(new Color(176, 196, 222));
+		pNorteE.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		pNorteE.setBackground(SystemColor.inactiveCaption);
 		panelEste.add(pNorteE, BorderLayout.NORTH);
 		JLabel lblTitulo = new JLabel("MODIFICAR PACIENTE: ");
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		pNorteE.add(lblTitulo);
 		
 		JPanel pSurE = new JPanel();
-		pSurE.setBackground(new Color(176, 196, 222));
+		pSurE.setBorder(new LineBorder(SystemColor.desktop, 1, true));
+		pSurE.setBackground(SystemColor.inactiveCaption);
 		panelEste.add(pSurE, BorderLayout.SOUTH);
 		
 		JButton btnAceptar = new JButton("ACEPTAR");
@@ -246,6 +258,7 @@ public class VentanaAgenda extends JFrame {
 		pNorteE.add(lblNombre);
 		
 		JPanel pCentroE = new JPanel();
+		pCentroE.setBorder(new LineBorder(SystemColor.activeCaptionText));
 		panelEste.add(pCentroE, BorderLayout.CENTER);
 		GridBagLayout gbl_pCentroE = new GridBagLayout();
 		gbl_pCentroE.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -401,7 +414,12 @@ public class VentanaAgenda extends JFrame {
 		
 		for(Dentista d: lista) {
 			comboBoxCITA.addItem(d.getNombre());
+			comboBoxD.addItem(d.getNombre());
+			
+//			comboBoxCITA.addItem(d.getNombre()+" "+d.getApellido());
+//			comboBoxD.addItem(d.getNombre()+" "+d.getApellido());
 		}
+		comboBoxD.addItem("Todos");
 	}
 
 	private void CargarComboBoxCita() {

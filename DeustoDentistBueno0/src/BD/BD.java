@@ -468,6 +468,51 @@ public class BD {
 			}
 			return nombre;
 		}
+		
+		/**
+		 * Obtener citas segun dni del dentista
+		 * @param con conexion de bbdd
+		 * @param nombre del dentista a buscar
+		 * @return 
+		 */
+		public static ArrayList<Cita>  buscarCitaPorDentista(Connection con, String nombre) {
+			ArrayList<Cita> lista=new ArrayList<>();
+			
+			Date fechaDate = new Date();
+
+			try {
+				TipoCita tipo;
+				Statement st = con.createStatement();
+				String sql = "SELECT dni, nom_p, fyh, tipo, nom_d FROM cita WHERE nom_d='"+nombre+"'";
+				ResultSet rs = st.executeQuery(sql);
+				while (rs.next()) {
+
+					String dni = rs.getString("dni");
+					String nom_p = rs.getString("nom_p");
+					try {
+						SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+						String fyh = rs.getString("fyh");
+						fechaDate = formato.parse(fyh);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					String t = rs.getString("tipo");
+					tipo = TipoCita.valueOf(t);
+					String nom_d = rs.getString("nom_d");
+
+					Cita c = new Cita(dni, nom_p, nom_d, fechaDate, tipo);
+					lista.add(c);
+
+				}
+				rs.close();
+				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return lista;
+		}
+
 	/*---------Elimina un producto por CÓDIGO--------------*/
 	public static void eliminarProductoPorId(Connection con, int cod_p) {
 
