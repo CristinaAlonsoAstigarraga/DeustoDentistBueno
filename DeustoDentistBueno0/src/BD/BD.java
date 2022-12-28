@@ -20,7 +20,6 @@ import Clases.Producto;
 import Clases.TipoCita;
 
 public class BD { 
-
 	/**
 	 * Método que realiza la conexión con la base de datos
 	 * 
@@ -54,7 +53,10 @@ public class BD {
 			}
 		}
 	}
-
+	/**
+	 * metodo crear la tabla Paciente de las bases de datos
+	 * @param con
+	 */
 	public static void crearTablaPaciente(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Paciente(\r\n" + "dni VARCHAR(10) PRIMARY KEY, \r\n"
 				+ "nom VARCHAR(25),\r\n" + "apellidos VARCHAR(30), \r\n" + "fechaNacimiento VARCHAR(25), \r\n"
@@ -71,6 +73,10 @@ public class BD {
 	}
 
 	/*---------Crea la tabla paciente--------------*/
+	/**
+	 * metodo crear la tabla dentista de las bases de datos
+	 * @param con
+	 */
 	public static void crearTablaDentista(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Dentista (\r\n" + "dni  VARCHAR(10) PRIMARY KEY, \r\n"
 				+ "nom  VARCHAR(25),\r\n" + "apellidos  VARCHAR(25), \r\n" + "fechaNacimiento VARCHAR(25), \r\n"
@@ -87,6 +93,10 @@ public class BD {
 	}
 
 	/*---------Crea la tabla producto--------------*/
+	/**
+	 * metodo crear la tabla producto de las bases de datos
+	 * @param con
+	 */
 	public static void crearTablaProducto(Connection con) {
 
 		String sql = "CREATE TABLE IF NOT EXISTS Producto (\r\n" + "cod_p INTEGER PRIMARY KEY, \r\n"
@@ -103,6 +113,13 @@ public class BD {
 	}
 
 	/*---------Crea la tabla inventario--------------*/
+	/**
+	 * metodod para crear tabla imnventario
+	 * @param con
+	 * @param cod
+	 * @param nom
+	 */
+	
 	public static void crearTablaInventario(Connection con, int cod, String nom) {
 
 		String sql = "CREATE TABLE IF NOT EXISTS Inventario (\r\n"
@@ -121,6 +138,12 @@ public class BD {
 	}
 
 	/*---------Crea la tabla cita--------------*/
+	/**
+	 * metodo crear la tabla Paciente de las bases de datos
+	 * @param con
+	 * @param cod
+	 * @param nom
+	 */
 	public static void crearTablaCita(Connection con, int cod, String nom) {
 
 		String sql = "CREATE TABLE IF NOT EXISTS Cita (\r\n" + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \r\n"
@@ -139,6 +162,12 @@ public class BD {
 	}
 
 	/*---------Crea la tabla historial--------------*/
+	/**
+	 * Metodo para crear la tabla historial
+	 * @param con
+	 * @param cod
+	 * @param nom
+	 */
 	public static void crearTablaHistorial(Connection con, int cod, String nom) {
 
 		String sql = "CREATE TABLE IF NOT EXISTS Historial (\r\n" + "dni VARCHAR(10)PRIMARY KEY, \r\n"
@@ -156,11 +185,22 @@ public class BD {
 	}
 
 	/*---------Añade un paciente a la tabla--------------*/
-	public static void anadirPaciente(Connection con, String dni, String nombre, String apellido, String fecha, String dir, int telf, String gen) {
+	/**
+	 * Metodo para crear un apciente nuevo
+	 * @param con conexion
+	 * @param dni  dni del paciente
+	 * @param nombre nombre del paciente
+	 * @param apellido apellidos del paciente
+	 * @param fecha fecha nacimiento del paciente
+	 * @param dir  direccion del pacienye
+	 * @param telf telefono del paciente
+	 * @param gen genero del paciente
+	 */
+	public static void anadirPaciente(Connection con, String dni, String nombre, String apellido, String fecha,
+			String dir, int telf, String gen) {
 
-		String sql = "INSERT INTO Paciente VALUES ('" + dni + "', '" + nombre + "','" + apellido
-				+ "','" + fecha + "', '" +dir + "'," + telf + ", '"
-				+ gen + "')";
+		String sql = "INSERT INTO Paciente VALUES ('" + dni + "', '" + nombre + "','" + apellido + "','" + fecha
+				+ "', '" + dir + "'," + telf + ", '" + gen + "')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -172,6 +212,11 @@ public class BD {
 	}
 
 	/*---------Añade un dentista a la tabla--------------*/
+	/**
+	 * añadir un nuevo dentista a la bbdd
+	 * @param con conexion de la base de datos
+	 * @param d objento de tipo dentista 
+	 */
 	public static void anadirDentista(Connection con, Dentista d) {
 
 		String sql = "INSERT INTO Dentista VALUES ('" + d.getDni() + "','" + d.getNombre() + "', '" + d.getApellido()
@@ -188,6 +233,11 @@ public class BD {
 	}
 
 	/*---------Añade un producto a la tabla--------------*/
+	/**
+	 * metodo para añadir un producto
+	 * @param con concexion de la bbdd
+	 * @param prod objeto de tipo producto
+	 */
 	public static void anadirProducto(Connection con, Producto prod) {
 
 		String sql = "INSERT INTO Producto VALUES (" + prod.getCodigo() + ", '" + prod.getNombre() + "','"
@@ -202,7 +252,11 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * metodo para añadir un nuevo inventario a la bbdd
+	 * @param con conexion de la bbdd
+	 * @param inv objeto de tipo inventario
+	 */
 	public static void anadirInventario(Connection con, Inventario inv) {
 
 		// EL ID DEL INVENTARIO ES AUTOINCREMENT
@@ -220,13 +274,18 @@ public class BD {
 	}
 
 	/*---------Añade una cita a la tabla--------------*/
+	/**
+	 * metodo ppara añadir cita
+	 * @param con conexion de bbdd
+	 * @param c objeto de tipo cita
+	 */
 	public static void anadirCita(Connection con, Cita c) {
-		 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-		 System.out.println("fecha:"+sdf.format(c.getFecha()));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+		System.out.println("fecha:" + sdf.format(c.getFecha()));
 		String sql = "INSERT INTO Cita (dni,nom_p,fyh,tipo,nom_d) VALUES ('" + c.getDniPaciente() + "','"
-				+ c.getNombrePaciente() + "','" + sdf.format(c.getFecha()) + "', '" + c.getTipo().toString() + "','" + c.getNombreDentista()
-				+ "')";
-		
+				+ c.getNombrePaciente() + "','" + sdf.format(c.getFecha()) + "', '" + c.getTipo().toString() + "','"
+				+ c.getNombreDentista() + "')";
+
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -237,8 +296,12 @@ public class BD {
 		}
 	}
 
-
 	/*---------Añade un historial a la tabla--------------*/
+	/**
+	 * metodo para añadir un nuevo historial
+	 * @param con conexion de bbdd
+	 * @param h objeto de tipo historial
+	 */
 	public static void anadirHistorial(Connection con, Historial h) {
 
 		String sql = "INSERT INTO Historial VALUES ('" + h.getDni() + "', '" + h.getNombre() + "','" + h.getDesc()
@@ -255,6 +318,10 @@ public class BD {
 	}
 
 	/*---------Borra la tabla paciente--------------*/
+	/**
+	 * metodo para borrar la tabla paciente
+	 * @param con
+	 */
 	public static void borrarTablaPaciente(Connection con) {
 		try {
 			Statement st = con.createStatement();
@@ -268,6 +335,10 @@ public class BD {
 	}
 
 	/*---------Borra la tabla dentista--------------*/
+	/**
+	 * metodo para borrar la tabla dentista
+	 * @param con
+	 */
 	public static void borrarTablaDentista(Connection con) {
 		try {
 			Statement st = con.createStatement();
@@ -281,6 +352,10 @@ public class BD {
 	}
 
 	/*---------Borra la tabla cita--------------*/
+	/**
+	 * metodo para borrar la tabla cita
+	 * @param con
+	 */
 	public static void borrarTablaCita(Connection con) {
 		try {
 			Statement st = con.createStatement();
@@ -294,6 +369,10 @@ public class BD {
 	}
 
 	/*---------Borra la tabla producto--------------*/
+	/**
+	 * metodo para borrar la tabla producto
+	 * @param con
+	 */
 	public static void borrarTablaProducto(Connection con) {
 		try {
 			Statement st = con.createStatement();
@@ -307,6 +386,10 @@ public class BD {
 	}
 
 	/*---------Borra la tabla inventario--------------*/
+	/**
+	 * metodo para borrar la tabla inventario
+	 * @param con
+	 */
 	public static void borrarTablaInventario(Connection con) {
 		try {
 			Statement st = con.createStatement();
@@ -320,6 +403,10 @@ public class BD {
 	}
 
 	/*---------Borra la tabla historial--------------*/
+	/**
+	 * metodo para borrar la tabla historial
+	 * @param con
+	 */
 	public static void borrarTablaHistorial(Connection con) {
 		try {
 			Statement st = con.createStatement();
@@ -331,24 +418,40 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-	
-/*----------Modificacion de alguna tupla de la tabla de pacientes------------*/
-	
-	public static void modificarTuplaPaciente(Connection con, String dni, String nom, String ape, String dir, int telf, String gen) {
-		
-		String sql = "UPDATE Paciente SET nom = '" + nom + "', apellidos = '" + ape +"', dir = '" + dir + "', telf = "+ telf +", gen = '"+gen+"'"
-				+ "WHERE dni ='" + dni + "'";
+
+	/*----------Modificacion de alguna tupla de la tabla de pacientes------------*/
+	/**
+	 * metodo para modificar tupla de  un paciente
+	 * @param con conexion a bbdd
+	 * @param dni dni del paciente
+	 * @param nom nombre del paciente
+	 * @param ape apellido del paciente
+	 * @param dir direccin del paciente
+	 * @param telf telefono del paciente
+	 * @param gen genero del paciente
+	 */
+	public static void modificarTuplaPaciente(Connection con, String dni, String nom, String ape, String dir, int telf,
+			String gen) {
+
+		String sql = "UPDATE Paciente SET nom = '" + nom + "', apellidos = '" + ape + "', dir = '" + dir + "', telf = "
+				+ telf + ", gen = '" + gen + "'" + "WHERE dni ='" + dni + "'";
 		try {
-			
+
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
-			st.close();			
+			st.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/*---------Modifica la dirección de una tupla de la tabla paciente--------------*/
+	/**
+	 * metodo para modificar solo la direcion del paciente
+	 * @param con conexion de bbdd
+	 * @param dir direccion del paciente
+	 * @param dni dni del paciente
+	 */
 	public static void modificarPaciente(Connection con, String dir, String dni) {
 
 		String sentSQL = "UPDATE  paciente set dir='" + dir + "' WHERE dni ='" + dni + "' ";
@@ -366,6 +469,12 @@ public class BD {
 	}
 
 	/*---------Modifica el teléfono de una tupla de la tabla paciente--------------*/
+	/**
+	 * metodo para modificar un dentista
+	 * @param con conexion de bbdd
+	 * @param telf telefono del dentista
+	 * @param dni dni del dentista
+	 */
 	public static void modificarDentista(Connection con, int telf, String dni) {
 
 		String sentSQL = "UPDATE  dentista set telf=" + telf + " WHERE dni ='" + dni + "' ";
@@ -383,6 +492,12 @@ public class BD {
 	}
 
 	/*---------Modifica la cantidad de una tupla de la tabla paciente--------------*/
+	/**
+	 * metodo para modificar inventario
+	 * @param con concexion de bbdd
+	 * @param cant cantidad del producto
+	 * @param cod_p codigo del producto
+	 */
 	public static void modificarInventario(Connection con, int cant, int cod_p) {
 
 		String sentSQL = "UPDATE  inventario set cantidad=" + cant + " WHERE cod_p =" + cod_p + " ";
@@ -400,6 +515,7 @@ public class BD {
 	}
 
 	/*---------Modifica el precio de una tupla de la tabla paciente--------------*/
+	
 	public static void modificarProducto(Connection con, float precio, int cod_p) {
 		String sentSQL = "UPDATE producto set precio=" + precio + " WHERE cod_p =" + cod_p + " ";
 
@@ -417,6 +533,12 @@ public class BD {
 	}
 
 	/*---------Modifica la fecha de una tupla de la tabla paciente--------------*/
+	/**
+	 * metodo para modificar unca cita
+	 * @param con conexion de bbdd
+	 * @param fecha fecha de la cita
+	 * @param id id de la cita
+	 */
 	public static void modificarCita(Connection con, String fecha, int id) {
 		String sentSQL = "UPDATE cita set fyh='" + fecha + "' WHERE id =" + id + "";
 
@@ -434,6 +556,11 @@ public class BD {
 	}
 
 	/*---------Elimina un paciente por DNI--------------*/
+	/**
+	 * metodo para borrar paciente segun su dni
+	 * @param con conxexion de bbdd
+	 * @param dni dni del apciente
+	 */
 	public static void eliminarPacientePorDni(Connection con, String dni) {
 
 		String sentSQL = "DELETE FROM Paciente WHERE dni ='" + dni + "'";
@@ -449,69 +576,76 @@ public class BD {
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
 		}
 	}
-	//obtener paciente segun dni
-		public static String buscarPacientePorDni(Connection con, String dni) {
-			String sql = "SELECT * FROM Paciente WHERE dni='"+dni+"'";
-			String nombre = null;
-			try {
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql);
-				
-				if(rs.next()) {
-					nombre = rs.getString("nom");
-				}
-				rs.close();
-				st.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+	// obtener paciente segun dni
+	/**
+	 * metodo para buscar un paciente segun su dni
+	 * @param con conexion de bbdd
+	 * @param dni dni del paciente
+	 * @return
+	 */
+	public static String buscarPacientePorDni(Connection con, String dni) {
+		String sql = "SELECT * FROM Paciente WHERE dni='" + dni + "'";
+		String nombre = null;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			if (rs.next()) {
+				nombre = rs.getString("nom");
 			}
-			return nombre;
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return nombre;
+	}
+
+	/**
+	 * Obtener citas segun dni del dentista
+	 * @param con conexion de bbdd
+	 * @param nombre del dentista a buscar
+	 * @return 
+	 */
+	public static ArrayList<Cita>  buscarCitaPorDentista(Connection con, String nombre) {
+		ArrayList<Cita> lista=new ArrayList<>();
 		
-		/**
-		 * Obtener citas segun dni del dentista
-		 * @param con conexion de bbdd
-		 * @param nombre del dentista a buscar
-		 * @return 
-		 */
-		public static ArrayList<Cita>  buscarCitaPorDentista(Connection con, String nombre) {
-			ArrayList<Cita> lista=new ArrayList<>();
-			
-			Date fechaDate = new Date();
+		Date fechaDate = new Date();
 
-			try {
-				TipoCita tipo;
-				Statement st = con.createStatement();
-				String sql = "SELECT dni, nom_p, fyh, tipo, nom_d FROM cita WHERE nom_d='"+nombre+"'";
-				ResultSet rs = st.executeQuery(sql);
-				while (rs.next()) {
+		try {
+			TipoCita tipo;
+			Statement st = con.createStatement();
+			String sql = "SELECT dni, nom_p, fyh, tipo, nom_d FROM cita WHERE nom_d='"+nombre+"'";
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
 
-					String dni = rs.getString("dni");
-					String nom_p = rs.getString("nom_p");
-					try {
-						SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-						String fyh = rs.getString("fyh");
-						fechaDate = formato.parse(fyh);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					String t = rs.getString("tipo");
-					tipo = TipoCita.valueOf(t);
-					String nom_d = rs.getString("nom_d");
-
-					Cita c = new Cita(dni, nom_p, nom_d, fechaDate, tipo);
-					lista.add(c);
-
+				String dni = rs.getString("dni");
+				String nom_p = rs.getString("nom_p");
+				try {
+					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+					String fyh = rs.getString("fyh");
+					fechaDate = formato.parse(fyh);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				rs.close();
-				st.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String t = rs.getString("tipo");
+				tipo = TipoCita.valueOf(t);
+				String nom_d = rs.getString("nom_d");
+
+				Cita c = new Cita(dni, nom_p, nom_d, fechaDate, tipo);
+				lista.add(c);
+
 			}
-			return lista;
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return lista;
+	}
 
 	/*---------Elimina un producto por CÓDIGO--------------*/
 	public static void eliminarProductoPorId(Connection con, int cod_p) {
@@ -589,9 +723,9 @@ public class BD {
 
 	/*---------Obtiene la lista de pacientes--------------*/
 	public static ArrayList<Paciente> obtenerListaPaciente(Connection con) {
-		
+
 		ArrayList<Paciente> lista = new ArrayList<>();
-		
+
 		Date fechaDate = new Date();
 
 		try {
@@ -629,7 +763,7 @@ public class BD {
 	/*---------Obtiene la lista de dentistas--------------*/
 	public static ArrayList<Dentista> obtenerListaDentista(Connection con) {
 		ArrayList<Dentista> lista = new ArrayList<>();
-		
+
 		Date fechaDate = new Date();
 
 		try {
@@ -644,7 +778,7 @@ public class BD {
 				try {
 					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 					String fechaNacimiento = rs.getString("fechaNacimiento");
-					//fechaDate = formato.parse(fechaNacimiento);
+					// fechaDate = formato.parse(fechaNacimiento);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -717,21 +851,21 @@ public class BD {
 		}
 		return lista;
 	}
-	
-	/*Obtiene lista de inventario*/
-	public static ArrayList<Inventario> obtenerListaInventario(Connection con){
+
+	/* Obtiene lista de inventario */
+	public static ArrayList<Inventario> obtenerListaInventario(Connection con) {
 		ArrayList<Inventario> lista = new ArrayList<>();
-		
+
 		try {
-			
+
 			Statement st = con.createStatement();
 			String sql = "SELECT cod_p, nom, cantidad FROM inventario";
 			ResultSet rs = st.executeQuery(sql);
-			while(rs.next()) { 
-				int cod_p=rs.getInt("cod_p");
-				String nom=rs.getString("nom");
+			while (rs.next()) {
+				int cod_p = rs.getInt("cod_p");
+				String nom = rs.getString("nom");
 				int cantidad = rs.getInt("cantidad");
-				Inventario i=new Inventario(cod_p,nom,cantidad);
+				Inventario i = new Inventario(cod_p, nom, cantidad);
 				lista.add(i);
 			}
 			rs.close();
@@ -742,36 +876,36 @@ public class BD {
 		}
 		return lista;
 	}
-	
-	/*Obtiene lista de citas*/
-	public static ArrayList<Cita> obtenerListaCitas(Connection con){
+
+	/* Obtiene lista de citas */
+	public static ArrayList<Cita> obtenerListaCitas(Connection con) {
 		ArrayList<Cita> lista = new ArrayList<>();
-		
+
 		Date fechaDate = new Date();
-		
+
 		try {
 			TipoCita tipo;
 			Statement st = con.createStatement();
 			String sql = "SELECT dni, nom_p, fyh, tipo, nom_d FROM cita";
 			ResultSet rs = st.executeQuery(sql);
-			while(rs.next()) { 
+			while (rs.next()) {
 
-				String dni=rs.getString("dni");
-				String nom_p=rs.getString("nom_p");
+				String dni = rs.getString("dni");
+				String nom_p = rs.getString("nom_p");
 				try {
-					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 					String fyh = rs.getString("fyh");
 					fechaDate = formato.parse(fyh);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				String t = rs.getString("tipo");
-				tipo=TipoCita.valueOf(t);
-				String nom_d=rs.getString("nom_d");
-				
+				tipo = TipoCita.valueOf(t);
+				String nom_d = rs.getString("nom_d");
+
 				Cita c = new Cita(dni, nom_p, nom_d, fechaDate, tipo);
 				lista.add(c);
-				
+
 			}
 			rs.close();
 			st.close();
@@ -781,5 +915,4 @@ public class BD {
 		}
 		return lista;
 	}
-
 }
