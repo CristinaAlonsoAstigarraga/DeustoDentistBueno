@@ -419,6 +419,26 @@ public class BD {
 		}
 	}
 
+	/**
+	 * metodo para borrar una cita 
+	 * @param con concexion de bbdd
+	 * @param c objeto de tipo cita
+	 */
+	public static void borrarCita(Connection con,Cita c) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM  Cita WHERE id="+c.getId()+"";
+			System.out.println(sql);
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+
 	/*----------Modificacion de alguna tupla de la tabla de pacientes------------*/
 	/**
 	 * metodo para modificar tupla de  un paciente
@@ -543,8 +563,9 @@ public class BD {
 		String sentSQL = "UPDATE cita set fyh='" + fecha + "' WHERE id =" + id + "";
 
 		Statement stmt = null;
-
+		System.out.println(sentSQL);
 		try {
+			
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
@@ -554,7 +575,6 @@ public class BD {
 		}
 
 	}
-
 	/*---------Elimina un paciente por DNI--------------*/
 	/**
 	 * metodo para borrar paciente segun su dni

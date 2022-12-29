@@ -67,6 +67,7 @@ public class VentanaAgenda extends JFrame {
 	private JTextField textFieldFecha, textFieldFechaI;
 	private Date fecha, fecha1;
 	private int id=-1;
+	private Cita cita ;
 	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
@@ -267,6 +268,13 @@ public class VentanaAgenda extends JFrame {
 		panelBorrar.add(panelSurB, BorderLayout.SOUTH);
 
 		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				borrarCita();
+			}
+
+			
+		});
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panelSurB.add(btnBorrar);
 
@@ -507,7 +515,7 @@ public class VentanaAgenda extends JFrame {
 				for (int i = 0; i < aCitas.size(); i++) {
 					modelo.addRow(O);
 					Cita getCita = (Cita) aCitas.get(i);
-					modelo.setValueAt(i, i, 0);
+					modelo.setValueAt((getCita.getId()), i, 0);
 					modelo.setValueAt(getCita.getDniPaciente(), i, 1);
 					modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
 					modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
@@ -547,17 +555,16 @@ public class VentanaAgenda extends JFrame {
 						String dni = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 1).toString();
 						String nombre = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 2).toString();
 						 Date fecha= sdf.parse(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(),3).toString());
-						TipoCita tipocita = TipoCita
-								.valueOf(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 4).toString());
+						TipoCita tipocita = TipoCita.valueOf(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 4).toString());
 						String nombreD = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 5).toString();
-						Cita cita = new Cita(dni, nombre, nombreD, fecha, tipocita);
+						 cita = new Cita(id,dni, nombre, nombreD, fecha, tipocita);
 
 						comboBoxDNI.setSelectedItem(cita.getDniPaciente());
 						textFieldFecha.setText(sdf.format(cita.getFecha()).toString());
 						comboBoxCITA.setSelectedItem(cita.getTipo());
 						comboBoxDENTISTA.setSelectedItem(cita.getNombreDentista());
 
-						// VentanaModificarCita c=new VentanaModificarCita(cita);
+					
 					}
 
 				} catch (ParseException e1) {
@@ -587,7 +594,9 @@ public class VentanaAgenda extends JFrame {
 //				return c;
 //			}
 //		});
-
+		comboBoxCITA.enable(false);
+		comboBoxDENTISTA.enable(false);
+		comboBoxDNI.enable(false);
 		CargarComboBoxDni();
 		CargarComboBoxCita();
 		CargarComBoxDentista();
@@ -628,6 +637,19 @@ public class VentanaAgenda extends JFrame {
 
 	}
 
+	private void borrarCita() {
+		if(cita!=null) {
+			BD.borrarCita(con,cita);
+			JOptionPane.showMessageDialog(null, "SE HA BORRADO LA CITA",
+					"BORRADO", JOptionPane.OK_OPTION);
+		}else {
+			JOptionPane.showMessageDialog(null, "SELECCIONE UNA CITA",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	
 	private void modificarCita() {
 		// comprobar campos no nulos
 		if (!(textFieldFecha.getText().isEmpty())) {
@@ -699,4 +721,5 @@ public class VentanaAgenda extends JFrame {
 		}
 
 	}
+
 }
