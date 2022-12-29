@@ -886,10 +886,10 @@ public class BD {
 		try {
 			TipoCita tipo;
 			Statement st = con.createStatement();
-			String sql = "SELECT dni, nom_p, fyh, tipo, nom_d FROM cita";
+			String sql = "SELECT * FROM cita";
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
-
+				int id=rs.getInt("id");
 				String dni = rs.getString("dni");
 				String nom_p = rs.getString("nom_p");
 				try {
@@ -903,7 +903,7 @@ public class BD {
 				tipo = TipoCita.valueOf(t);
 				String nom_d = rs.getString("nom_d");
 
-				Cita c = new Cita(dni, nom_p, nom_d, fechaDate, tipo);
+				Cita c = new Cita(id,dni, nom_p, nom_d, fechaDate, tipo);
 				lista.add(c);
 
 			}

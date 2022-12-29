@@ -66,7 +66,7 @@ public class VentanaAgenda extends JFrame {
 	private JComboBox<String> comboBoxDNI, comboBoxDNII;
 	private JTextField textFieldFecha, textFieldFechaI;
 	private Date fecha, fecha1;
-
+	private int id=-1;
 	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
@@ -383,7 +383,9 @@ public class VentanaAgenda extends JFrame {
 		gbc_lblFecha1.gridx = 3;
 		gbc_lblFecha1.gridy = 4;
 		pCentroE.add(lblFecha1, gbc_lblFecha1);
-
+		
+		
+		
 		textFieldFecha = new JTextField();
 		GridBagConstraints gbc_textFieldFecha1 = new GridBagConstraints();
 		gbc_textFieldFecha1.insets = new Insets(0, 0, 5, 5);
@@ -454,7 +456,7 @@ public class VentanaAgenda extends JFrame {
 
 			modelo.addRow(O);
 			Cita getCita = (Cita) aCitas.get(i);
-			modelo.setValueAt(i, i, 0);
+			modelo.setValueAt((getCita.getId()), i, 0);
 			modelo.setValueAt(getCita.getDniPaciente(), i, 1);
 			modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
 			modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
@@ -541,11 +543,10 @@ public class VentanaAgenda extends JFrame {
 				System.out.println("evento de raton");
 				try {
 					if (tablaGestionAgenda.getSelectedRow() != -1) {
+						 id = (int) modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 0);
 						String dni = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 1).toString();
 						String nombre = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 2).toString();
-						Date fecha = sdf.parse("20-02-2022 22:00");
-						// Date fecha= sdf.parse(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(),
-						// 3).toString());
+						 Date fecha= sdf.parse(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(),3).toString());
 						TipoCita tipocita = TipoCita
 								.valueOf(modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 4).toString());
 						String nombreD = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 5).toString();
@@ -566,8 +567,6 @@ public class VentanaAgenda extends JFrame {
 
 			}
 		});
-		//falta de terminar 
-		//primero mirar filas vacias y cambio de tabla
 		// render
 
 //		tablaGestionAgenda.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -646,7 +645,10 @@ public class VentanaAgenda extends JFrame {
 							"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
 				}
 
-				//BD.modificarCita(con, fecha.toString(),);
+				//int id=BD.obtenerCita(con,comboBoxDNI.getSelectedItem().toString(), sdf.format(fecha));
+				
+				System.out.println("ID:"+id);
+				BD.modificarCita(con, sdf.format(fecha), id);
 			} else {
 				JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UN DNI VALIDO", "USUARIO NO ENCONTRADO",
 						JOptionPane.ERROR_MESSAGE);
@@ -697,5 +699,4 @@ public class VentanaAgenda extends JFrame {
 		}
 
 	}
-
 }
