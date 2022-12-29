@@ -158,6 +158,9 @@ public class VentanaAgenda extends JFrame {
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertarCita();
+				ArrayList<Cita> aCitas;
+				aCitas = BD.obtenerListaCitas(con);
+				actualizartabla(tablaGestionAgenda, modelo, aCitas);
 			}
 		});
 		btnInsertar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -271,6 +274,9 @@ public class VentanaAgenda extends JFrame {
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				borrarCita();
+				ArrayList<Cita> aCitas;
+				aCitas = BD.obtenerListaCitas(con);
+				actualizartabla(tablaGestionAgenda, modelo, aCitas);
 			}
 
 			
@@ -317,6 +323,9 @@ public class VentanaAgenda extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modificarCita();
+				ArrayList<Cita> aCitas;
+				aCitas = BD.obtenerListaCitas(con);
+				actualizartabla(tablaGestionAgenda, modelo, aCitas);
 			}
 
 		});
@@ -494,36 +503,20 @@ public class VentanaAgenda extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Cita> aCitas;
-
+			
 				String nombre = comboBoxD.getSelectedItem().toString();
 				// controlar el filtro segun dentista
 				if (comboBoxD.getSelectedItem().toString() == "Todos") {
 					aCitas = BD.obtenerListaCitas(con);
-					System.out.println("TODOS");
+					
 				} else {
 					aCitas = BD.buscarCitaPorDentista(con, nombre);
-					System.out.println("ESPECIAL");
 				}
 
-				Object O[] = null;
-				// limpiar el modelo y volver a escribir
-				for (int i = 0; i < tablaGestionAgenda.getRowCount(); i++) {
-					modelo.removeRow(i);
-					i -= 1;
-				}
-				// rellenar con la nueva busqueda-->filtro
-				for (int i = 0; i < aCitas.size(); i++) {
-					modelo.addRow(O);
-					Cita getCita = (Cita) aCitas.get(i);
-					modelo.setValueAt((getCita.getId()), i, 0);
-					modelo.setValueAt(getCita.getDniPaciente(), i, 1);
-					modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
-					modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
-					System.out.println("FECHA DE BBDD: " + sdf.format(getCita.getFecha()));
-					modelo.setValueAt(getCita.getTipo().toString(), i, 4);
-					modelo.setValueAt(getCita.getNombreDentista(), i, 5);
-				}
+				actualizartabla(tablaGestionAgenda,modelo,aCitas);
 			}
+
+			
 		});
 
 		JScrollPane scrollTabla = new JScrollPane(tablaGestionAgenda);
@@ -636,6 +629,32 @@ public class VentanaAgenda extends JFrame {
 		}
 
 	}
+	
+	
+	private void actualizartabla(JTable tablaGestionAgenda, DefaultTableModel modelo, ArrayList<Cita> aCitas) {
+		Object O[] = null;
+		// limpiar el modelo y volver a escribir
+		for (int i = 0; i < tablaGestionAgenda.getRowCount(); i++) {
+			modelo.removeRow(i);
+			i -= 1;
+		}
+		// rellenar con la nueva busqueda-->filtro
+		for (int i = 0; i < aCitas.size(); i++) {
+			modelo.addRow(O);
+			Cita getCita = (Cita) aCitas.get(i);
+			modelo.setValueAt((getCita.getId()), i, 0);
+			modelo.setValueAt(getCita.getDniPaciente(), i, 1);
+			modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
+			modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
+			System.out.println("FECHA DE BBDD: " + sdf.format(getCita.getFecha()));
+			modelo.setValueAt(getCita.getTipo().toString(), i, 4);
+			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
+		}
+		
+	}
+	
+	
+	/*----------OPERACIONES----------*/
 
 	private void borrarCita() {
 		if(cita!=null) {
