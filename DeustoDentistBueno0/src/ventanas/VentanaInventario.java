@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +21,14 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import BD.BD;
+import Clases.Cita;
 import Clases.Inventario;
 import Clases.Paciente;
 import Clases.Producto;
+import Clases.TipoCita;
 
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -32,12 +38,18 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.awt.event.ActionEvent;
 
 public class VentanaInventario extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tablaGestionInventario;
+	private Producto producto;
+	DefaultTableModel modelo;
+	
+	VentanaCompras vc = new VentanaCompras();
+	VentanaAnadirProducto vap = new VentanaAnadirProducto();
 	
 	Connection con = BD.initBD("BaseDatos.db");
 
@@ -64,7 +76,7 @@ public class VentanaInventario extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("INVENTARIO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 950, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -90,24 +102,28 @@ public class VentanaInventario extends JFrame {
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		//Meter la conexón con la Base de Datos
 		
-		String [] columnas = {"ID", "CODIGO PRODUCTO", "NOMBRE PRODUCTO", "CANTIDAD"};
-		ArrayList<Inventario> aInventario = BD.obtenerListaInventario(con);
+		String [] columnas = {"COMPRAR", "ID", "CODIGO PRODUCTO", "NOMBRE PRODUCTO", "DESCRIPCIÓN","PRECIO", "CANTIDAD"};
+		//ArrayList<Inventario> aInventario = BD.obtenerListaInventario(con);
 		List<Producto> productos = BD.obtenerListaProducto(con);
-		DefaultTableModel modelo = new DefaultTableModel(columnas, 3);
+		modelo = new DefaultTableModel(columnas, 0);
 		
-		Object O [] = null;
-		for (int i = 0; i < aInventario.size(); i++) {
-			modelo.addRow(O);
-			Inventario getInventario = (Inventario) aInventario.get(i);
-			modelo.setValueAt(i, i, 0);
-			modelo.setValueAt(getInventario.getCodigoProducto(), i, 1);
-			modelo.setValueAt(getInventario.getNombreProducto(), i, 2);
-			modelo.setValueAt(getInventario.getCantidad(), i, 3);
-		}
-	
-	
 		tablaGestionInventario = new JTable(modelo);
 		tablaGestionInventario.setBounds(100, 100, 450, 300);
+		
+		Object O [] = null;
+		for (int i = 0; i < productos.size(); i++) {
+			modelo.addRow(O);
+			Producto getProducto = productos.get(i);
+			addCheckBox(0, tablaGestionInventario);
+//			DefaultCellEditor chechBox = new DefaultCellEditor(checkbox);
+//			tablaGestionInventaio.getColumnModel().getColumn(0).setCellEditor(checkBox);
+			modelo.setValueAt(i, i, 1);
+			modelo.setValueAt(getProducto.getCodigo(), i, 2);
+			modelo.setValueAt(getProducto.getNombre(), i, 3);
+			modelo.setValueAt(getProducto.getDescripcion(), i, 4);
+			modelo.setValueAt(getProducto.getPrecio(), i, 5);
+			modelo.setValueAt(getProducto.getCantidad(), i, 6);
+		}
 		
 		JScrollPane scrollTabla  = new JScrollPane(tablaGestionInventario);
 		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -124,7 +140,11 @@ public class VentanaInventario extends JFrame {
 		JButton btnAnadir = new JButton("AÑADIR");
 		btnAnadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BD.anadirProducto(con, null);
+//				BD.anadirProducto(con, null);
+//				anadirProducto();
+//				ArrayList<Producto> aProductos;
+//				aProductos = BD.obtenerListaProducto(con);
+				vap.setVisible(true);
 			}
 		});
 		panelSur.add(btnAnadir);
@@ -137,23 +157,44 @@ public class VentanaInventario extends JFrame {
 		});
 		panelSur.add(btnModificar);
 		
-		JButton btnCalcular = new JButton("CALCULAR");
-		btnCalcular.addActionListener(new ActionListener() {
+		JButton btnCompras = new JButton("COMPRAS");
+		/*
+		 * Se seleccionan en la tabla los productos que se quieren comprar y cuando se le da al botón "Compras", 
+		 * se pide el máximo y mínimo importe. Con los tres datos, se generan posibles tickets de compra para esos productos. 
+		 * */
+//		btnCalcular.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String importe = JOptionPane.showInputDialog("Dinero disponible:");
+//				double dineroDisponible = Double.parseDouble(importe);
+//				String resto = JOptionPane.showInputDialog("Dinero sobrante máximo:");
+//				double dineroSobranteMax = Double.parseDouble(resto);
+//				JOptionPane.showMessageDialog(null, combinacionesProductos(productos, dineroDisponible, dineroSobranteMax), "COMPRAS POSBILES", JOptionPane.INFORMATION_MESSAGE);
+//			}
+//		});
+		
+		btnCompras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String importe = JOptionPane.showInputDialog("Dinero disponible:");
-				double dineroDisponible = Double.parseDouble(importe);
-				String resto = JOptionPane.showInputDialog("Dinero sobrante máximo:");
-				double dineroSobranteMax = Double.parseDouble(resto);
-				JOptionPane.showMessageDialog(null, combinacionesProductos(productos, dineroDisponible, dineroSobranteMax), "COMPRAS POSBILES", JOptionPane.INFORMATION_MESSAGE);
+				vc.setVisible(true);
 			}
 		});
-		panelSur.add(btnCalcular);
+		
+		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				borrarP(con);
+				ArrayList<Producto> aProductos;
+				aProductos = BD.obtenerListaProducto(con);
+				actualizartabla(tablaGestionInventario, modelo, aProductos);
+			}
+		});
+		panelSur.add(btnBorrar);
+		panelSur.add(btnCompras);
 		
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
 		
 	}
-
+	
 	private static void combinacionesProductos(List<List<Producto>> resultado,
 												List<Producto> elementos, 
 												double DineroDisponible, 
@@ -183,4 +224,54 @@ public class VentanaInventario extends JFrame {
 		return resultado;		
 	}
 	
+	
+	private void borrarP(Connection con) {
+		int fila = tablaGestionInventario.getSelectedRow();
+		String valor = tablaGestionInventario.getValueAt(fila, 0).toString();
+		String sql = "DELETE FROM Producto WHERE cod_p=" + valor;
+		int seguro = JOptionPane.showConfirmDialog(this,  "¿Desea eliminar el producto?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if(seguro == JOptionPane.YES_OPTION ) {
+			try {
+				Statement st = con.createStatement();
+				st.executeUpdate(sql);
+				st.close();
+				JOptionPane.showMessageDialog(null, "PRODUCTO ELIMINADO CORRECTAMENTE");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "ERROR: " + e + ". INTÉNTELO DE NUEVO.");
+			}
+			
+		}
+	}
+	
+	private void actualizartabla(JTable tablaGestionInventaio, DefaultTableModel modelo, ArrayList<Producto> aProductos) {
+		Object O[] = null;
+		// limpiar el modelo y volver a escribir
+		for (int i = 0; i < tablaGestionInventaio.getRowCount(); i++) {
+			modelo.removeRow(i);
+			i -= 1;
+		}
+		// rellenar con la nueva busqueda-->filtro
+		for (int i = 0; i < aProductos.size(); i++) {
+			modelo.addRow(O);
+			Producto getProducto = (Producto) aProductos.get(i);
+			modelo.setValueAt(getProducto.getCodigo(), i, 0);
+			modelo.setValueAt(getProducto.getNombre(), i, 1);
+			modelo.setValueAt(getProducto.getDescripcion(), i, 2);
+			modelo.setValueAt(getProducto.getPrecio(), i, 3);
+			modelo.setValueAt(getProducto.getCantidad(), i, 4);
+			//BD.obtenerListaProducto(con);
+		}
+		
+	}
+	
+	public void addCheckBox(int column, JTable tablaGestionInventaio) {
+		TableColumn tc = tablaGestionInventaio.getColumnModel().getColumn(column);
+		tc.setCellEditor(tablaGestionInventaio.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(tablaGestionInventaio.getDefaultRenderer(Boolean.class));
+	}
+	
+	
+
 }

@@ -100,7 +100,7 @@ public class BD {
 	public static void crearTablaProducto(Connection con) {
 
 		String sql = "CREATE TABLE IF NOT EXISTS Producto (\r\n" + "cod_p INTEGER PRIMARY KEY, \r\n"
-				+ "nom VARCHAR(20), \r\n" + "desc VARCHAR(40), \r\n" + "precio FLOAT)";
+				+ "nom VARCHAR(20), \r\n" + "desc VARCHAR(40), \r\n" + "precio FLOAT, \r\n" + "cantidad INTEGER)";
 
 		try {
 			Statement st = con.createStatement();
@@ -238,10 +238,24 @@ public class BD {
 	 * @param con concexion de la bbdd
 	 * @param prod objeto de tipo producto
 	 */
-	public static void anadirProducto(Connection con, Producto prod) {
+//	public static void anadirProducto(Connection con, Producto prod) {
+//
+//		String sql = "INSERT INTO Producto (cod_p,nom,desc,precio,cantidad) VALUES (" + prod.getCodigo() + ", '" + prod.getNombre() + "','"
+//				+ prod.getDescripcion() + "'," + prod.getPrecio() + "'," + prod.getCantidad() + ")";
+//
+//		try {
+//			Statement st = con.createStatement();
+//			st.executeUpdate(sql);
+//			st.close();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public static void anadirProducto(Connection con, int cod_p, String nom, String desc, float precio, int cantidad) {
 
-		String sql = "INSERT INTO Producto VALUES (" + prod.getCodigo() + ", '" + prod.getNombre() + "','"
-				+ prod.getDescripcion() + "'," + prod.getPrecio() + ")";
+		String sql = "INSERT INTO Producto (cod_p,nom,desc,precio,cantidad) VALUES ('" + cod_p + "', '" + nom + "','" + desc + "','" + precio + "','" + cantidad + "')";
 
 		try {
 			Statement st = con.createStatement();
@@ -428,6 +442,24 @@ public class BD {
 		try {
 			Statement st = con.createStatement();
 			String sql = "DELETE FROM  Cita WHERE id="+c.getId()+"";
+			System.out.println(sql);
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * metodo para borrar un producto 
+	 * @param con concexion de bbdd
+	 * @param p objeto de tipo produtco
+	 */
+	public static void borrarProducto(Connection con, Producto p) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Producto WHERE cod_p="+p.getCodigo()+"";
 			System.out.println(sql);
 			st.executeUpdate(sql);
 			st.close();
@@ -667,6 +699,31 @@ public class BD {
 		return lista;
 	}
 
+	
+	/**
+	 * Obtener productos segun codigo
+	 * @param con conexion de bbdd
+	 * @param codigo del producto a buscar
+	 * @return 
+	 */
+	public static boolean buscarProducto(Connection con, int cod_p) {
+		String sql = "SELECT * FROM Producto WHERE cod_p='"+cod_p+"'";
+		boolean productoEncontrado = false;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) {
+				productoEncontrado = true;
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return productoEncontrado;
+	}
+	
 	/*---------Elimina un producto por CÓDIGO--------------*/
 	public static void eliminarProductoPorId(Connection con, int cod_p) {
 
@@ -851,15 +908,16 @@ public class BD {
 		try {
 
 			Statement st = con.createStatement();
-			String sql = "SELECT * FROM producto";
+			String sql = "SELECT * FROM producto ORDER BY cantidad ASC";	//Ordenamos la tabla, arriba los que menos cantidad tengan.
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
 				int cod_p = rs.getInt("cod_p");
 				String nom = rs.getString("nom");
 				String desc = rs.getString("desc");
 				float precio = rs.getFloat("precio");
+				int cantidad = rs.getInt("cantidad");
 
-				Producto p = new Producto(cod_p, nom, desc, precio);
+				Producto p = new Producto(cod_p, nom, desc, precio, cantidad);
 				lista.add(p);
 
 			}

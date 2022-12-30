@@ -85,7 +85,7 @@ public class VentanaGestionPacientes extends JFrame {
 		//Meter la conexón con la Base de Datos
 		String [] columnas = {"DNI", "NOMBRE", "APELLIDOS", "FECHA NACIMIENTO", "DIRECCION", "TELEFONO", "GENERO"};
 		ArrayList<Paciente> aPersonas = BD.obtenerListaPaciente(con);
-		DefaultTableModel modelo = new DefaultTableModel(columnas, 3);
+		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 		
 		Object O [] = null;
 		for (int i = 0; i < aPersonas.size(); i++) {

@@ -83,7 +83,7 @@ public class VentanaHistorialClinico extends JFrame {
 		panelCentro.add(tablaGestionHistoriales);
 		String [] columnas = {"DNI", "NOMBRE", "DESCRIPCION"};
 		ArrayList<Historial> aHistoriales = BD.obtenerListaHistorial(con);
-		DefaultTableModel modelo = new DefaultTableModel(columnas, 3);
+		DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 		
 		Object O [] = null;
 		for (int i = 0; i < aHistoriales.size(); i++) {

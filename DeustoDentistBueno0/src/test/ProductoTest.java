@@ -19,10 +19,12 @@ public class ProductoTest {
 	private String newDescripcion = "New descripcion";
 	private float precio = 10;
 	private float newPrecio = 11;
+	private int cantidad = 2;
+	private int newCantidad = 3;
 
 	@Before
 	public void setUp() throws Exception {
-		producto = new Producto(codigo, nombre, descripcion, precio);
+		producto = new Producto(codigo, nombre, descripcion, precio, cantidad);
 	}
 
 //	@After
@@ -50,6 +52,11 @@ public class ProductoTest {
 	public void testGetPrecio() {
 		assertEquals(precio, producto.getPrecio(), 0);
 	}
+	
+	@Test
+	public void testGetCantidad() {
+		assertEquals(cantidad, producto.getCantidad(), 0);
+	}
 
 	// SETTERS:
 
@@ -76,5 +83,12 @@ public class ProductoTest {
 		producto.setPrecio(newPrecio);
 		assertEquals(newPrecio, producto.getPrecio(), 0);
 	}
+	
+	@Test
+	public void testSetCantidad() {
+		producto.setCantidad(newCantidad);
+		assertEquals(newCantidad, producto.getCantidad());
+	}
+
 
 }

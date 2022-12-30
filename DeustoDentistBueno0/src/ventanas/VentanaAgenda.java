@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -455,7 +456,7 @@ public class VentanaAgenda extends JFrame {
 		String[] columnas = { "ID", "DNI", "PACIENTE", "FECHA", "TIPO", "DENTISTA", "ATENDIDO" };
 		ArrayList<Cita> aCitas = BD.obtenerListaCitas(con);
 
-		modelo = new DefaultTableModel(columnas, 3);
+		modelo = new DefaultTableModel(columnas, 0);
 
 		Collections.sort(aCitas, new Comparator<Cita>() {
 			@Override
@@ -479,6 +480,7 @@ public class VentanaAgenda extends JFrame {
 			modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
 			modelo.setValueAt(getCita.getTipo().toString(), i, 4);
 			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
+//			addCheckBox(6, tablaGestionAgenda);
 		}
 		panelCentro.setLayout(new BorderLayout(0, 0));
 
@@ -740,5 +742,11 @@ public class VentanaAgenda extends JFrame {
 		}
 
 	}
+	
+//	public void addCheckBox(int column, JTable tablaGestionAgenda) {
+//		TableColumn tc = tablaGestionAgenda.getColumnModel().getColumn(column);
+//		tc.setCellEditor(tablaGestionAgenda.getDefaultEditor(Boolean.class));
+//		tc.setCellRenderer(tablaGestionAgenda.getDefaultRenderer(Boolean.class));
+//	}
 
 }

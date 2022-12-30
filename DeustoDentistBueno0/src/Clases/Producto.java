@@ -12,6 +12,7 @@ public class Producto {
 	private String nombre;
 	private String descripcion;
 	private float precio; 
+	private int cantidad; 	//Cantidad del producto en el inventario (número de unidades del producto en la clínica)
 	
 	Connection con = BD.initBD("BaseDatos.db");
 	
@@ -19,12 +20,13 @@ public class Producto {
 		
 	}
 	
-	public Producto(int codigo, String nombre, String descripcion, float precio) {
+	public Producto(int codigo, String nombre, String descripcion, float precio, int cantidad) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
+		this.cantidad = cantidad;
 	}
 	
 	
@@ -51,6 +53,12 @@ public class Producto {
 	}
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	@Override
