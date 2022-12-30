@@ -20,6 +20,8 @@ import javax.swing.JToolBar;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.Box;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaExportarDatos extends JFrame {
 
@@ -83,6 +85,16 @@ public class VentanaExportarDatos extends JFrame {
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
+		
+		JButton btnVolver = new JButton("VOLVER AL MENÚ");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal vp = new VentanaPrincipal();
+				vp.setVisible(true);
+				setVisible(false);
+			}
+		});
+		panelSur.add(btnVolver);
 		
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);

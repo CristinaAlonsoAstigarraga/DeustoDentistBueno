@@ -106,6 +106,16 @@ public class VentanaHistorialClinico extends JFrame {
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
+		JButton btnVolver = new JButton("VOLVER AL MENÚ");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal vp = new VentanaPrincipal();
+				vp.setVisible(true);
+				setVisible(false);
+			}
+		});
+		panelSur.add(btnVolver);
+		
 		JButton btnBuscar = new JButton("BUSCAR");
 		panelSur.add(btnBuscar); 
 		

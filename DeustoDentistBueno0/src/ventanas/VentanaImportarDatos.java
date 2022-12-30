@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaImportarDatos extends JFrame {
 
@@ -75,6 +77,16 @@ public class VentanaImportarDatos extends JFrame {
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
+		
+		JButton btnVolver = new JButton("VOLVER AL MENÚ");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal vp = new VentanaPrincipal();
+				vp.setVisible(true);
+				setVisible(false);
+			}
+		});
+		panelSur.add(btnVolver);
 		
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);

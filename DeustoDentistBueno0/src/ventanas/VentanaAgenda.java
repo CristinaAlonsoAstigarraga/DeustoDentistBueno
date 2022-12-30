@@ -529,6 +529,16 @@ public class VentanaAgenda extends JFrame {
 		JPanel panelSur = new JPanel();
 		panelSur.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelSur, BorderLayout.SOUTH);
+		
+		JButton btnVolver = new JButton("VOLVER AL MENÚ");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal vp = new VentanaPrincipal();
+				vp.setVisible(true);
+				setVisible(false);
+			}
+		});
+		panelSur.add(btnVolver);
 
 		JLabel lblNewLabel_3 = new JLabel("aplicacion Dentist");
 		lblNewLabel_3.setForeground(SystemColor.menu);

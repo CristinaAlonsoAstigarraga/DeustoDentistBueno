@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaInicioSesion extends JFrame {
 
@@ -60,6 +62,16 @@ public class VentanaInicioSesion extends JFrame {
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
+		
+		JButton btnVolver = new JButton("VOLVER AL MENÚ");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicio vi = new VentanaInicio();
+				vi.setVisible(true);
+				setVisible(false);
+			}
+		});
+		panelSur.add(btnVolver);
 		
 		JPanel panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
