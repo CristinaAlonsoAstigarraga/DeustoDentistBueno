@@ -469,6 +469,9 @@ public class VentanaAgenda extends JFrame {
 //			System.out.println(c.getFecha()+"\n");
 //		}
 
+		tablaGestionAgenda = new JTable(modelo);
+		tablaGestionAgenda.setBounds(100, 100, 450, 300);
+		
 		Object O[] = null;
 		for (int i = 0; i < aCitas.size(); i++) {
 
@@ -480,12 +483,9 @@ public class VentanaAgenda extends JFrame {
 			modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
 			modelo.setValueAt(getCita.getTipo().toString(), i, 4);
 			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
-//			addCheckBox(6, tablaGestionAgenda);
+			addCheckBox(6, tablaGestionAgenda);
 		}
 		panelCentro.setLayout(new BorderLayout(0, 0));
-
-		tablaGestionAgenda = new JTable(modelo);
-		tablaGestionAgenda.setBounds(100, 100, 450, 300);
 
 		JPanel panelBuscar = new JPanel();
 		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -753,10 +753,10 @@ public class VentanaAgenda extends JFrame {
 
 	}
 	
-//	public void addCheckBox(int column, JTable tablaGestionAgenda) {
-//		TableColumn tc = tablaGestionAgenda.getColumnModel().getColumn(column);
-//		tc.setCellEditor(tablaGestionAgenda.getDefaultEditor(Boolean.class));
-//		tc.setCellRenderer(tablaGestionAgenda.getDefaultRenderer(Boolean.class));
-//	}
+	public void addCheckBox(int column, JTable tablaGestionAgenda) {
+		TableColumn tc = tablaGestionAgenda.getColumnModel().getColumn(column);
+		tc.setCellEditor(tablaGestionAgenda.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(tablaGestionAgenda.getDefaultRenderer(Boolean.class));
+	}
 
 }

@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -21,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import BD.BD;
@@ -41,7 +43,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.awt.event.ActionEvent;
 
-public class VentanaInventario extends JFrame {
+public class VentanaInventario extends JFrame implements TableCellRenderer {
 
 	private JPanel contentPane;
 	private JTable tablaGestionInventario;
@@ -281,6 +283,16 @@ public class VentanaInventario extends JFrame {
 		tc.setCellEditor(tablaGestionInventaio.getDefaultEditor(Boolean.class));
 		tc.setCellRenderer(tablaGestionInventaio.getDefaultRenderer(Boolean.class));
 	}
+
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		// TODO Auto-generated method stub
+		
+		return this;
+	}
+	
+	
 	
 	
 
