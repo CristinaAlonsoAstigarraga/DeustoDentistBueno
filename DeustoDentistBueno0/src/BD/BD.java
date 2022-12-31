@@ -607,6 +607,7 @@ public class BD {
 		}
 
 	}
+	
 	/*---------Elimina un paciente por DNI--------------*/
 	/**
 	 * metodo para borrar paciente segun su dni
@@ -992,5 +993,29 @@ public class BD {
 			e.printStackTrace();
 		}
 		return lista;
+	}
+	/**
+	 * metodo para buscar la descripcion delgistorial de un paciente
+	 * @param con conexion de bbdd
+	 * @param dni dni del paciente
+	 * @return
+	 */
+	public static String buscarHistorial(Connection con, String dni) {
+		String sql = "SELECT * FROM Historial WHERE dni='" + dni + "'";
+		String descripcion = null;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			if (rs.next()) {
+				descripcion = rs.getString("des");
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return descripcion;
 	}
 }

@@ -1,9 +1,14 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
@@ -12,21 +17,34 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import BD.BD;
+import Clases.Paciente;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JToolBar;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class VentanaExportarDatos extends JFrame {
 
 	private JPanel contentPane;
-	
+	private JComboBox <String>comboBoxDni;
+	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
 	 * Launch the application.
@@ -59,45 +77,190 @@ public class VentanaExportarDatos extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelNorte = new JPanel();
+		panelNorte.setBackground(SystemColor.windowBorder);
+		panelNorte.setForeground(SystemColor.windowBorder);
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		panelNorte.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblTituloGP = new JLabel("EXPORTAR DATOS");
+		lblTituloGP.setForeground(Color.WHITE);
 		lblTituloGP.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		lblTituloGP.setHorizontalAlignment(SwingConstants.CENTER);
 		panelNorte.add(lblTituloGP);
 		
-		JPanel panelOeste = new JPanel();
-		contentPane.add(panelOeste, BorderLayout.WEST);
-		
 		JPanel panelCentro = new JPanel();
+		panelCentro.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelCentro, BorderLayout.CENTER);
-		panelCentro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panelCentro.setLayout(new BorderLayout(0, 0));
 		
-		JButton btnHistorial = new JButton("Exportar ficheros historial");
-		panelCentro.add(btnHistorial);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		panelCentro.add(tabbedPane);
 		
-		JButton btnNewButton_1 = new JButton("Exportar ficheros paciente");
-		panelCentro.add(btnNewButton_1);
-		//Meter la conexón con la Base de Datos
-//		tablaGestionPacientes = new JTable();
-//		panelCentro.add(tablaGestionPacientes);
+		/* PANEL HISTORIAL*/
+		JPanel panelHistorial = new JPanel();
+		tabbedPane.addTab("HISTORIAL", null, panelHistorial, null);
+		GridBagLayout gbl_panelHistorial = new GridBagLayout();
+		gbl_panelHistorial.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelHistorial.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelHistorial.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelHistorial.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelHistorial.setLayout(gbl_panelHistorial);
 		
-		JPanel panelSur = new JPanel();
-		contentPane.add(panelSur, BorderLayout.SOUTH);
+		JLabel lbl1 = new JLabel("Generar fichero de historial;");
+		lbl1.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.gridwidth = 7;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 1;
+		gbc_lblNewLabel_1.gridy = 1;
+		panelHistorial.add(lbl1, gbc_lblNewLabel_1);
 		
-		JButton btnVolver = new JButton("VOLVER AL MENÚ");
-		btnVolver.addActionListener(new ActionListener() {
+		JLabel lblNewLabel = new JLabel("SELECCIONE PACIENTE :");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 2;
+		panelHistorial.add(lblNewLabel, gbc_lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("OBSERVACIONES:");
+		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
+		gbc_lblNewLabel_11.gridwidth = 3;
+		gbc_lblNewLabel_11.anchor = GridBagConstraints.SOUTH;
+		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_11.gridx = 4;
+		gbc_lblNewLabel_11.gridy = 2;
+		panelHistorial.add(lblNewLabel_1, gbc_lblNewLabel_11);
+		
+		comboBoxDni=new JComboBox();
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNewCheckBox.gridx = 1;
+		gbc_chckbxNewCheckBox.gridy = 3;
+		panelHistorial.add(comboBoxDni, gbc_chckbxNewCheckBox);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		textArea.setBackground( new Color(220,237,193));
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridheight = 2;
+		gbc_textArea.gridwidth = 5;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 4;
+		gbc_textArea.gridy = 3;
+		panelHistorial.add(textArea, gbc_textArea);
+		
+		JButton btnExpH = new JButton("EXPORTAR");
+		btnExpH.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal vp = new VentanaPrincipal();
-				vp.setVisible(true);
-				setVisible(false);
+				exportarHistorial();
 			}
-		});
-		panelSur.add(btnVolver);
-		
-		JPanel panelEste = new JPanel();
-		contentPane.add(panelEste, BorderLayout.EAST);
-	}
 
+			
+		});
+		btnExpH.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 7;
+		gbc_btnNewButton.gridy = 7;
+		panelHistorial.add(btnExpH, gbc_btnNewButton);
+		
+		/* PANEL PACIENTES*/
+		JPanel panelPacientee = new JPanel();
+		tabbedPane.addTab("PACIENTES", null, panelPacientee, null);
+		GridBagLayout gbl_panelPaciente = new GridBagLayout();
+		gbl_panelPaciente.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelPaciente.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panelPaciente.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelPaciente.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelPacientee.setLayout(gbl_panelPaciente);
+		
+		JLabel lblNewLabel_2 = new JLabel("Generar fichero de pacientes;");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.gridwidth = 7;
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2.gridx = 1;
+		gbc_lblNewLabel_2.gridy = 1;
+		panelPacientee.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		
+		JLabel lblNewLabel1 = new JLabel("OPCIONES FICHERO:");
+		lblNewLabel1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_lblNewLabel1 = new GridBagConstraints();
+		gbc_lblNewLabel1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel1.gridx = 1;
+		gbc_lblNewLabel1.gridy = 2;
+		panelPacientee.add(lblNewLabel1, gbc_lblNewLabel1);
+		
+		JLabel lblNewLabel_11 = new JLabel("OBSERVACIONES:");
+		GridBagConstraints gbc_lblNewLabel_111 = new GridBagConstraints();
+		gbc_lblNewLabel_111.gridwidth = 3;
+		gbc_lblNewLabel_111.anchor = GridBagConstraints.SOUTH;
+		gbc_lblNewLabel_111.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_111.gridx = 4;
+		gbc_lblNewLabel_111.gridy = 2;
+		panelPacientee.add(lblNewLabel_11, gbc_lblNewLabel_111);
+		
+		JCheckBox chckbxNewCheckBox1 = new JCheckBox("CON CABECERA");
+		GridBagConstraints gbc_chckbxNewCheckBox1 = new GridBagConstraints();
+		gbc_chckbxNewCheckBox1.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNewCheckBox1.gridx = 1;
+		gbc_chckbxNewCheckBox1.gridy = 3;
+		panelPacientee.add(chckbxNewCheckBox1, gbc_chckbxNewCheckBox1);
+		
+		JTextArea textArea1 = new JTextArea();
+		textArea1.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		textArea1.setBackground(new Color(255,211,182));
+		GridBagConstraints gbc_textArea1 = new GridBagConstraints();
+		gbc_textArea1.gridheight = 2;
+		gbc_textArea1.gridwidth = 5;
+		gbc_textArea1.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea1.fill = GridBagConstraints.BOTH;
+		gbc_textArea1.gridx = 4;
+		gbc_textArea1.gridy = 3;
+		panelPacientee.add(textArea1, gbc_textArea1);
+		
+		JButton btnNewButton1 = new JButton("EXPORTAR");
+		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_btnNewButton1 = new GridBagConstraints();
+		gbc_btnNewButton1.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton1.gridx = 7;
+		gbc_btnNewButton1.gridy = 7;
+		panelPacientee.add(btnNewButton1, gbc_btnNewButton1);
+		
+		
+	tabbedPane.setBackgroundAt(0, new Color(220,237,193));
+	tabbedPane.setBackgroundAt(1, new Color(255,211,182));
+	
+	CargarComboBoxDni();
+	}
+	private void CargarComboBoxDni() {
+		// TODO Auto-generated method stub
+		ArrayList<Paciente> lista = new ArrayList<>();
+		lista = BD.obtenerListaPaciente(con);
+		for (Paciente p : lista) {
+			comboBoxDni.addItem(p.getDni());
+			
+		}
+	}
+	private void exportarHistorial() {
+		
+		
+		String dni=comboBoxDni.getSelectedItem().toString();
+		//String des=BD.buscarHistorial(con,dni);
+		
+		
+		try(PrintWriter pw=new PrintWriter("Usuarios.csv");) {
+			//escribir cabecera
+			pw.println("DESCRIPCION HISTORIAL");
+				//pw.println(des);
+				
+			
+			
+		}catch(FileNotFoundException e1){
+			e1.printStackTrace();
+		}
+		
+	}
 }

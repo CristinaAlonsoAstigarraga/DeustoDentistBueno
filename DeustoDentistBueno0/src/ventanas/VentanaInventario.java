@@ -50,7 +50,7 @@ public class VentanaInventario extends JFrame implements TableCellRenderer {
 	private Producto producto;
 	DefaultTableModel modelo;
 	
-	VentanaCompras vc = new VentanaCompras();
+	//VentanaCompras vc = new VentanaCompras();
 	VentanaAnadirProducto vap = new VentanaAnadirProducto();
 	
 	Connection con = BD.initBD("BaseDatos.db");
@@ -186,7 +186,7 @@ public class VentanaInventario extends JFrame implements TableCellRenderer {
 		
 		btnCompras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vc.setVisible(true);
+				//vc.setVisible(true);
 			}
 		});
 		
