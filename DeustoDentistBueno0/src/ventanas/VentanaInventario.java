@@ -1,13 +1,11 @@
 package ventanas;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,32 +20,26 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import BD.BD;
-import Clases.Cita;
-import Clases.Inventario;
-import Clases.Paciente;
 import Clases.Producto;
-import Clases.TipoCita;
 
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.awt.event.ActionEvent;
 
-public class VentanaInventario extends JFrame implements TableCellRenderer {
+public class VentanaInventario extends JFrame /*implements TableCellRenderer*/ {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tablaGestionInventario;
-	private Producto producto;
+//	private Producto producto;
 	DefaultTableModel modelo;
 	
 	//VentanaCompras vc = new VentanaCompras();
@@ -239,7 +231,7 @@ public class VentanaInventario extends JFrame implements TableCellRenderer {
 	
 	private void borrarP(Connection con) {
 		int fila = tablaGestionInventario.getSelectedRow();
-		String valor = tablaGestionInventario.getValueAt(fila, 0).toString();
+		String valor = tablaGestionInventario.getValueAt(fila, 2).toString();
 		String sql = "DELETE FROM Producto WHERE cod_p=" + valor;
 		int seguro = JOptionPane.showConfirmDialog(this,  "¿Desea eliminar el producto?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		if(seguro == JOptionPane.YES_OPTION ) {
@@ -254,6 +246,8 @@ public class VentanaInventario extends JFrame implements TableCellRenderer {
 				JOptionPane.showMessageDialog(null, "ERROR: " + e + ". INTÉNTELO DE NUEVO.");
 			}
 			
+		} else {
+			System.out.println("Prueba");
 		}
 	}
 	
@@ -268,13 +262,15 @@ public class VentanaInventario extends JFrame implements TableCellRenderer {
 		for (int i = 0; i < aProductos.size(); i++) {
 			modelo.addRow(O);
 			Producto getProducto = (Producto) aProductos.get(i);
-			modelo.setValueAt(getProducto.getCodigo(), i, 0);
-			modelo.setValueAt(getProducto.getNombre(), i, 1);
-			modelo.setValueAt(getProducto.getDescripcion(), i, 2);
-			modelo.setValueAt(getProducto.getPrecio(), i, 3);
-			modelo.setValueAt(getProducto.getCantidad(), i, 4);
-			//BD.obtenerListaProducto(con);
-		}
+			
+				addCheckBox(0, tablaGestionInventario);
+				modelo.setValueAt(i, i, 1);
+				modelo.setValueAt(getProducto.getCodigo(), i, 2);
+				modelo.setValueAt(getProducto.getNombre(), i, 3);
+				modelo.setValueAt(getProducto.getDescripcion(), i, 4);
+				modelo.setValueAt(getProducto.getPrecio(), i, 5);
+				modelo.setValueAt(getProducto.getCantidad(), i, 6);
+			}
 		
 	}
 	
@@ -284,13 +280,15 @@ public class VentanaInventario extends JFrame implements TableCellRenderer {
 		tc.setCellRenderer(tablaGestionInventaio.getDefaultRenderer(Boolean.class));
 	}
 
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-		// TODO Auto-generated method stub
-		
-		return this;
-	}
+
+
+//	@Override
+//	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+//			int row, int column) {
+//		// TODO Auto-generated method stub
+//		
+//		return this;
+//	}
 	
 	
 	
