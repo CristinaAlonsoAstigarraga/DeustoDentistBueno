@@ -55,6 +55,7 @@ public class VentanaCrearCita extends JFrame {
 				try {
 					VentanaCrearCita frame = new VentanaCrearCita();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

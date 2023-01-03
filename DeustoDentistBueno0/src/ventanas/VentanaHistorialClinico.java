@@ -42,6 +42,7 @@ public class VentanaHistorialClinico extends JFrame {
 				try {
 					VentanaHistorialClinico frame = new VentanaHistorialClinico();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

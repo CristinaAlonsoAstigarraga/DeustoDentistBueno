@@ -43,6 +43,7 @@ public class VentanaAnadirPaciente extends JFrame{
 				try {
 					VentanaAnadirPaciente frame = new VentanaAnadirPaciente();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

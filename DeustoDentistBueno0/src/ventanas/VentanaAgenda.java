@@ -80,6 +80,7 @@ public class VentanaAgenda extends JFrame {
 				try {
 					VentanaAgenda frame = new VentanaAgenda();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -96,7 +97,7 @@ public class VentanaAgenda extends JFrame {
 				.getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("AGENDA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 848, 460);
+		setBounds(100, 100, 922, 496);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

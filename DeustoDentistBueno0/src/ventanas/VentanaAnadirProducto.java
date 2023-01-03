@@ -55,6 +55,7 @@ public class VentanaAnadirProducto extends JFrame {
 				try {
 					VentanaAnadirProducto frame = new VentanaAnadirProducto();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

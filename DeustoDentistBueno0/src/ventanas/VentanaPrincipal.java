@@ -35,6 +35,7 @@ public class VentanaPrincipal extends JFrame {
 				try {
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

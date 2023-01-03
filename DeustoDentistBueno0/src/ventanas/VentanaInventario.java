@@ -56,6 +56,7 @@ public class VentanaInventario extends JFrame /*implements TableCellRenderer*/ {
 				try {
 					VentanaInventario frame = new VentanaInventario();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

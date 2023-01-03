@@ -37,6 +37,7 @@ public class VentanaRegistro extends JFrame {
 				try {
 					VentanaRegistro frame = new VentanaRegistro();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

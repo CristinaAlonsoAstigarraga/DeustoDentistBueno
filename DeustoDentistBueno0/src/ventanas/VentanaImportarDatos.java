@@ -29,6 +29,7 @@ public class VentanaImportarDatos extends JFrame {
 				try {
 					VentanaImportarDatos frame = new VentanaImportarDatos();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

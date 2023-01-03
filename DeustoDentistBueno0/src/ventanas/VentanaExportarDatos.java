@@ -62,6 +62,7 @@ public class VentanaExportarDatos extends JFrame {
 				try {
 					VentanaExportarDatos frame = new VentanaExportarDatos();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -73,6 +74,8 @@ public class VentanaExportarDatos extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaExportarDatos() {
+		this.setResizable(false);//no agrandar pantalla
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("EXPORTAR DATOS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

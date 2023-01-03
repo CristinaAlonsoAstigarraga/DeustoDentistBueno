@@ -32,6 +32,7 @@ public class VentanaInicioSesion extends JFrame {
 				try {
 					VentanaInicioSesion frame = new VentanaInicioSesion();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -19,6 +19,7 @@ public class VentanaCompras extends JFrame {
 				try {
 					VentanaCompras frame = new VentanaCompras();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -46,6 +46,7 @@ public class VentanaGestionPacientes extends JFrame {
 				try {
 					VentanaGestionPacientes frame = new VentanaGestionPacientes();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
