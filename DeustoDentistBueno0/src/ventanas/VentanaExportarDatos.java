@@ -29,14 +29,17 @@ import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -44,6 +47,10 @@ public class VentanaExportarDatos extends JFrame {
 
 	private JPanel contentPane;
 	private JComboBox <String>comboBoxDni;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	private JCheckBox CheckBoxCabecera ;
+	private JTextArea textObserv, textAreaObserH  ;
+	
 	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
@@ -139,17 +146,17 @@ public class VentanaExportarDatos extends JFrame {
 		gbc_chckbxNewCheckBox.gridy = 3;
 		panelHistorial.add(comboBoxDni, gbc_chckbxNewCheckBox);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBorder(new LineBorder(SystemColor.activeCaptionText));
-		textArea.setBackground( new Color(220,237,193));
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridheight = 2;
-		gbc_textArea.gridwidth = 5;
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 4;
-		gbc_textArea.gridy = 3;
-		panelHistorial.add(textArea, gbc_textArea);
+		textAreaObserH = new JTextArea();
+		textAreaObserH.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		textAreaObserH.setBackground( new Color(220,237,193));
+		GridBagConstraints gbc_textAreaObserH = new GridBagConstraints();
+		gbc_textAreaObserH.gridheight = 2;
+		gbc_textAreaObserH.gridwidth = 5;
+		gbc_textAreaObserH.insets = new Insets(0, 0, 5, 5);
+		gbc_textAreaObserH.fill = GridBagConstraints.BOTH;
+		gbc_textAreaObserH.gridx = 4;
+		gbc_textAreaObserH.gridy = 3;
+		panelHistorial.add(textAreaObserH, gbc_textAreaObserH);
 		
 		JButton btnExpH = new JButton("EXPORTAR");
 		btnExpH.addActionListener(new ActionListener() {
@@ -202,32 +209,38 @@ public class VentanaExportarDatos extends JFrame {
 		gbc_lblNewLabel_111.gridy = 2;
 		panelPacientee.add(lblNewLabel_11, gbc_lblNewLabel_111);
 		
-		JCheckBox chckbxNewCheckBox1 = new JCheckBox("CON CABECERA");
-		GridBagConstraints gbc_chckbxNewCheckBox1 = new GridBagConstraints();
-		gbc_chckbxNewCheckBox1.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxNewCheckBox1.gridx = 1;
-		gbc_chckbxNewCheckBox1.gridy = 3;
-		panelPacientee.add(chckbxNewCheckBox1, gbc_chckbxNewCheckBox1);
+		CheckBoxCabecera = new JCheckBox("CON CABECERA");
+		GridBagConstraints gbc_CheckBoxCabecera = new GridBagConstraints();
+		gbc_CheckBoxCabecera.insets = new Insets(0, 0, 5, 5);
+		gbc_CheckBoxCabecera.gridx = 1;
+		gbc_CheckBoxCabecera.gridy = 3;
+		panelPacientee.add(CheckBoxCabecera, gbc_CheckBoxCabecera);
 		
-		JTextArea textArea1 = new JTextArea();
-		textArea1.setBorder(new LineBorder(SystemColor.activeCaptionText));
-		textArea1.setBackground(new Color(255,211,182));
-		GridBagConstraints gbc_textArea1 = new GridBagConstraints();
-		gbc_textArea1.gridheight = 2;
-		gbc_textArea1.gridwidth = 5;
-		gbc_textArea1.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea1.fill = GridBagConstraints.BOTH;
-		gbc_textArea1.gridx = 4;
-		gbc_textArea1.gridy = 3;
-		panelPacientee.add(textArea1, gbc_textArea1);
+	    textObserv = new JTextArea();
+		textObserv.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		textObserv.setBackground(new Color(255,211,182));
+		GridBagConstraints gbc_textObserv = new GridBagConstraints();
+		gbc_textObserv.gridheight = 2;
+		gbc_textObserv.gridwidth = 5;
+		gbc_textObserv.insets = new Insets(0, 0, 5, 5);
+		gbc_textObserv.fill = GridBagConstraints.BOTH;
+		gbc_textObserv.gridx = 4;
+		gbc_textObserv.gridy = 3;
+		panelPacientee.add(textObserv, gbc_textObserv);
 		
-		JButton btnNewButton1 = new JButton("EXPORTAR");
-		btnNewButton1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		GridBagConstraints gbc_btnNewButton1 = new GridBagConstraints();
-		gbc_btnNewButton1.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton1.gridx = 7;
-		gbc_btnNewButton1.gridy = 7;
-		panelPacientee.add(btnNewButton1, gbc_btnNewButton1);
+		JButton btnExportarP = new JButton("EXPORTAR");
+		btnExportarP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exportarFicheroP();
+			}
+
+		});
+		btnExportarP.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_btnExportarP = new GridBagConstraints();
+		gbc_btnExportarP.insets = new Insets(0, 0, 0, 5);
+		gbc_btnExportarP.gridx = 7;
+		gbc_btnExportarP.gridy = 7;
+		panelPacientee.add(btnExportarP, gbc_btnExportarP);
 		
 		
 	tabbedPane.setBackgroundAt(0, new Color(220,237,193));
@@ -245,22 +258,64 @@ public class VentanaExportarDatos extends JFrame {
 		}
 	}
 	private void exportarHistorial() {
+		JFileChooser guardar=new JFileChooser();
+		guardar.setApproveButtonText("Guardar");
+		guardar.showSaveDialog(null);
+		File fichero=new File(guardar.getSelectedFile()+".csv");
 		
 		
 		String dni=comboBoxDni.getSelectedItem().toString();
-		//String des=BD.buscarHistorial(con,dni);
+		String des=BD.buscarHistorial(con,dni);
 		
 		
-		try(PrintWriter pw=new PrintWriter("Usuarios.csv");) {
+		try(PrintWriter pw=new PrintWriter(fichero);) {
 			//escribir cabecera
-			pw.println("DESCRIPCION HISTORIAL");
-				//pw.println(des);
+			pw.println("DESCRIPCION HISTORIAL DEL PACIENTE: "+dni);
+			pw.println(des);
 				
 			
+			pw.println("");
+			
+			pw.println("OBSERVACIONES: "+textAreaObserH.getText());
 			
 		}catch(FileNotFoundException e1){
 			e1.printStackTrace();
 		}
 		
 	}
+
+	private void exportarFicheroP() {
+		
+		JFileChooser guardar=new JFileChooser();
+		guardar.setApproveButtonText("Guardar");
+		guardar.showSaveDialog(null);
+		File fichero=new File(guardar.getSelectedFile()+".csv");
+		
+		
+		try(PrintWriter pw=new PrintWriter(fichero)) {
+			
+			ArrayList<Paciente> lista= BD.obtenerListaPaciente(con);
+			pw.println("FICHERO PACIENTES GENERADO DE FORMA AUTOMATICA");
+			pw.println("");
+			
+			//comprobar si se ha selecionado el  checkbox
+			if(CheckBoxCabecera.isSelected()) {
+				pw.println("NOMBRE;APELLIDO;FECHA NAC;DIRECCION;TELEFONO;GENERO");
+			}//fin if
+			
+			for(int i=0;i<lista.size();i++) {
+				Paciente p=lista.get(i);
+				pw.println(p.getNombre()+";"+p.getApellido()+";"+sdf.format( p.getFechaNacimiento())+";"+p.getDireccion()+";"+p.getTelefono()+";"+p.getGenero());
+				
+			}
+			
+			pw.println("");
+			
+			pw.println("OBSERVACIONES: "+textObserv.getText());
+			
+		}catch(FileNotFoundException e1){
+			e1.printStackTrace();
+		}
+	}
 }
+
