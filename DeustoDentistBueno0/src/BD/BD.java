@@ -1,5 +1,7 @@
 package BD;
-
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -26,6 +28,7 @@ public class BD {
 	 * @param nombreBD : Nombre de la base de datos a la que nos vamos a conectar
 	 * @return Devuelve la conexión a la base de datos
 	 */
+	private static Logger logger;
 	public static Connection initBD(String nombreBD) {
 		Connection con = null;
 		try {
@@ -207,7 +210,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "anadirPaciente: error al añadir un paciente", e );
 		}
 	}
 
@@ -228,7 +231,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "anadirDentista: error al añadir un dentista", e );
 		}
 	}
 
@@ -263,7 +266,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "anadirProducto: error al añadir un producto", e );
 		}
 	}
 	/**
@@ -283,7 +286,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "anadirInventario: error al añadir un inventario", e );
 		}
 	}
 
@@ -306,7 +309,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "anadirCita: error al añadir una cita", e );
 		}
 	}
 
@@ -327,7 +330,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "anadirHistorial: error al añadir un", e );
 		}
 	}
 
@@ -445,6 +448,7 @@ public class BD {
 			System.out.println(sql);
 			st.executeUpdate(sql);
 			st.close();
+			log( Level.INFO, "Cita borrada" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -463,6 +467,7 @@ public class BD {
 			System.out.println(sql);
 			st.executeUpdate(sql);
 			st.close();
+			log( Level.INFO, "Producto con codigo:"+p.getCodigo()+" elimiando" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -513,6 +518,7 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Paciente modificado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
@@ -536,6 +542,7 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Dentista modificado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
@@ -559,6 +566,7 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Inventario modificado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
@@ -577,6 +585,7 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Producto modificado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
@@ -601,6 +610,7 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Cita modificada" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
@@ -624,9 +634,11 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Paciente con dni: "+dni+" eliminado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarPacientePorDni: error en el borrado del paciente con dni:"+dni, e );
 		}
 	}
 
@@ -651,7 +663,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "buscarPacientePorDni: error en la busqueda del paciente con dni:"+dni, e );
 		}
 		return nombre;
 	}
@@ -693,9 +705,10 @@ public class BD {
 			}
 			rs.close();
 			st.close();
+			log( Level.INFO, "Citas encontradas con el dentista: "+nombre, null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "buscarCitaPorDentista: error en la busqueda de citas segun dentista con nombre:"+nombre, e );
 		}
 		return lista;
 	}
@@ -720,7 +733,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "buscarProducto: error en la busqeuda del producto con codigo:"+cod_p, e );
 		}
 		return productoEncontrado;
 	}
@@ -739,6 +752,7 @@ public class BD {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarProducto: error en el borrado del producto con codigo:"+cod_p, e );
 		}
 	}
 
@@ -753,9 +767,11 @@ public class BD {
 			stmt = con.createStatement();
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
+			log( Level.INFO, "Producto eliminado con codigo: "+cod_p , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarProducto: error en el borrado del producto con codigo:"+cod_p, e );
 		}
 	}
 
@@ -766,9 +782,11 @@ public class BD {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
 			st.close();
+			log( Level.INFO, "Cita eliminada " , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarCitaPorId: error en el borrado de cita", e );
 		}
 
 	}
@@ -780,9 +798,11 @@ public class BD {
 			Statement st = con.createStatement();
 			st.executeUpdate(sentSQL);
 			st.close();
+			log( Level.INFO, "Dentista con dni: "+dni+" eliminado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarDentistaPorDni: error en el borrado del dentista con dni:"+dni, e );
 		}
 	}
 
@@ -796,6 +816,7 @@ public class BD {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarHistorialPorDni: error en el borrado del historial con dni:"+dni, e );
 		}
 	}
 
@@ -833,7 +854,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "obtenerListaPaciente: error en la obtencion de la lista", e );
 		}
 		return lista;
 	}
@@ -871,7 +892,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "obtenerListaDentista: error en la obtencion de la lista", e );
 		}
 		return lista;
 	}
@@ -897,7 +918,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "obtenerListaHistorial: error en la obtencion de la lista", e );
 		}
 		return lista;
 	}
@@ -926,7 +947,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "obtenerListaProducto: error en la obtencion de la lista", e );
 		}
 		return lista;
 	}
@@ -951,7 +972,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "ObtenerListaHistorial:error en la obtencion de la lista", e );
 		}
 		return lista;
 	}
@@ -971,6 +992,7 @@ public class BD {
 				int id=rs.getInt("id");
 				String dni = rs.getString("dni");
 				String nom_p = rs.getString("nom_p");
+				//boolean atendido=rs.getBoolean("atendido");
 				try {
 					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy hh:mm");
 					String fyh = rs.getString("fyh");
@@ -990,7 +1012,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "ObtenerListaCitas: error en la lista de citas", e );
 		}
 		return lista;
 	}
@@ -1012,10 +1034,27 @@ public class BD {
 			}
 			rs.close();
 			st.close();
+			log( Level.INFO, "Historial encontrado con exito: " , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log( Level.SEVERE, "BuscarHistorial: error en la busqueda de  historial con dni:"+dni, e );
 		}
 		return descripcion;
+	}
+	
+	private static void log( Level level, String msg, Throwable excepcion ) {
+		if (logger==null) {  // Logger por defecto local:
+			logger = Logger.getLogger( "ficheros-log" );  // Nombre del logger
+			logger.setLevel( Level.ALL );  // Loguea todos los niveles
+			try {
+				logger.addHandler( new FileHandler( "ficheros-log.xml", true ) );  // Y saca el log a fichero xml
+			} catch (Exception e) {
+				logger.log( Level.SEVERE, "No se pudo crear fichero de log", e );
+			}
+		}
+		if (excepcion==null)
+			logger.log( level, msg );
+		else
+			logger.log( level, msg, excepcion );
 	}
 }

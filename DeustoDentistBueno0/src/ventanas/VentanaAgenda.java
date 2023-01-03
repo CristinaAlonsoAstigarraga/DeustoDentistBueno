@@ -659,7 +659,7 @@ public class VentanaAgenda extends JFrame {
 			modelo.setValueAt(getCita.getDniPaciente(), i, 1);
 			modelo.setValueAt(getCita.getNombrePaciente(), i, 2);
 			modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
-			System.out.println("FECHA DE BBDD: " + sdf.format(getCita.getFecha()));
+			//System.out.println("FECHA DE BBDD: " + sdf.format(getCita.getFecha()));
 			modelo.setValueAt(getCita.getTipo().toString(), i, 4);
 			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
 		}
