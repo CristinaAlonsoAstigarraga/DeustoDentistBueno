@@ -23,7 +23,7 @@ public class VentanaPrincipal extends JFrame {
 	VentanaAgenda va = new VentanaAgenda();
 	VentanaExportarDatos ved = new VentanaExportarDatos();
 	VentanaImportarDatos vid = new VentanaImportarDatos();
-	VentanaHistorialClinico vhc = new VentanaHistorialClinico();
+	VentanaHistorial2 vh2 = new VentanaHistorial2();
 	VentanaInventario vi = new VentanaInventario();
 
 	/**
@@ -150,7 +150,7 @@ public class VentanaPrincipal extends JFrame {
 		JButton btnHistorialClinico = new JButton("HISTORIAL CLÍNICO");
 		btnHistorialClinico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vhc.setVisible(true);
+				vh2.setVisible(true);
 				setVisible(false);
 			}
 		});

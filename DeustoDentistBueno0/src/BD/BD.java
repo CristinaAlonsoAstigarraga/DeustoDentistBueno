@@ -474,6 +474,24 @@ public class BD {
 		}
 	}
 	
+	/**
+	 * metodo para borrar un historial
+	 * @param con conexion con la bbdd
+	 * @param h objeto de tipo historial
+	 */
+	public static void borrarHistorial(Connection con, Historial h) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Historial WHERE dni='"+h.getDni()+"'";
+			System.out.println(sql);
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 
 	/*----------Modificacion de alguna tupla de la tabla de pacientes------------*/
@@ -736,6 +754,13 @@ public class BD {
 			log( Level.SEVERE, "buscarProducto: error en la busqeuda del producto con codigo:"+cod_p, e );
 		}
 		return productoEncontrado;
+	}
+	
+	public static ArrayList<Historial>  buscarHistorialPorDNI(Connection con, String dni) {
+		ArrayList<Historial> listaH = new ArrayList<>();
+		
+		return listaH;
+		
 	}
 	
 	/*---------Elimina un producto por CÓDIGO--------------*/
