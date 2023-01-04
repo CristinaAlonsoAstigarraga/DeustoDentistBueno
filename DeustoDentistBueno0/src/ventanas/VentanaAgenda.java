@@ -353,7 +353,7 @@ public class VentanaAgenda extends JFrame {
 		gbc_lblNewLabel1.gridy = 0;
 		pCentroE.add(lblNewLabel, gbc_lblNewLabel1);
 
-		JLabel lblNombre = new JLabel("AQUI EL NOMBRE");
+		JLabel lblNombre = new JLabel("");
 		lblNombre.setForeground(new Color(0, 0, 0));
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
@@ -377,16 +377,17 @@ public class VentanaAgenda extends JFrame {
 		gbc_comboBoxDNI.gridx = 5;
 		gbc_comboBoxDNI.gridy = 3;
 		pCentroE.add(comboBoxDNI, gbc_comboBoxDNI);
-		comboBoxDNI.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-
-				String nombrePaciente = BD.buscarPacientePorDni(con, e.getItem().toString());
-				if (nombrePaciente != null) {
-					lblNombre.setText(nombrePaciente);
-					lblNombre2.setText(nombrePaciente);
-				}
-			}
-		});
+//		comboBoxDNI.addItemListener(new ItemListener() {
+//			public void itemStateChanged(ItemEvent e) {
+//
+//				String nombrePaciente = BD.buscarPacientePorDni(con, e.getItem().toString());
+//				//System.out.println(nombrePaciente);
+//				if (nombrePaciente != null) {
+//					//lblNombre.setText(nombrePaciente);
+//					
+//				}
+//			}
+//		});
 
 		JLabel lblNewLabel_11 = new JLabel("");
 		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
@@ -554,7 +555,7 @@ public class VentanaAgenda extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("evento de raton");
+				//System.out.println("evento de raton");
 				try {
 					if (tablaGestionAgenda.getSelectedRow() != -1) {
 						 id = (int) modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 0);
@@ -565,12 +566,13 @@ public class VentanaAgenda extends JFrame {
 						String nombreD = modelo.getValueAt(tablaGestionAgenda.getSelectedRow(), 5).toString();
 						 cita = new Cita(id,dni, nombre, nombreD, fecha, tipocita);
 
-						comboBoxDNI.setSelectedItem(cita.getDniPaciente());
+						comboBoxDNI.setSelectedItem(cita.getDniPaciente().toString());
 						textFieldFecha.setText(sdf.format(cita.getFecha()).toString());
-						comboBoxCITA.setSelectedItem(cita.getTipo());
-						comboBoxDENTISTA.setSelectedItem(cita.getNombreDentista());
+						comboBoxCITA.setSelectedItem(cita.getTipo().toString());
+						comboBoxDENTISTA.setSelectedItem(cita.getNombreDentista().toString());
 
-					
+						lblNombre2.setText(nombre);
+						lblNombre.setText(nombre);
 					}
 
 				} catch (ParseException e1) {
