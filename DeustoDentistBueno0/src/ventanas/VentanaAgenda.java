@@ -491,7 +491,7 @@ public class VentanaAgenda extends JFrame {
 
 		JPanel panelBuscar = new JPanel();
 		panelBuscar.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelBuscar.setBackground(SystemColor.inactiveCaption);
+		panelBuscar.setBackground(new Color(244, 164, 96));
 		panelCentro.add(panelBuscar, BorderLayout.NORTH);
 
 		JLabel lblNewLabel_2 = new JLabel("Realiza un filtro por un Dentista: ");

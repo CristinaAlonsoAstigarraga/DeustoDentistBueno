@@ -4,13 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
@@ -20,6 +23,7 @@ import java.awt.event.ActionEvent;
 public class VentanaInicioSesion extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 	private JTextField txtUsuario;
 	private JTextField txtContrasenia;
 
@@ -32,7 +36,6 @@ public class VentanaInicioSesion extends JFrame {
 				try {
 					VentanaInicioSesion frame = new VentanaInicioSesion();
 					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);//centrar ventana
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +50,7 @@ public class VentanaInicioSesion extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicio.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("INICIO SESIÓN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 659, 374);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -55,30 +58,32 @@ public class VentanaInicioSesion extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelNorte = new JPanel();
+		panelNorte.setBorder(new LineBorder(SystemColor.desktop));
+		panelNorte.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		
-		JLabel lblTitulo = new JLabel("DeustoDentist");
+		JLabel lblTitulo = new JLabel("INICIO DE SESION");
+		lblTitulo.setForeground(SystemColor.inactiveCaptionBorder);
 		lblTitulo.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		panelNorte.add(lblTitulo);
 		
 		JPanel panelSur = new JPanel();
+		panelSur.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelSur.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
-		JButton btnVolver = new JButton("VOLVER AL MENÚ");
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaInicio vi = new VentanaInicio();
-				vi.setVisible(true);
-				setVisible(false);
-			}
-		});
-		panelSur.add(btnVolver);
-		
-		JPanel panelOeste = new JPanel();
-		contentPane.add(panelOeste, BorderLayout.WEST);
+		JLabel lblNewLabel_1 = new JLabel("Inicio sesion");
+		lblNewLabel_1.setForeground(SystemColor.inactiveCaptionBorder);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 10));
+		panelSur.add(lblNewLabel_1);
 		
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
+		
+		JLabel lblNewLabel = new JLabel("\r\n");
+		lblNewLabel.setBorder(new LineBorder(SystemColor.desktop));
+		lblNewLabel.setIcon(new ImageIcon(VentanaInicioSesion.class.getResource("/img/imagen1 (2) (1) (1).png")));
+		panelEste.add(lblNewLabel);
 		
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
@@ -107,7 +112,19 @@ public class VentanaInicioSesion extends JFrame {
 		panelcentroBoton.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 40));
 		
 		JButton btnInicioSesion = new JButton("INICIAR SESIÓN");
+		btnInicioSesion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panelcentroBoton.add(btnInicioSesion);
+		
+		JButton btnVolver = new JButton("VOLVER AL MENÚ");
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelcentroBoton.add(btnVolver);
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicio vi = new VentanaInicio();
+				vi.setVisible(true);
+				setVisible(false);
+			}
+		});
 	}
 
 }
