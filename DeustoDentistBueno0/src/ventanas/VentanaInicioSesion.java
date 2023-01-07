@@ -26,7 +26,6 @@ import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class VentanaInicioSesion extends JFrame {
-
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField txtUsuario;
@@ -138,12 +137,31 @@ public class VentanaInicioSesion extends JFrame {
 		// TODO Auto-generated method stub
 		String user=txtUsuario.getText();
 		String password=String.valueOf(passwordField.getPassword());
-		String rol=BD.comprobarUsuario(con,user,password);
+		String cifrado=Cifrar(password);
+		
+		String rol=BD.comprobarUsuario(con,user,cifrado);
 		//comprobar usuario bbdd
 		if(!(rol=="")) {
 			vp=new VentanaPrincipal(rol,user);
 			vp.setVisible(true);
 			setVisible(false);
 		}
+	}
+	
+	private String Cifrar(String password) {
+		// TODO Auto-generated method stub
+		char array[]=password.toCharArray();
+		
+		for(int i=0;i<array.length;i++) {
+			array[i]=(char)(array[i]+(char)5);
+		}
+		
+		String encriptado=String.valueOf(array);
+		System.out.println(encriptado);
+		char arrayE[]=encriptado.toCharArray();	
+		
+		
+		
+		return encriptado;
 	}
 }

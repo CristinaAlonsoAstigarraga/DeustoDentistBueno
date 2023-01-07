@@ -20,6 +20,7 @@ import Clases.Inventario;
 import Clases.Paciente;
 import Clases.Producto;
 import Clases.TipoCita;
+import Clases.Usuario;
 
 public class BD { 
 	/**
@@ -1076,7 +1077,7 @@ public class BD {
 	public static String comprobarUsuario(Connection con,String user, String password) {
 		// TODO Auto-generated method stub
 		String rol="";
-		String sql = "SELECT * FROM usuario WHERE user = '" + user +"' AND password='"+password+"'";
+		String sql = "SELECT * FROM usuario WHERE nick = '" + user +"' AND password='"+password+"'";
 		String descripcion = null;
 		try {
 			Statement st = con.createStatement();
@@ -1094,13 +1095,33 @@ public class BD {
 		}
 		return rol;
 	}
-	
+
+	/**
+	 * Metodo de inserccion de un usuario
+	 * @param con 
+	 * 
+	 * @param u objeto de tipo usuario
+	 */
+	public static void insertarUsuario(Connection con, Usuario u) {
+
+		String sql = "INSERT INTO Usuario( nombre,nick,password,Rol) VALUES ('" + u.getNombre()+ "', '" +u.getNick()+ "','" + u.getContrasenia()+"', '"+u.getRol()+"')";
+
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//logger.log(Level.SEVERE, "No se pudo crear un nuevo usuario", e);
+		}
+	}
 	private static void log( Level level, String msg, Throwable excepcion ) {
 		if (logger==null) {  // Logger por defecto local:
 			logger = Logger.getLogger( "ficheros-log" );  // Nombre del logger
 			logger.setLevel( Level.ALL );  // Loguea todos los niveles
 			try {
-				//logger.addHandler( new FileHandler( "ficheros-log.xml", true ) );  // Y saca el log a fichero xml
+				
+				logger.addHandler( new FileHandler( "ficheros-log.xml", true ) );  // Y saca el log a fichero xml
 			} catch (Exception e) {
 				logger.log( Level.SEVERE, "No se pudo crear fichero de log", e );
 			}
@@ -1110,4 +1131,6 @@ public class BD {
 		else
 			logger.log( level, msg, excepcion );
 	}
+
+
 }
