@@ -1066,13 +1066,41 @@ public class BD {
 		}
 		return descripcion;
 	}
+	/**
+	 * metodo para comprobar la existencia del usuario en la bbdd
+	 * @param con conexion bddd
+	 * @param user usuario 
+	 * @param password contraseña
+	 * @return variable rol de tipo String 
+	 */
+	public static String comprobarUsuario(Connection con,String user, String password) {
+		// TODO Auto-generated method stub
+		String rol="";
+		String sql = "SELECT * FROM usuario WHERE user = '" + user +"' AND password='"+password+"'";
+		String descripcion = null;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			if (rs.next()) {
+				rol = rs.getString("Rol");
+			}
+			rs.close();
+			st.close();
+			log( Level.INFO, "Usuario encontrado" , null );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log( Level.SEVERE, "ComprobarUsuario: error en la busqueda del usuario", e );
+		}
+		return rol;
+	}
 	
 	private static void log( Level level, String msg, Throwable excepcion ) {
 		if (logger==null) {  // Logger por defecto local:
 			logger = Logger.getLogger( "ficheros-log" );  // Nombre del logger
 			logger.setLevel( Level.ALL );  // Loguea todos los niveles
 			try {
-				logger.addHandler( new FileHandler( "ficheros-log.xml", true ) );  // Y saca el log a fichero xml
+				//logger.addHandler( new FileHandler( "ficheros-log.xml", true ) );  // Y saca el log a fichero xml
 			} catch (Exception e) {
 				logger.log( Level.SEVERE, "No se pudo crear fichero de log", e );
 			}

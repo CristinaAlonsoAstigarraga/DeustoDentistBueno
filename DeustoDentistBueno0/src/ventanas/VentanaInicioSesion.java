@@ -12,12 +12,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import BD.BD;
+
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class VentanaInicioSesion extends JFrame {
@@ -25,7 +30,9 @@ public class VentanaInicioSesion extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField txtUsuario;
-	private JTextField txtContrasenia;
+	private JPasswordField passwordField;
+	private VentanaPrincipal vp;
+	Connection con = BD.initBD("BaseDatos.db");
 
 	/**
 	 * Launch the application.
@@ -72,11 +79,6 @@ public class VentanaInicioSesion extends JFrame {
 		panelSur.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
-		JLabel lblNewLabel_1 = new JLabel("Inicio sesion");
-		lblNewLabel_1.setForeground(SystemColor.inactiveCaptionBorder);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 10));
-		panelSur.add(lblNewLabel_1);
-		
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
 		
@@ -103,15 +105,21 @@ public class VentanaInicioSesion extends JFrame {
 		JLabel lblContrasenia = new JLabel("Introduzca su contraseña");
 		panelcentroDatos.add(lblContrasenia);
 		
-		txtContrasenia = new JTextField();
-		panelcentroDatos.add(txtContrasenia);
-		txtContrasenia.setColumns(10);
+		passwordField = new JPasswordField();
+		panelcentroDatos.add(passwordField);
 		
 		JPanel panelcentroBoton = new JPanel();
 		panelCentro.add(panelcentroBoton);
 		panelcentroBoton.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 40));
 		
 		JButton btnInicioSesion = new JButton("INICIAR SESIÓN");
+		btnInicioSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comprobarUsuario();
+			}
+
+			
+		});
 		btnInicioSesion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panelcentroBoton.add(btnInicioSesion);
 		
@@ -126,5 +134,16 @@ public class VentanaInicioSesion extends JFrame {
 			}
 		});
 	}
-
+	private void comprobarUsuario() {
+		// TODO Auto-generated method stub
+		String user=txtUsuario.getText();
+		String password=String.valueOf(passwordField.getPassword());
+		String rol=BD.comprobarUsuario(con,user,password);
+		//comprobar usuario bbdd
+		if(!(rol=="")) {
+			vp=new VentanaPrincipal(rol,user);
+			vp.setVisible(true);
+			setVisible(false);
+		}
+	}
 }
