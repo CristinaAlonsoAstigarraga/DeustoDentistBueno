@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,7 +33,8 @@ public class VentanaPrincipal extends JFrame {
 	JButton btnInventario,btnGestionp,btnAgenda,btnImportarDatos,btnHistorialClinico;
 	public ImageIcon imagenFondo;
 	public URL fondo;
-	JLabel lblUsuario;
+	private JLabel lblUsuario;
+	private JLabel lblHora;
 
 	/**
 	 * Launch the application.
@@ -102,10 +105,10 @@ public class VentanaPrincipal extends JFrame {
 		panelSur.setBackground(SystemColor.windowBorder);
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 
-		JLabel lblNewLabel = new JLabel("Principal");
-		lblNewLabel.setForeground(SystemColor.inactiveCaptionBorder);
-		lblNewLabel.setFont(new Font("Tahoma", Font.ITALIC, 10));
-		panelSur.add(lblNewLabel);
+		 lblHora = new JLabel("HORA:");
+		lblHora.setForeground(SystemColor.inactiveCaptionBorder);
+		lblHora.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
+		panelSur.add(lblHora);
 
 		JPanel panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
@@ -202,7 +205,31 @@ public class VentanaPrincipal extends JFrame {
 		});
 		panelHistorialClinico.add(btnHistorialClinico);
 		
+		Runnable r = new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true) {
+					
+					long fecha = System.currentTimeMillis();
+					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+					String d = sdf.format(new Date(fecha));
+					
+					lblHora.setText("HORA: "+d);
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+						
+				}
+			}
+		};
 		
+		Thread t = new Thread(r);
+		
+		t.start();
 	}
 
 	private void comprobarRol(String rol) {
@@ -235,7 +262,8 @@ public class VentanaPrincipal extends JFrame {
 
 		}
 	}
-
+	
+	
 //	@Override
 //    public void paint(Graphics g) {
 //		Dimension tamanio=getSize();
