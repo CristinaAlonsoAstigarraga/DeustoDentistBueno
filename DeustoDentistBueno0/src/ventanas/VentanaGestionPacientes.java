@@ -262,7 +262,7 @@ public class VentanaGestionPacientes extends JFrame{
 		gbc_lblFechaNacimientoI.gridy = 4;
 		panelCentroI.add(lblFechaNacimientoI, gbc_lblFechaNacimientoI);
 		
-		dateChooserFechaNacimientoInsertar = new JDateChooser("dd/MM/yyyy", "##-##-####", '_');
+		dateChooserFechaNacimientoInsertar = new JDateChooser("dd-MM-yyyy", "##-##-####", '_');
 		GridBagConstraints gbc_dateChooserFechaNacimientoInsertar = new GridBagConstraints();
 		gbc_dateChooserFechaNacimientoInsertar.insets = new Insets(0, 0, 5, 5);
 		gbc_dateChooserFechaNacimientoInsertar.fill = GridBagConstraints.HORIZONTAL;
@@ -442,7 +442,7 @@ public class VentanaGestionPacientes extends JFrame{
 		gbc_lblFechaNacimientoM.gridy = 6;
 		pCentroM.add(lblFechaNacimientoM, gbc_lblFechaNacimientoM);
 		
-		dateChooserFechaNacimientoModificar = new JDateChooser("dd/MM/yyyy", "##-##-####", '_');
+		dateChooserFechaNacimientoModificar = new JDateChooser("dd-MM-yyyy", "##-##-####", '_');
 		GridBagConstraints gbc_dateChooserFechaNacimientoModificar = new GridBagConstraints();
 		gbc_dateChooserFechaNacimientoModificar.insets = new Insets(0, 0, 5, 5);
 		gbc_dateChooserFechaNacimientoModificar.fill = GridBagConstraints.HORIZONTAL;
