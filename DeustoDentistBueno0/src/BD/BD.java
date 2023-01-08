@@ -190,21 +190,14 @@ public class BD {
 
 	/*---------Añade un paciente a la tabla--------------*/
 	/**
-	 * Metodo para crear un apciente nuevo
-	 * @param con conexion
-	 * @param dni  dni del paciente
-	 * @param nombre nombre del paciente
-	 * @param apellido apellidos del paciente
-	 * @param fecha fecha nacimiento del paciente
-	 * @param dir  direccion del pacienye
-	 * @param telf telefono del paciente
-	 * @param gen genero del paciente
+	 * Metodo para añadir un paciente a la bbdd
+	 * @param con
+	 * @param p
 	 */
-	public static void anadirPaciente(Connection con, String dni, String nombre, String apellido, String fecha,
-			String dir, int telf, String gen) {
-
-		String sql = "INSERT INTO Paciente VALUES ('" + dni + "', '" + nombre + "','" + apellido + "','" + fecha
-				+ "', '" + dir + "'," + telf + ", '" + gen + "')";
+	public static void anadirPaciente(Connection con, Paciente p) {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+		System.out.println("fecha:" + sdf1.format(p.getFechaNacimiento()));
+		String sql = "INSERT INTO Paciente VALUES ('"+p.getDni()+ "','"+p.getNombre()+"','"+p.getApellido()+"','"+sdf1.format(p.getFechaNacimiento())+"','"+p.getDireccion()+"', " +p.getTelefono()+ ", '"+p.getGenero()+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -497,27 +490,29 @@ public class BD {
 
 	/*----------Modificacion de alguna tupla de la tabla de pacientes------------*/
 	/**
-	 * metodo para modificar tupla de  un paciente
-	 * @param con conexion a bbdd
-	 * @param dni dni del paciente
-	 * @param nom nombre del paciente
-	 * @param ape apellido del paciente
-	 * @param dir direccin del paciente
-	 * @param telf telefono del paciente
-	 * @param gen genero del paciente
+	 * Metodo para modificar tupla de  un paciente
+	 * @param con
+	 * @param dni
+	 * @param nom
+	 * @param ape
+	 * @param fechaNacimiento
+	 * @param dir
+	 * @param telf
+	 * @param gen
 	 */
-	public static void modificarTuplaPaciente(Connection con, String dni, String nom, String ape, String dir, int telf,
-			String gen) {
+	public static void modificarTuplaPaciente(Connection con, String dni, String nom, String ape, String fechaNacimiento, String dir, int telf, String gen) {
 
-		String sql = "UPDATE Paciente SET nom = '" + nom + "', apellidos = '" + ape + "', dir = '" + dir + "', telf = "
-				+ telf + ", gen = '" + gen + "'" + "WHERE dni ='" + dni + "'";
+		String sql = "UPDATE Paciente SET nom = '" + nom + "', apellidos = '" + ape + "', fechaNacimiento = '" + fechaNacimiento + "', dir = '" + dir + "', telf = "
+				+ telf + ", gen = '" + gen + "' WHERE dni ='" + dni + "'";
 		try {
 
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
 			st.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+			log( Level.INFO, "Paciente modificado" , null );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
 		}
 	}
 
@@ -636,30 +631,6 @@ public class BD {
 		}
 
 	}
-	
-	/*---------Elimina un paciente por DNI--------------*/
-	/**
-	 * metodo para borrar paciente segun su dni
-	 * @param con conxexion de bbdd
-	 * @param dni dni del apciente
-	 */
-	public static void eliminarPacientePorDni(Connection con, String dni) {
-
-		String sentSQL = "DELETE FROM Paciente WHERE dni ='" + dni + "'";
-
-		Statement stmt = null;
-
-		try {
-			stmt = con.createStatement();
-			stmt.executeUpdate(sentSQL);
-			stmt.close();
-			log( Level.INFO, "Paciente con dni: "+dni+" eliminado" , null );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
-			log( Level.SEVERE, "eliminarPacientePorDni: error en el borrado del paciente con dni:"+dni, e );
-		}
-	}
 
 	// obtener paciente segun dni
 	/**
@@ -764,6 +735,26 @@ public class BD {
 		
 	}
 	
+	/**
+	 * Metodo para borrar un paciente mediante su DNI
+	 * @param con
+	 * @param paciente
+	 */
+	public static void borrarPaciente(Connection con, Paciente paciente) {
+		try {
+			Statement st = con.createStatement();
+			String sql = "DELETE FROM Paciente WHERE dni='"+paciente.getDni()+"'";
+			System.out.println(sql);
+			st.executeUpdate(sql);
+			st.close();
+			log( Level.INFO, "Paciente con dni: "+paciente.getDni()+" eliminado" , null );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+			log( Level.SEVERE, "eliminarPacientePorDni: error en el borrado del paciente con dni:"+paciente.getDni(), e );
+		}
+	}
+	
 	/*---------Elimina un producto por CÓDIGO--------------*/
 	public static void eliminarProductoPorId(Connection con, int cod_p) {
 
@@ -847,6 +838,11 @@ public class BD {
 	}
 
 	/*---------Obtiene la lista de pacientes--------------*/
+	/**
+	 * Metodo para obtener todos los pacientes
+	 * @param con
+	 * @return
+	 */
 	public static ArrayList<Paciente> obtenerListaPaciente(Connection con) {
 
 		ArrayList<Paciente> lista = new ArrayList<>();
@@ -854,7 +850,6 @@ public class BD {
 		Date fechaDate = new Date();
 
 		try {
-
 			Statement st = con.createStatement();
 			String sql = "SELECT * FROM paciente";
 			ResultSet rs = st.executeQuery(sql);
@@ -863,9 +858,9 @@ public class BD {
 				String nom = rs.getString("nom");
 				String apellidos = rs.getString("apellidos");
 				try {
-					SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat formato1 = new SimpleDateFormat("dd-MM-yyyy");
 					String fechaNacimiento = rs.getString("fechaNacimiento");
-					fechaDate = formato.parse(fechaNacimiento);
+					fechaDate = formato1.parse(fechaNacimiento);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -880,7 +875,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log( Level.SEVERE, "obtenerListaPaciente: error en la obtencion de la lista", e );
+			log( Level.SEVERE, "ObtenerListaPacientes: error en la lista de citas", e );
 		}
 		return lista;
 	}
@@ -1115,6 +1110,7 @@ public class BD {
 			//logger.log(Level.SEVERE, "No se pudo crear un nuevo usuario", e);
 		}
 	}
+	
 	private static void log( Level level, String msg, Throwable excepcion ) {
 		if (logger==null) {  // Logger por defecto local:
 			logger = Logger.getLogger( "ficheros-log" );  // Nombre del logger
