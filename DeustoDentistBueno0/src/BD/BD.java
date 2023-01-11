@@ -631,6 +631,30 @@ public class BD {
 		}
 
 	}
+	
+	/**
+	 * metodo para modificar el historial de un paciente
+	 * @param con conecxion con la bbdd
+	 * @param desc descripcion del historial
+	 * @param dni dni del paciente
+	 */
+	public static void modificarHistorial(Connection con, String desc, String dni) {
+		String sentSQL = "UPDATE historial SET des ='" +desc +"' WHERE dni ='" + dni +"'";
+		Statement stmt = null;
+		System.out.println(sentSQL);
+		
+		try {
+			
+			stmt = con.createStatement();
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+			log( Level.INFO, "Historial modificado" , null );
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+		}
+	}
+	
 
 	// obtener paciente segun dni
 	/**
@@ -729,9 +753,28 @@ public class BD {
 	}
 	
 	public static ArrayList<Historial>  buscarHistorialPorDNI(Connection con, String dni) {
-		ArrayList<Historial> listaH = new ArrayList<>();
-		
-		return listaH;
+		String sql = "SELECT * FROM Historial WHERE dni ='"+dni+"'";
+		ArrayList<Historial> lista = new ArrayList<>();
+
+		try {
+
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String nom = rs.getString("nom");
+				String des = rs.getString("des");
+				Historial h = new Historial(dni, nom, des);
+				lista.add(h);
+
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log( Level.SEVERE, "obtenerListaHistorial: error en la obtencion de la lista", e );
+		}
+		return lista;
+
 		
 	}
 	
