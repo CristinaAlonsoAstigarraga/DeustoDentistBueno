@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -50,11 +51,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaGestionPacientes extends JFrame{
+	
+	private static Logger logger = Logger.getLogger(VentanaGestionPacientes.class.getName());
 
 	private JPanel contentPane;
 	private JTable tablaGestionPacientes;
@@ -63,6 +67,7 @@ public class VentanaGestionPacientes extends JFrame{
 	JDateChooser dateChooserFechaNacimientoInsertar, dateChooserFechaNacimientoModificar;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	private JComboBox<String> comboBoxGInsertar, comboBoxGModificar, comboBoxDNIModificar;
+	private JLabel lblNombrePacienteB;
 	private DefaultTableModel modelo;
 	private Paciente paciente;
 	private ArrayList<Paciente> pacientes;
@@ -544,7 +549,7 @@ public class VentanaGestionPacientes extends JFrame{
 		panelCentralBorrar.add(lblBorrar);
 		lblBorrar.setFont(new Font("Tahoma", Font.ITALIC, 14));
 		
-		JLabel lblNombrePacienteB = new JLabel("");
+		lblNombrePacienteB = new JLabel("");
 		panelCentralBorrar.add(lblNombrePacienteB);
 		
 		/*
@@ -615,33 +620,40 @@ public class VentanaGestionPacientes extends JFrame{
 		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panelCentro.add(scrollTabla, BorderLayout.CENTER);
 		
-//		textFieldBuscar.getDocument().addDocumentListener(new DocumentListener() {
-//			
-//			@Override
-//			public void removeUpdate(DocumentEvent e) {
-//				String buscador = textFieldBuscar.getText();
-//				while(modelo.getRowCount()>0) {
-//					modelo.removeRow(0);
-//				}
-//				for (Paciente p : pacientes) {
-//					if(p.getApellido().startsWith(buscador)) {
-//					}
-//				}
-//				
-//			}
-//			
-//			@Override
-//			public void insertUpdate(DocumentEvent e) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//			
-//			@Override
-//			public void changedUpdate(DocumentEvent e) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
+		TableCellRenderer renderer = (table, value, selected, focus, row, column) ->{
+			JLabel label = new JLabel(value.toString());
+			
+			if(!textFieldBuscar.getText().isBlank() && table.getValueAt(row, 2).toString().contains(textFieldBuscar.getText())) {
+				label.setBackground(Color.GREEN);
+			}
+			
+			label.setOpaque(true);
+			
+			return label;
+		};
+		
+		tablaGestionPacientes.setDefaultRenderer(Object.class, renderer);
+		
+		textFieldBuscar.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				selectRows(textFieldBuscar.getText());
+				tablaGestionPacientes.repaint();
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				selectRows(textFieldBuscar.getText());
+				tablaGestionPacientes.repaint();				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				selectRows(textFieldBuscar.getText());
+				tablaGestionPacientes.repaint();				
+			}
+		});
 		
 		/*
 		 * PANEL SUR
@@ -781,5 +793,9 @@ public class VentanaGestionPacientes extends JFrame{
 					"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public void selectRows(String selectStr) {
+		logger.info("User selecting rows by patient containing: " + selectStr);
 		
+	}
 }
