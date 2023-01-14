@@ -590,21 +590,36 @@ public class BD {
 
 	/*---------Modifica el precio de una tupla de la tabla paciente--------------*/
 	
-	public static void modificarProducto(Connection con, float precio, int cod_p) {
-		String sentSQL = "UPDATE producto set precio=" + precio + " WHERE cod_p =" + cod_p + " ";
+//	public static void modificarProducto(Connection con, float precio, int cod_p) {
+//		String sentSQL = "UPDATE producto set precio=" + precio + " WHERE cod_p =" + cod_p + " ";
+//
+//		Statement stmt = null;
+//
+//		try {
+//			stmt = con.createStatement();
+//			stmt.executeUpdate(sentSQL);
+//			stmt.close();
+//			log( Level.INFO, "Producto modificado" , null );
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
+//		}
+//
+//	}
+	
+	public static void modificarTuplaProducto(Connection con, int cod_p, String nom, String desc, float precio, int cantidad) {
 
-		Statement stmt = null;
-
+		String sql = "UPDATE Producto SET nom = '" + nom + "', desc = '" + desc + "', precio = " + precio + ", cantidad = " + cantidad + " WHERE cod_p = "+ cod_p +" ";
 		try {
-			stmt = con.createStatement();
-			stmt.executeUpdate(sentSQL);
-			stmt.close();
+
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
 			log( Level.INFO, "Producto modificado" , null );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, "SE HA PRODUCIDO UN ERROR");
 		}
-
 	}
 
 	/*---------Modifica la fecha de una tupla de la tabla paciente--------------*/
@@ -734,14 +749,16 @@ public class BD {
 	 * @param codigo del producto a buscar
 	 * @return 
 	 */
-	public static boolean buscarProducto(Connection con, int cod_p) {
+	public static String buscarProducto(Connection con, int cod_p) {
 		String sql = "SELECT * FROM Producto WHERE cod_p='"+cod_p+"'";
 		boolean productoEncontrado = false;
+		String nombre = null;
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			if(rs.next()) {
 				productoEncontrado = true;
+				nombre = rs.getString("nom");
 			}
 			rs.close();
 			st.close();
@@ -749,8 +766,10 @@ public class BD {
 			// TODO Auto-generated catch block
 			log( Level.SEVERE, "buscarProducto: error en la busqeuda del producto con codigo:"+cod_p, e );
 		}
-		return productoEncontrado;
+//		return productoEncontrado;
+		return nombre;
 	}
+	
 	
 	public static ArrayList<Historial>  buscarHistorialPorDNI(Connection con, String dni) {
 		String sql = "SELECT * FROM Historial WHERE dni ='"+dni+"'";

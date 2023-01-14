@@ -29,7 +29,7 @@ public class VentanaPrincipal extends JFrame {
 	VentanaExportarDatos ved = new VentanaExportarDatos();
 	VentanaImportarDatos vid = new VentanaImportarDatos();
 	VentanaHistorial2 vhc = new VentanaHistorial2();
-	VentanaInventario vi = new VentanaInventario();
+	VentanaInventarioFinal vif = new VentanaInventarioFinal();
 	JButton btnInventario,btnGestionp,btnAgenda,btnImportarDatos,btnHistorialClinico;
 	public ImageIcon imagenFondo;
 	public URL fondo;
@@ -171,7 +171,7 @@ public class VentanaPrincipal extends JFrame {
 		btnInventario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnInventario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vi.setVisible(true);
+				vif.setVisible(true);
 				//setVisible(false);
 			}
 		});
