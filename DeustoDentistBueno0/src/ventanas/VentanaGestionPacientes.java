@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -52,12 +53,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 
 import com.toedter.calendar.JDateChooser;
 
 public class VentanaGestionPacientes extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static Logger logger = Logger.getLogger(VentanaGestionPacientes.class.getName());
 
 	private JPanel contentPane;
@@ -70,8 +75,8 @@ public class VentanaGestionPacientes extends JFrame{
 	private JLabel lblNombrePacienteB;
 	private DefaultTableModel modelo;
 	private Paciente paciente;
-	private ArrayList<Paciente> pacientes;
 	private Date fechaNac;
+	private int telf;
 	
 	Connection con = BD.initBD("BaseDatos.db");
 
@@ -317,7 +322,7 @@ public class VentanaGestionPacientes extends JFrame{
 		gbc_lbGeneroI.gridy = 7;
 		panelCentroI.add(lbGeneroI, gbc_lbGeneroI);
 		
-		comboBoxGInsertar = new JComboBox();
+		comboBoxGInsertar = new JComboBox<String>();
 		comboBoxGInsertar.addItem("Masculino");
 		comboBoxGInsertar.addItem("Femenino");
 		GridBagConstraints gbc_comboBoxGInsertar = new GridBagConstraints();
@@ -497,7 +502,7 @@ public class VentanaGestionPacientes extends JFrame{
 		gbc_lbGeneroM.gridy = 9;
 		pCentroM.add(lbGeneroM, gbc_lbGeneroM);
 		
-		comboBoxGModificar = new JComboBox();
+		comboBoxGModificar = new JComboBox<String>();
 		comboBoxGModificar.addItem("Masculino");
 		comboBoxGModificar.addItem("Femenino");
 		GridBagConstraints gbc_comboBoxGModificar = new GridBagConstraints();
@@ -570,6 +575,11 @@ public class VentanaGestionPacientes extends JFrame{
 		ArrayList<Paciente> aPersonas = BD.obtenerListaPaciente(con);
 		
 		modelo = new DefaultTableModel(columnas, 0) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -586,6 +596,11 @@ public class VentanaGestionPacientes extends JFrame{
 		tablaGestionPacientes = new JTable(modelo);
 		tablaGestionPacientes.setBounds(100, 100, 450, 300);
 
+		tablaGestionPacientes.getColumnModel().getColumn(0).setMinWidth(50);
+		tablaGestionPacientes.getColumnModel().getColumn(1).setMinWidth(50);
+		tablaGestionPacientes.getColumnModel().getColumn(2).setMinWidth(70);
+		tablaGestionPacientes.getColumnModel().getColumn(3).setMinWidth(120);
+		tablaGestionPacientes.getColumnModel().getColumn(4).setMinWidth(70);
 		Object O [] = null;
 		for (int i = 0; i < aPersonas.size(); i++) {
 			
@@ -622,7 +637,6 @@ public class VentanaGestionPacientes extends JFrame{
 		
 		TableCellRenderer renderer = (table, value, selected, focus, row, column) ->{
 			JLabel label = new JLabel(value.toString());
-			
 			if(!textFieldBuscar.getText().isBlank() && table.getValueAt(row, 2).toString().contains(textFieldBuscar.getText())) {
 				label.setBackground(Color.GREEN);
 			}
@@ -737,41 +751,60 @@ public class VentanaGestionPacientes extends JFrame{
 	}
 	
 	private void insertarPaciente() {
+		//Creamos expreciones regulares para validar el telefono introducido
+		String erTelf = "[0-9]{9}";
+		String telefono = textFieldTelefonoInsertar.getText();
 		
 		if (!(textFieldApellidoInsertar.getText().isEmpty()) || !(textFieldDirInsertar.getText().isEmpty()) || !(textFieldDNIInsertar.getText().isEmpty())
 				|| !(textFieldNombreInsertar.getText().isEmpty()) || !(textFieldTelefonoInsertar.getText().isEmpty())) {
 			
-			Paciente p = new Paciente();
-			p.setDni(textFieldDNIInsertar.getText());
-			p.setNombre(textFieldNombreInsertar.getText());
-			p.setApellido(textFieldApellidoInsertar.getText());
-			p.setFechaNacimiento(dateChooserFechaNacimientoInsertar.getDate());
-			p.setDireccion(textFieldDirInsertar.getText());
-			p.setTelefono(Integer.parseInt(textFieldTelefonoInsertar.getText()));
-			p.setGenero(comboBoxGInsertar.getSelectedItem().toString());
+			if(Pattern.matches(erTelf, telefono)){
+				
+				telf = Integer.parseInt(telefono);
+			
+				Paciente p = new Paciente();
+				p.setDni(textFieldDNIInsertar.getText());
+				p.setNombre(textFieldNombreInsertar.getText());
+				p.setApellido(textFieldApellidoInsertar.getText());
+				p.setFechaNacimiento(dateChooserFechaNacimientoInsertar.getDate());
+				p.setDireccion(textFieldDirInsertar.getText());
+				p.setTelefono(telf);
+				p.setGenero(comboBoxGInsertar.getSelectedItem().toString());
 			
 			BD.anadirPaciente(con, p);
+			}else {
+				JOptionPane.showMessageDialog(null, "EL NUMERO INTRODUCIDO DEL TELEFONO NO ES VALIDO",
+						"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
+			}
 		}else {
-			JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR VALORES VALIDOS",
-					"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);		}
+			JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR TODOS LOS VALORES",
+					"FALTA DATOS", JOptionPane.ERROR_MESSAGE);		}
 	}
 	
 	private void modificarPaciente() {
+		
+		String erTelf1 = "[0-9]{9}";
+		String telefono1 = textFieldTelefonoModificar.getText();
 		
 		if (!(textFieldApellidoModificar.getText().isEmpty()) || !(textFieldDirModificar.getText().isEmpty()) ||
 			!(textFieldNombreModificar.getText().isEmpty()) || !(textFieldTelefonoModificar.getText().isEmpty())) {
 			
 			String nombrePaciente = BD.buscarPacientePorDni(con, comboBoxDNIModificar.getSelectedItem().toString());
 			if(nombrePaciente != null) {
-				String dni = comboBoxDNIModificar.getSelectedItem().toString();
-				String nombre = textFieldNombreModificar.getText();
-				String apellido = textFieldApellidoModificar.getText();
-				fechaNac = dateChooserFechaNacimientoModificar.getDate();
-				String dir = textFieldDirModificar.getText();
-				int telf = Integer.parseInt(textFieldTelefonoModificar.getText());
-				String gen = comboBoxGModificar.getSelectedItem().toString();
+				if (Pattern.matches(erTelf1, telefono1)) {
+					String dni = comboBoxDNIModificar.getSelectedItem().toString();
+					String nombre = textFieldNombreModificar.getText();
+					String apellido = textFieldApellidoModificar.getText();
+					fechaNac = dateChooserFechaNacimientoModificar.getDate();
+					String dir = textFieldDirModificar.getText();
+					int telf = Integer.parseInt(telefono1);
+					String gen = comboBoxGModificar.getSelectedItem().toString();
 				
-				BD.modificarTuplaPaciente(con, dni, nombre, apellido, sdf.format(fechaNac), dir, telf, gen);
+					BD.modificarTuplaPaciente(con, dni, nombre, apellido, sdf.format(fechaNac), dir, telf, gen);
+				}else {
+					JOptionPane.showMessageDialog(null, "EL NUMERO INTRODUCIDO DEL TELEFONO NO ES VALIDO",
+							"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
+				}
 			}else {
 				JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UN DNI VALIDO", "USUARIO NO ENCONTRADO",
 						JOptionPane.ERROR_MESSAGE);
