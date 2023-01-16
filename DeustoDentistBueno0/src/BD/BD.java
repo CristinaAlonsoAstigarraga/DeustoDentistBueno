@@ -65,7 +65,11 @@ public class BD {
 
 		return con;
 	}
-
+/**
+ * Meotdo para cerrar la conexion
+ * 
+ * @param con conexion con la bbdd
+ */
 	public static void closeBD(Connection con) {
 		if (con != null) {
 			try {
@@ -78,7 +82,7 @@ public class BD {
 	}
 	/**
 	 * metodo crear la tabla Paciente de las bases de datos
-	 * @param con
+	 * @param con variable concexion
 	 */
 	public static void crearTablaPaciente(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Paciente(\r\n" + "dni VARCHAR(10) PRIMARY KEY, \r\n"
@@ -626,6 +630,15 @@ public class BD {
 //
 //	}
 	
+	/**
+	 * metodo encargado de modificar un producto
+	 * @param con paramaetro paar la conexion de bbdd
+	 * @param cod_p codigo del producto
+	 * @param nom nombre del producto
+	 * @param desc descripcion del producto
+	 * @param precio precio del producto
+	 * @param cantidad cantidad del producto
+	 */
 	public static void modificarTuplaProducto(Connection con, int cod_p, String nom, String desc, float precio, int cantidad) {
 
 		String sql = "UPDATE Producto SET nom = '" + nom + "', desc = '" + desc + "', precio = " + precio + ", cantidad = " + cantidad + " WHERE cod_p = "+ cod_p +" ";
@@ -789,7 +802,12 @@ public class BD {
 		return nombre;
 	}
 	
-	
+/**
+ * metodo para buscar un historial por dni
+ * @param  parametro para la conexion de bbdd
+ * @param dni dni del paciente ha modificar
+ * @return arrayList<Historial> arraylist de tipo historial
+ */
 	public static ArrayList<Historial>  buscarHistorialPorDNI(Connection con, String dni) {
 		String sql = "SELECT * FROM Historial WHERE dni ='"+dni+"'";
 		ArrayList<Historial> lista = new ArrayList<>();
@@ -836,6 +854,11 @@ public class BD {
 		}
 	}
 	
+	/**
+	 * metodo eliminar producto por id
+	 * @param con conexion a la bbdd
+	 * @param cod_p codigo del producto
+	 */
 	/*---------Elimina un producto por CÓDIGO--------------*/
 	public static void eliminarProductoPorId(Connection con, int cod_p) {
 
@@ -855,6 +878,11 @@ public class BD {
 	}
 
 	/*---------Elimina un inventario por CÓDIGO--------------*/
+	/**
+	 * metodo para eliminar producto del inventario por id
+	 * @param con parametro para la conexion de bbdd
+	 * @param cod_p codigo del producto
+	 */
 	public static void eliminarInventarioPorIddeProducto(Connection con, int cod_p) {
 
 		String sentSQL = "DELETE FROM Inventario WHERE cod_p =" + cod_p + "";
@@ -874,6 +902,11 @@ public class BD {
 	}
 
 	/*---------Elimina una cita por ID--------------*/
+	/**
+	 * metodo eliminar cita por id
+	 * @param con conexion de bbdd
+	 * @param id id de la cita a eliminar
+	 */
 	public static void eliminarCitaPorId(Connection con, int id) {
 		String sql = "DELETE FROM Cita WHERE id = " + id + "";
 		try {
@@ -890,6 +923,11 @@ public class BD {
 	}
 
 	/*---------Elimina un dentista por DNI--------------*/
+	/**
+	 * metodo eliminar Dentista por dni
+	 * @param con conexio bbdd
+	 * @param dni dni del dentista
+	 */
 	public static void eliminarDentistaPorDni(Connection con, String dni) {
 		String sentSQL = "DELETE FROM Dentista WHERE dni ='" + dni + "'";
 		try {
@@ -905,6 +943,11 @@ public class BD {
 	}
 
 	/*---------Borrar un historial de la bbdd--------------*/
+	/**
+	 * mmetodo para eliminar historial de un apciente por dni
+	 * @param con conexion de bbdd
+	 * @param dni dni del paciente
+	 */
 	public static void eliminarHistorialPorDni(Connection con, String dni) {
 		String sentSQL = "DELETE FROM Historial WHERE dni ='" + dni + "'";
 		try {
@@ -962,6 +1005,12 @@ public class BD {
 	}
 
 	/*---------Obtiene la lista de dentistas--------------*/
+	/**
+	 * metodo para obtener lista de pacientes
+	 * 
+	 * @param con coenxion para la bbdd
+	 * @return ArrayList<Dentista> arraylist de obtjetos de tipo dentista
+	 */
 	public static ArrayList<Dentista> obtenerListaDentista(Connection con) {
 		ArrayList<Dentista> lista = new ArrayList<>();
 
@@ -1000,6 +1049,11 @@ public class BD {
 	}
 
 	/*---------Obtiene la lista de historiales--------------*/
+	/**
+	 * metodo para obtener lista de historiales
+	 * @param con conexion a la bbdd
+	 * @return ArrayList<Historial> arraylist de objetos de tipo historial
+	 */
 	public static ArrayList<Historial> obtenerListaHistorial(Connection con) {
 		ArrayList<Historial> lista = new ArrayList<>();
 
@@ -1026,6 +1080,11 @@ public class BD {
 	}
 
 	/*---------Obtiene la lista de productos--------------*/
+	/**
+	 * metodo para obetner la lista de productos
+	 * @param con
+	 * @return  ArrayList<Producto> arraylist de objetos de tipo Producto
+	 */
 	public static ArrayList<Producto> obtenerListaProducto(Connection con) {
 		ArrayList<Producto> lista = new ArrayList<>();
 
@@ -1055,6 +1114,11 @@ public class BD {
 	}
 
 	/* Obtiene lista de inventario */
+	/**
+	 * Metodo que devuelve lista de inventario
+	 * @param con
+	 * @return ArrayList<Inventario> ArrayList de objetos de tipo Inventario
+	 */
 	public static ArrayList<Inventario> obtenerListaInventario(Connection con) {
 		ArrayList<Inventario> lista = new ArrayList<>();
 
@@ -1080,6 +1144,11 @@ public class BD {
 	}
 
 	/* Obtiene lista de citas */
+	/**
+	 *  Metodo para obtener lista de citas
+	 * @param con
+	 * @return ArrayList<Cita>
+	 */
 	public static ArrayList<Cita> obtenerListaCitas(Connection con) {
 		ArrayList<Cita> lista = new ArrayList<>();
 
@@ -1193,6 +1262,12 @@ public class BD {
 		}
 	}
 	
+	/**
+	 * Metodo para generar los loggers
+	 * @param level nivel del logger
+	 * @param msg mensaje del logger
+	 * @param excepcion excepcion pproducida
+	 */
 	private static void log( Level level, String msg, Throwable excepcion ) {
 		if (logger==null) {  // Logger por defecto local:
 			logger = Logger.getLogger( "ficheros-log" );  // Nombre del logger

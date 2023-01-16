@@ -864,3 +864,283 @@
   </exception>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T22:43:38.826932Z</date>
+  <millis>1673909018826</millis>
+  <nanos>932000</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T22:50:47.777335900Z</date>
+  <millis>1673909447777</millis>
+  <nanos>335900</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+<record>
+  <date>2023-01-16T22:50:55.515714Z</date>
+  <millis>1673909455515</millis>
+  <nanos>714000</nanos>
+  <sequence>1</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:01:22.063511300Z</date>
+  <millis>1673910082063</millis>
+  <nanos>511300</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:03:14.243666600Z</date>
+  <millis>1673910194243</millis>
+  <nanos>666600</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:04:11.390056200Z</date>
+  <millis>1673910251390</millis>
+  <nanos>56200</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:05:19.970622800Z</date>
+  <millis>1673910319970</millis>
+  <nanos>622800</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:06:16.817693500Z</date>
+  <millis>1673910376817</millis>
+  <nanos>693500</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:13:02.310312300Z</date>
+  <millis>1673910782310</millis>
+  <nanos>312300</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+<record>
+  <date>2023-01-16T23:13:07.396085400Z</date>
+  <millis>1673910787396</millis>
+  <nanos>85400</nanos>
+  <sequence>1</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:13:42.791521500Z</date>
+  <millis>1673910822791</millis>
+  <nanos>521500</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:14:34.618150900Z</date>
+  <millis>1673910874618</millis>
+  <nanos>150900</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:14:56.106843500Z</date>
+  <millis>1673910896106</millis>
+  <nanos>843500</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:15:10.913899700Z</date>
+  <millis>1673910910913</millis>
+  <nanos>899700</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:15:37.774762800Z</date>
+  <millis>1673910937774</millis>
+  <nanos>762800</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:16:14.879313600Z</date>
+  <millis>1673910974879</millis>
+  <nanos>313600</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:19:57.812243700Z</date>
+  <millis>1673911197812</millis>
+  <nanos>243700</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-16T23:20:24.630669Z</date>
+  <millis>1673911224630</millis>
+  <nanos>669000</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
