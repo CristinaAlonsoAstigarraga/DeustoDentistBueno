@@ -2,6 +2,9 @@ package BD;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,6 +13,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
@@ -31,9 +35,24 @@ public class BD {
 	 */
 	private static Logger logger;
 	public static Connection initBD(String nombreBD) {
+		String name = null;
+		//leer fichero properrties
+		Properties p=new Properties();
+		try {
+			p.load(new FileReader("config.properties"));
+			 name=p.getProperty("namesqlite");
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		//realizar conexion
 		Connection con = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
+			Class.forName(name);
 			con = DriverManager.getConnection("jdbc:sqlite:" + nombreBD);
 
 		} catch (ClassNotFoundException e) {
