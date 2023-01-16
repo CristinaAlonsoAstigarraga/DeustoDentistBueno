@@ -74,24 +74,26 @@ public class VentanaAgenda extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAgenda frame = new VentanaAgenda();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);//centrar ventana
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaAgenda frame = new VentanaAgenda();
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);//centrar ventana
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
+	 * @param rol 
+	 * @param user 
 	 */
-	public VentanaAgenda() {
+	public VentanaAgenda(String rol, String user) {
 		VentanaCrearCita v_cita = new VentanaCrearCita();
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
@@ -535,7 +537,9 @@ public class VentanaAgenda extends JFrame {
 		JButton btnVolver = new JButton("VOLVER AL MENÚ");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal vp = new VentanaPrincipal();
+				System.out.println("ROL:"+rol);
+				System.out.println("USER:"+user);
+				VentanaPrincipal vp = new VentanaPrincipal(rol, user);
 				vp.setVisible(true);
 				setVisible(false);
 			}

@@ -71,23 +71,25 @@ public class VentanaHistorial2 extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaHistorial2 frame = new VentanaHistorial2();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaHistorial2 frame = new VentanaHistorial2();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
+	 * @param user 
+	 * @param rol 
 	 */
-	public VentanaHistorial2() {
+	public VentanaHistorial2(String rol, String user) {
 		cambio = true;
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
@@ -447,7 +449,7 @@ public class VentanaHistorial2 extends JFrame {
 		JButton btnVolver = new JButton("VOLVER AL MENÚ");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal vp = new VentanaPrincipal();
+				VentanaPrincipal vp = new VentanaPrincipal(rol,user);
 				vp.setVisible(true);
 				setVisible(false);
 			}

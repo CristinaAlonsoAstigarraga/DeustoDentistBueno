@@ -81,23 +81,25 @@ public class VentanaInventarioFinal extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaInventarioFinal frame = new VentanaInventarioFinal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaInventarioFinal frame = new VentanaInventarioFinal();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
+	 * @param user 
+	 * @param rol 
 	 */
-	public VentanaInventarioFinal() {
+	public VentanaInventarioFinal(String rol, String user) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInventarioFinal.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("GESTIÓN INVENTARIO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -626,7 +628,7 @@ public class VentanaInventarioFinal extends JFrame{
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal vp = new VentanaPrincipal();
+				VentanaPrincipal vp = new VentanaPrincipal(rol,user);
 				vp.setVisible(true);
 				setVisible(false);
 				

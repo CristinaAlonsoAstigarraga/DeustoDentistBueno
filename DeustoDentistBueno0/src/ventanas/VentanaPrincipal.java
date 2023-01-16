@@ -22,20 +22,21 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 
 public class VentanaPrincipal extends JFrame {
-
+	String rol="";
+	String user="";
 	private JPanel contentPane;
-	VentanaGestionPacientes vgp = new VentanaGestionPacientes();
-	VentanaAgenda va = new VentanaAgenda();
-	VentanaExportarDatos ved = new VentanaExportarDatos();
+	
+	
+	
 	VentanaImportarDatos vid = new VentanaImportarDatos();
-	VentanaHistorial2 vhc = new VentanaHistorial2();
-	VentanaInventarioFinal vif = new VentanaInventarioFinal();
+
+	
 	JButton btnInventario,btnGestionp,btnAgenda,btnImportarDatos,btnHistorialClinico;
 	public ImageIcon imagenFondo;
 	public URL fondo;
 	private JLabel lblUsuario;
 	private JLabel lblHora;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -63,6 +64,8 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	public VentanaPrincipal(String rol,	String user) {
+		this.rol=rol;
+		this.user=user;
 		components();
 		comprobarRol(rol);
 		lblUsuario.setText("  USUARIO: "+user);
@@ -128,6 +131,7 @@ public class VentanaPrincipal extends JFrame {
 		btnGestionp.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnGestionp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaGestionPacientes vgp = new VentanaGestionPacientes(rol,user);
 				vgp.setVisible(true);
 				setVisible(false);
 			}
@@ -143,8 +147,9 @@ public class VentanaPrincipal extends JFrame {
 		btnAgenda.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAgenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaAgenda va = new VentanaAgenda(rol,user);
 				va.setVisible(true);
-				//setVisible(false);
+				setVisible(false);
 			}
 		});
 		panelAgenda.add(btnAgenda);
@@ -171,6 +176,7 @@ public class VentanaPrincipal extends JFrame {
 		btnInventario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnInventario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaInventarioFinal vif = new VentanaInventarioFinal(rol,user);
 				vif.setVisible(true);
 				//setVisible(false);
 			}
@@ -185,6 +191,7 @@ public class VentanaPrincipal extends JFrame {
 		btnExportarDatos.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExportarDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaExportarDatos ved = new VentanaExportarDatos(rol,user);
 				ved.setVisible(true);
 				//setVisible(false);
 			}
@@ -199,6 +206,7 @@ public class VentanaPrincipal extends JFrame {
 		btnHistorialClinico.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnHistorialClinico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VentanaHistorial2 vhc = new VentanaHistorial2(rol,user);
 				vhc.setVisible(true);
 				//setVisible(false);
 			}
@@ -249,7 +257,7 @@ public class VentanaPrincipal extends JFrame {
 			btnGestionp.setEnabled(true);
 			btnAgenda.setEnabled(true);
 			btnImportarDatos.setEnabled(true);
-			btnHistorialClinico.setEnabled(true);
+			btnHistorialClinico.setEnabled(false);
 			break;
 		case "DENTISTA":
 			btnInventario.setEnabled(false);

@@ -83,23 +83,25 @@ public class VentanaGestionPacientes extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaGestionPacientes frame = new VentanaGestionPacientes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaGestionPacientes frame = new VentanaGestionPacientes();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
+	 * @param user 
+	 * @param rol 
 	 */
-	public VentanaGestionPacientes() {
+	public VentanaGestionPacientes(String rol, String user) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
 		setTitle("GESTIÓN PACIENTES");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -680,7 +682,7 @@ public class VentanaGestionPacientes extends JFrame{
 		btnVolver.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal vp = new VentanaPrincipal();
+				VentanaPrincipal vp = new VentanaPrincipal(rol,user);
 				vp.setVisible(true);
 				setVisible(false);
 				

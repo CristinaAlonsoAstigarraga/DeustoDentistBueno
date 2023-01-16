@@ -55,25 +55,27 @@ public class VentanaExportarDatos extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaExportarDatos frame = new VentanaExportarDatos();
-					frame.setVisible(true);
-					frame.setLocationRelativeTo(null);//centrar ventana
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VentanaExportarDatos frame = new VentanaExportarDatos();
+//					frame.setVisible(true);
+//					frame.setLocationRelativeTo(null);//centrar ventana
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
+	 * @param user 
+	 * @param rol 
 	 */
-	public VentanaExportarDatos() {
+	public VentanaExportarDatos(String rol, String user) {
 		this.setResizable(false);//no agrandar pantalla
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
@@ -175,6 +177,21 @@ public class VentanaExportarDatos extends JFrame {
 		gbc_btnNewButton.gridx = 7;
 		gbc_btnNewButton.gridy = 7;
 		panelHistorial.add(btnExpH, gbc_btnNewButton);
+		
+		JButton button = new JButton("MENU");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal vp = new VentanaPrincipal(rol,user);
+				vp.setVisible(true);
+				setVisible(false);
+			}
+		});
+		button.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(0, 0, 0, 5);
+		gbc_button.gridx = 8;
+		gbc_button.gridy = 7;
+		panelHistorial.add(button, gbc_button);
 		
 		/* PANEL PACIENTES*/
 		JPanel panelPacientee = new JPanel();
