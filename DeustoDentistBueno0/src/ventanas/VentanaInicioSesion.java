@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -145,6 +146,9 @@ public class VentanaInicioSesion extends JFrame {
 			vp=new VentanaPrincipal(rol,user);
 			vp.setVisible(true);
 			setVisible(false);
+		}else {
+			JOptionPane.showMessageDialog(null, "NO VALIDO", "USUARIO NO VALIDO",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

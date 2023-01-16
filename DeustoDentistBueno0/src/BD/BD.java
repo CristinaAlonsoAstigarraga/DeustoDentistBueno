@@ -1164,11 +1164,12 @@ public class BD {
 			}
 			rs.close();
 			st.close();
-			log( Level.INFO, "Usuario encontrado" , null );
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log( Level.SEVERE, "ComprobarUsuario: error en la busqueda del usuario", e );
 		}
+		log( Level.INFO, "Usuario encontrado" , null );
 		return rol;
 	}
 
