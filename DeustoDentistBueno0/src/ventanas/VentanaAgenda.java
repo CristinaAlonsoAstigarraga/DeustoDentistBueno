@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -67,6 +68,7 @@ public class VentanaAgenda extends JFrame {
 	private JComboBox<String> comboBoxDNI, comboBoxDNII;
 	private JTextField textFieldFecha, textFieldFechaI;
 	private Date fecha, fecha1;
+	private LocalDateTime fyhActual = LocalDateTime.now();
 	private int id=-1;
 	private Cita cita ;
 	Connection con = BD.initBD("BaseDatos.db");
@@ -704,11 +706,19 @@ public class VentanaAgenda extends JFrame {
 					JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR LA FECHA EN FORMATO: \"dd-MM-yyyy hh:mm\"",
 							"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
 				}
+				
+				Date fyhActualDate = java.sql.Timestamp.valueOf(fyhActual);
 
 				//int id=BD.obtenerCita(con,comboBoxDNI.getSelectedItem().toString(), sdf.format(fecha));
 				
 				System.out.println("ID:"+id);
-				BD.modificarCita(con, sdf.format(fecha), id);
+				
+				if(!fecha.before(fyhActualDate)) {
+					BD.modificarCita(con, sdf.format(fecha), id);
+				}else {
+					JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UNA FECHA VALIDA", "FECHA ANTIGUA",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UN DNI VALIDO", "USUARIO NO ENCONTRADO",
 						JOptionPane.ERROR_MESSAGE);
@@ -739,25 +749,33 @@ public class VentanaAgenda extends JFrame {
 					JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR LA FECHA EN FORMATO: \"dd-MM-yyyy hh:mm\"",
 							"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);
 				}
-
-				// crear cita
-				Cita c = new Cita();
-				c.setDniPaciente(comboBoxDNII.getSelectedItem().toString());
-				c.setNombrePaciente(nombrePaciente);
-				c.setFecha(fecha);
-				c.setTipo(TipoCita.valueOf(comboBoxCITAI.getSelectedItem().toString()));
-				c.setNombreDentista((String) comboBoxDENTISTAI.getSelectedItem());
-				BD.anadirCita(con, c);
+				
+				Date fyhActualDate = java.sql.Timestamp.valueOf(fyhActual);
+				
+				if(!fecha.before(fyhActualDate)){
+					
+					// crear cita
+					Cita c = new Cita();
+					c.setDniPaciente(comboBoxDNII.getSelectedItem().toString());
+					c.setNombrePaciente(nombrePaciente);
+					c.setFecha(fecha);
+					c.setTipo(TipoCita.valueOf(comboBoxCITAI.getSelectedItem().toString()));
+					c.setNombreDentista((String) comboBoxDENTISTAI.getSelectedItem());
+					BD.anadirCita(con, c);
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UNA FECHA VALIDA", "FECHA ANTIGUA",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR UN DNI VALIDO", "USUARIO NO ENCONTRADO",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
 
-			JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR TODOS LOS DATO", "ERROR",
+			JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR TODOS LOS DATOS", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 	
 	public void addCheckBox(int column, JTable tablaGestionAgenda) {

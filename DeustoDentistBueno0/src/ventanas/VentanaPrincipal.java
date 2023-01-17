@@ -25,12 +25,6 @@ public class VentanaPrincipal extends JFrame {
 	String rol="";
 	String user="";
 	private JPanel contentPane;
-	
-	
-	
-	VentanaImportarDatos vid = new VentanaImportarDatos();
-
-	
 	JButton btnInventario,btnGestionp,btnAgenda,btnImportarDatos,btnHistorialClinico;
 	public ImageIcon imagenFondo;
 	public URL fondo;
@@ -153,20 +147,6 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		panelAgenda.add(btnAgenda);
-
-		JPanel panelImportarDatos = new JPanel();
-		panelCentro.add(panelImportarDatos);
-		panelImportarDatos.setLayout(new GridLayout(1, 0, 0, 0));
-
-		 btnImportarDatos = new JButton("IMPORTAR DATOS");
-		btnImportarDatos.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnImportarDatos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				vid.setVisible(true);
-				//setVisible(false);
-			}
-		});
-		panelImportarDatos.add(btnImportarDatos);
 
 		JPanel panelInventario = new JPanel();
 		panelCentro.add(panelInventario);
