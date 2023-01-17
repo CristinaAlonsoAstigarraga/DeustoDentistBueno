@@ -465,7 +465,7 @@ public class VentanaAgenda extends JFrame {
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		// Meter la conexón con la Base de Datos
-		String[] columnas = { "ID", "DNI", "PACIENTE", "FECHA", "TIPO", "DENTISTA", "ATENDIDO" };
+		String[] columnas = { "ID", "DNI", "PACIENTE", "FECHA", "TIPO", "DENTISTA" };
 		ArrayList<Cita> aCitas = BD.obtenerListaCitas(con);
 
 		modelo = new DefaultTableModel(columnas, 0);
@@ -495,7 +495,7 @@ public class VentanaAgenda extends JFrame {
 			modelo.setValueAt(sdf.format(getCita.getFecha()), i, 3);
 			modelo.setValueAt(getCita.getTipo().toString(), i, 4);
 			modelo.setValueAt(getCita.getNombreDentista(), i, 5);
-			addCheckBox(6, tablaGestionAgenda);
+			//addCheckBox(6, tablaGestionAgenda);
 		}
 		panelCentro.setLayout(new BorderLayout(0, 0));
 
@@ -805,10 +805,10 @@ public class VentanaAgenda extends JFrame {
 		}
 	}
 	
-	public void addCheckBox(int column, JTable tablaGestionAgenda) {
-		TableColumn tc = tablaGestionAgenda.getColumnModel().getColumn(column);
-		tc.setCellEditor(tablaGestionAgenda.getDefaultEditor(Boolean.class));
-		tc.setCellRenderer(tablaGestionAgenda.getDefaultRenderer(Boolean.class));
-	}
+//	public void addCheckBox(int column, JTable tablaGestionAgenda) {
+//		TableColumn tc = tablaGestionAgenda.getColumnModel().getColumn(column);
+//		tc.setCellEditor(tablaGestionAgenda.getDefaultEditor(Boolean.class));
+//		tc.setCellRenderer(tablaGestionAgenda.getDefaultRenderer(Boolean.class));
+//	}
 
 }

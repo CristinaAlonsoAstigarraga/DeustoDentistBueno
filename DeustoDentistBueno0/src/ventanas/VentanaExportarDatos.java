@@ -44,6 +44,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe VentanaExportarDatos, en esta clase se lleva a cabo la extraccionde los datos 
+ * tanto de paciente como de los historiales
+ * @author irene
+ *
+ */
 public class VentanaExportarDatos extends JFrame {
 
 	private JPanel contentPane;
@@ -72,9 +78,9 @@ public class VentanaExportarDatos extends JFrame {
 //	}
 
 	/**
-	 * Create the frame.
-	 * @param user 
-	 * @param rol 
+	 * Contructor de la clase con los siguientes parametros
+	 *@param user  usuario con el que se ha iniciado sesion
+	 * @param rol  el rol del usuario
 	 */
 	public VentanaExportarDatos(String rol, String user) {
 		this.setResizable(false);//no agrandar pantalla
@@ -269,6 +275,9 @@ public class VentanaExportarDatos extends JFrame {
 	
 	CargarComboBoxDni();
 	}
+	/**
+	 * metodo para cargar el comobobox con la lista de dni de los pacientes
+	 */
 	private void CargarComboBoxDni() {
 		// TODO Auto-generated method stub
 		ArrayList<Paciente> lista = new ArrayList<>();
@@ -278,6 +287,10 @@ public class VentanaExportarDatos extends JFrame {
 			
 		}
 	}
+	/**
+	 * metodo para exportar los datos haciendo una consult a la bbdd 
+	 * y a partir de la lista obtenida realizar la escritura en un fichero
+	 */
 	private void exportarHistorial() {
 		JFileChooser guardar=new JFileChooser();
 		guardar.setApproveButtonText("Guardar");

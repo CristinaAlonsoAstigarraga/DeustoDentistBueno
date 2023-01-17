@@ -56,6 +56,12 @@ import javax.swing.table.TableCellRenderer;
 
 import com.toedter.calendar.JDateChooser;
 
+/**
+ * Clase VentanaGestionPacientes para llevar a cabo el añadido, borrado 
+ * y modificado de estos
+ * @author irene
+ *
+ */
 public class VentanaGestionPacientes extends JFrame{
 	
 	/**
@@ -97,9 +103,10 @@ public class VentanaGestionPacientes extends JFrame{
 //	}
 
 	/**
-	 * Create the frame.
-	 * @param user 
-	 * @param rol 
+	 * contructor con los siguientes parametros
+	 * 
+	 * @param user  usuario con el que se ha iniciado sesion
+	 * @param rol  el rol del usuario
 	 */
 	public VentanaGestionPacientes(String rol, String user) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaGestionPacientes.class.getResource("/img/dienteNegro.jpg")));
@@ -751,7 +758,9 @@ public class VentanaGestionPacientes extends JFrame{
 			modelo.setValueAt((getPaciente.getGenero()), i, 6);
 		}
 	}
-	
+	/**
+	 * metodo para insertar un paciente en la bbdd
+	 */
 	private void insertarPaciente() {
 		//Creamos expreciones regulares para validar el telefono introducido
 		String erTelf = "[0-9]{9}";
@@ -782,7 +791,9 @@ public class VentanaGestionPacientes extends JFrame{
 			JOptionPane.showMessageDialog(null, "DEBES DE INTRODUCIR TODOS LOS VALORES",
 					"FALTA DATOS", JOptionPane.ERROR_MESSAGE);		}
 	}
-	
+	/**
+	 * metodo para modificar un paciente en la bbdd
+	 */
 	private void modificarPaciente() {
 		
 		String erTelf1 = "[0-9]{9}";
@@ -817,7 +828,9 @@ public class VentanaGestionPacientes extends JFrame{
 		}
 			
 	}
-	
+	/**
+	 * metodo para borrar un paciente en la bbdd
+	 */
 	private void borrarPaciente() {
 		if(paciente != null) {
 			BD.borrarPaciente(con, paciente);

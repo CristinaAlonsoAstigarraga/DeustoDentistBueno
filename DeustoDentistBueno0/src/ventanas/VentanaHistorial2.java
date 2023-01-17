@@ -56,7 +56,11 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-
+/**
+ * Clase VentanaHistorial2 donde se visulizan los historiales de los pacientes
+ * @author irene
+ *
+ */
 public class VentanaHistorial2 extends JFrame {
 
 	private JPanel contentPane;
@@ -85,9 +89,9 @@ public class VentanaHistorial2 extends JFrame {
 //	}
 
 	/**
-	 * Create the frame.
-	 * @param user 
-	 * @param rol 
+	 * constructor con parametros
+	 * @param user  usuario con el que se ha iniciado sesion
+	 * @param rol  el rol del usuario
 	 */
 	public VentanaHistorial2(String rol, String user) {
 		cambio = true;
@@ -513,7 +517,12 @@ public class VentanaHistorial2 extends JFrame {
 		}
 		comboBoxBuscar.addItem("Todos");
 	}
-
+	/**
+	 * metodo que atualiza la tabla
+	 * @param tablahistorial
+	 * @param modelo
+	 * @param aHistoriales
+	 */
 	private void actualizartabla(JTable tablahistorial, DefaultTableModel modelo, ArrayList<Historial> aHistoriales) {
 		Object fila[] = null;
 		// limpiar el modelo y volver a escribir

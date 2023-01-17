@@ -1292,3 +1292,95 @@
   <message>Usuario encontrado</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-17T23:17:01.170313400Z</date>
+  <millis>1673997421170</millis>
+  <nanos>313400</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-17T23:18:22.058536700Z</date>
+  <millis>1673997502058</millis>
+  <nanos>536700</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Usuario encontrado</message>
+</record>
+<record>
+  <date>2023-01-17T23:18:26.967202800Z</date>
+  <millis>1673997506967</millis>
+  <nanos>202800</nanos>
+  <sequence>1</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Citas encontradas con el dentista: Nuria</message>
+</record>
+<record>
+  <date>2023-01-17T23:18:31.999819400Z</date>
+  <millis>1673997511999</millis>
+  <nanos>819400</nanos>
+  <sequence>2</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Citas encontradas con el dentista: Alberto</message>
+</record>
+<record>
+  <date>2023-01-17T23:18:32.960484500Z</date>
+  <millis>1673997512960</millis>
+  <nanos>484500</nanos>
+  <sequence>3</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Citas encontradas con el dentista: Alberto</message>
+</record>
+<record>
+  <date>2023-01-17T23:19:01.095762500Z</date>
+  <millis>1673997541095</millis>
+  <nanos>762500</nanos>
+  <sequence>4</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Citas encontradas con el dentista: Nuria</message>
+</record>
+<record>
+  <date>2023-01-17T23:19:02.745393300Z</date>
+  <millis>1673997542745</millis>
+  <nanos>393300</nanos>
+  <sequence>5</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Citas encontradas con el dentista: Alberto</message>
+</record>
+</log>
