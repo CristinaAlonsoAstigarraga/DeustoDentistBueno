@@ -1,5 +1,10 @@
 package Clases;
 
+/**
+ * Clase Usuario con atributos
+ * @author irene
+ *
+ */
 public class Usuario {
 	String nombre;
 	String nick;
@@ -7,11 +12,20 @@ public class Usuario {
 	String rol;
 	
 	
-	
+	/**
+	 * contructor vacio
+	 */
 	public Usuario() {
 		
 	}
 	
+	/**
+	 * contructor con parametros
+	 * @param nombre
+	 * @param nick
+	 * @param contrasenia
+	 * @param rol
+	 */
 	public Usuario(String nombre, String nick, String contrasenia, String rol) {
 		super();
 		this.nombre = nombre;

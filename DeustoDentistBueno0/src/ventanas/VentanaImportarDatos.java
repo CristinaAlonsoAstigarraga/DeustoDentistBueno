@@ -71,6 +71,10 @@ public class VentanaImportarDatos extends JFrame {
 		panelCentro.add(btnHistorial);
 		
 		JButton btnNewButton_1 = new JButton("Importar ficheros paciente");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		panelCentro.add(btnNewButton_1);
 		//Meter la conexón con la Base de Datos
 //		tablaGestionPacientes = new JTable();

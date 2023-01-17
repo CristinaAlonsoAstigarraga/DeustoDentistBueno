@@ -34,17 +34,27 @@ public class Dentista extends Persona{
 		this.salario = salario;
 	}
 	
+	/**
+	 * metodo toString donde se visualiza cadena del obejto dentista
+	 */
 	@Override
 	public String toString() {
 		return "Dentista [Dni=" + getDni() + ", Nombre=" + getNombre() + ", Apellido=" + getApellido()
 				+ ", FechaNacimiento=" + getFechaNacimiento() + ", Telefono=" + getTelefono()
 				+ ", Genero=" + getGenero() + ", Salario=" + getSalario()+"]";
 	}
-
+	/**
+	 * metodo get de salario
+	 * @return salario (de tipo float)
+	 */
 	public float getSalario() {
 		return salario;
 	}
 
+	/**
+	 * metodo set de salario
+	 * @param salario
+	 */
 	public void setSalario(float salario) {
 		this.salario = salario;
 	}

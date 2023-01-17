@@ -26,31 +26,54 @@ public class Historial {
 	
 	
 
+	/**
+	 * metodo toString donde se visualiza cadena del obejto historial
+	 */
 	@Override
 	public String toString() {
 		return "Historial [dni=" + dni + ", nombre=" + nombre + ", desc=" + desc + "]";
 	}
 
+	/**
+	 * metodo get dni
+	 * @return dni
+	 */
 	public String getDni() {
 		return dni;
 	}
-
+	/**
+	 * metodo set dni
+	 * @param dni
+	 */
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-
+	/**
+	 * metodo det nombre
+	 * @return nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
-
+	/**
+	 * metodo set Nombre
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	/**
+	 * metodso get Descripcion
+	 * @return desc
+	 */
 	public String getDesc() {
 		return desc;
 	}
-
+	
+	/**
+	 * metodo set Descripcion
+	 * @param desc
+	 */
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}

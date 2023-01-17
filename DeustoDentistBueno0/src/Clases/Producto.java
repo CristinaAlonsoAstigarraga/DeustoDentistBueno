@@ -6,6 +6,11 @@ import java.util.List;
 
 import BD.BD;
 
+/**
+ * clase producto con atributos
+ * @author irene
+ *
+ */
 public class Producto {
 	
 	private int codigo;
@@ -17,10 +22,20 @@ public class Producto {
 	
 	Connection con = BD.initBD("BaseDatos.db");
 	
+	/**
+	 * contructor vacio
+	 */
 	public Producto() {
 		
 	}
-	
+	/**
+	 * contructor  producto con parametros
+	 * @param codigo
+	 * @param nombre
+	 * @param descripcion
+	 * @param precio
+	 * @param cantidad
+	 */
 	public Producto(int codigo, String nombre, String descripcion, float precio, int cantidad) {
 		super();
 		this.codigo = codigo;
@@ -30,30 +45,59 @@ public class Producto {
 		this.cantidad = cantidad;
 	}
 	
-	
+	/**
+	 * metodo get contador
+	 * @return
+	 */
 	public int getContador() {
 		return contador;
 	}
-
+	/**
+	 * metodo set contador
+	 * @param contador
+	 */
 	public void setContador(int contador) {
 		this.contador = contador;
 	}
-
+	/**
+	 * metodo get codigo
+	 * @return
+	 */
 	public int getCodigo() {
 		return codigo;
 	}
+	/**
+	 * metodo set Codigo
+	 * @param codigo
+	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+	/**
+	 * metodo get Nombre
+	 * @return
+	 */
 	public String getNombre() {
 		return nombre;
 	}
+	/**
+	 * metodo set Nombre
+	 * @param nombre
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	/**
+	 * metodo get Descripcion
+	 * @return
+	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
+	/**
+	 * metodo set descripcion
+	 * @param descripcion
+	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -75,6 +119,15 @@ public class Producto {
 		return "["+ codigo+", "+nombre + ", " + precio + "€]";
 	}
 	
+	/**
+	 * metodo combinaciones de procutos 
+	 * @param resultado
+	 * @param elementos
+	 * @param DineroDisponible
+	 * @param DineroSobreanteMax
+	 * @param provisional
+	 * @param repetidos
+	 */
 	private static void combinacionesProductos(List<List<Producto>> resultado,
 			List<Producto> elementos, 
 			double DineroDisponible, 
@@ -104,4 +157,5 @@ public class Producto {
 			combinacionesProductos(resultado, elementos, DineroDisponible, DineroSobrante, new ArrayList<>(), repetidos);
 			return resultado;		
 		}
+
 }

@@ -30,21 +30,45 @@ public class Inventario {
 		this.nombreProducto = nombreProducto;
 		this.cantidad = cantidad;
 	}
+	/**
+	 * metodo get codigo producto
+	 * @return
+	 */
 	public int getCodigoProducto() {
 		return codigoProducto;
 	}
+	/**
+	 * metofo set codigo producto
+	 * @param codigoProducto
+	 */
 	public void setCodigoProducto(int codigoProducto) {
 		this.codigoProducto = codigoProducto;
 	}
+	/**
+	 * metodo getNombre producto
+	 * @return nombre producto
+	 */
 	public String getNombreProducto() {
 		return nombreProducto;
 	}
+	/**
+	 * metodo set Nombre producto
+	 * @param nombreProducto
+	 */
 	public void setNombreProducto(String nombreProducto) {
 		this.nombreProducto = nombreProducto;
 	}
+	/**
+	 * metodo get Cantidad
+	 * @return
+	 */
 	public int getCantidad() {
 		return cantidad;
 	}
+	/**
+	 * metodo set cantidad
+	 * @param cantidad
+	 */
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
