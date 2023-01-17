@@ -18,6 +18,11 @@ import ventanas.VentanaInicioSesion;
 import ventanas.VentanaRegistro;
 import java.awt.SystemColor;
 
+/**
+ * Clase VentanaInicio donde se visualizan dos opciones inicio de sesion y registro
+ * @author irene
+ *
+ */
 public class VentanaInicio extends JFrame {
 
 	private JPanel contentPane;

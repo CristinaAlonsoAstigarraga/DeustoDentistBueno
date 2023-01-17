@@ -20,7 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-
+/**
+ * Clase VentanaPrincipal en la que se visualiza el menu principal de
+ * la app
+ * @author irene
+ *
+ */
 public class VentanaPrincipal extends JFrame {
 	String rol="";
 	String user="";

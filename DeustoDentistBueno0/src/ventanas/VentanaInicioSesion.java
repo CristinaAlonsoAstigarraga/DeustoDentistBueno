@@ -25,7 +25,11 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.ActionEvent;
-
+/**
+ * Clase VentanaInicioSesion donde se realiz el incio de sesion
+ * @author irene
+ *
+ */
 public class VentanaInicioSesion extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
