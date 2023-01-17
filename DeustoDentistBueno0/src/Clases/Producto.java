@@ -13,6 +13,7 @@ public class Producto {
 	private String descripcion;
 	private float precio; 
 	private int cantidad; 	//Cantidad del producto en el inventario (número de unidades del producto en la clínica)
+	private int contador = 0;
 	
 	Connection con = BD.initBD("BaseDatos.db");
 	
@@ -30,6 +31,14 @@ public class Producto {
 	}
 	
 	
+	public int getContador() {
+		return contador;
+	}
+
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}

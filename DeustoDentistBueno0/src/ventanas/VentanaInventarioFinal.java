@@ -674,7 +674,6 @@ public class VentanaInventarioFinal extends JFrame{
 		btnCalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Producto> aProductos;
-////				ArrayList<Producto> aayuda = new ArrayList<>();
 				aProductos = BD.obtenerListaProducto(con);
 
 				Double disponible = Double.parseDouble(JOptionPane.showInputDialog("Dinero disponible: "));
@@ -683,20 +682,30 @@ public class VentanaInventarioFinal extends JFrame{
 				if(disponible != null && sobranteMax != null) {
 					if(disponible>sobranteMax) {
 						List<Producto> result = combinacionesProductos(aProductos, disponible, sobranteMax);
+						int contador = 0;
+						List<Producto> resultAux = new ArrayList<>();
 						
-						for (int i=0; i<result.size(); i++) {
-							textAreaResultado.append("Opción nº " + i);
-							textAreaResultado.append(": "+result.get(i) + "\n");
-					
+						for(Producto p:result) {
+							p.setContador(1);
+							if(resultAux.contains(p)) {
+								int contadorP = p.getContador();
+								p.setContador(contadorP+1);
+							} else {
+								resultAux.add(p);
+							}
+						}							
+						for(Producto p : resultAux) {
+							textAreaResultado.append("Compra: ");
+							textAreaResultado.append(p + ": " +p.getContador() + " unidad(es) \n");
+							textAreaResultado.append("-------------------");
+							textAreaResultado.append("\n");					
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "El valor sobrante, debe ser menor al disponible", "ERROR", JOptionPane.ERROR_MESSAGE);
 					}
-					
 				} else {
 					JOptionPane.showMessageDialog(null, "Debe rellenar los campos (double)", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
-				
 			}
 		});
 		
