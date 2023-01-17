@@ -182,7 +182,7 @@ public class VentanaPrincipal extends JFrame {
 		panelCentro.add(panelHistorialClinico);
 		panelHistorialClinico.setLayout(new GridLayout(1, 0, 0, 0));
 
-		 btnHistorialClinico = new JButton("HISTORIAL CLÍNICO");
+		 btnHistorialClinico = new JButton("HISTORIAL CLINICO");
 		btnHistorialClinico.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnHistorialClinico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

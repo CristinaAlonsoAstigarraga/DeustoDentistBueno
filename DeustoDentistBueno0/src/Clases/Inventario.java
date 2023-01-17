@@ -1,15 +1,29 @@
 package Clases;
 
+/**
+ * Clase inventario la cual se utiliza para especificar los productos que se tienen en clinica
+ * 
+ * @author irene
+ *
+ */
 public class Inventario {
 	private int codigoProducto;
 	private String nombreProducto;
 	private int cantidad;
 
-	
+	/**
+	 * constructor vacio
+	 */
 	public Inventario() {
 		
 	}
 	
+	/**
+	 * constructor con los siguientes parametros
+	 * @param codigoProducto codigo del producto
+	 * @param nombreProducto nombre del producto
+	 * @param cantidad cantidad del producto
+	 */
 	public Inventario(int codigoProducto, String nombreProducto, int cantidad) {
 		super();
 		this.codigoProducto = codigoProducto;

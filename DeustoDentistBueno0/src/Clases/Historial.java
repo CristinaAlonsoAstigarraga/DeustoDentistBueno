@@ -1,10 +1,22 @@
 package Clases;
 
+/**
+ * Clase historial donde se especifica sus parametros
+ * Se usa para llevar uns eguiemiento de los pacientes
+ * @author irene
+ *
+ */
 public class Historial {
 	private String dni;
 	private String nombre;
 	private String desc;
 	
+	/**
+	 * constructor con los diguientes parametros
+	 * @param dni dni del paciente
+	 * @param nombre nombre del paciente
+	 * @param desc descripcion de las observacciones tomadas del paciente
+	 */
 	public Historial(String dni, String nombre, String desc) {
 		super();
 		this.dni = dni;
