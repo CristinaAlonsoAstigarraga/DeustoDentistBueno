@@ -41,11 +41,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
@@ -334,7 +337,10 @@ public class VentanaInventarioFinal extends JFrame{
 				ArrayList<Producto> aProductos;
 				aProductos = BD.obtenerListaProducto(con);
 				actualizarTabla(tablaGestionProductos, modelo, aProductos);
-				
+				textFieldNombreModificar.setText("");
+				textFieldDescripcionModificar.setText("");
+				textFieldPrecioModificar.setText("");
+				textFieldCantidadModificar.setText("");
 			}
 		});
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -618,6 +624,85 @@ public class VentanaInventarioFinal extends JFrame{
 		});
 		
 		/*
+		 * PANEL CALCULAR
+		 */
+		
+		JPanel panelCalcular = new JPanel();
+		tabbedPane.addTab("STOCK", null, panelCalcular, null);
+		panelCalcular.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelSurC = new JPanel();
+		panelSurB.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelSurB.setBackground(SystemColor.inactiveCaption);
+		panelCalcular.add(panelSurC, BorderLayout.SOUTH);
+		
+		JButton btnCalcular = new JButton("CALCULAR");
+		btnCalcular.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panelSurC.add(btnCalcular);
+		
+		JPanel panelNorteC = new JPanel();
+		panelNorteC.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelNorteC.setBackground(SystemColor.inactiveCaption);
+		panelCalcular.add(panelNorteC, BorderLayout.NORTH);
+		
+		JLabel lblCalcularStock = new JLabel("POSIBLES COMPRAS:");
+		lblCalcularStock.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelNorteC.add(lblCalcularStock);
+		
+		JPanel panelCentralCalcular = new JPanel();
+		panelCentralCalcular.setBorder(new LineBorder(SystemColor.activeCaptionText));
+		panelCalcular.add(panelCentralCalcular, BorderLayout.CENTER);
+		GridBagLayout gbl_panelCentralCalcular = new GridBagLayout();
+		gbl_panelCentralCalcular.columnWidths = new int[]{0, 96, 0, 0};
+		gbl_panelCentralCalcular.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panelCentralCalcular.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCentralCalcular.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		panelCentralCalcular.setLayout(gbl_panelCentralCalcular);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 1;
+		panelCentralCalcular.add(scrollPane, gbc_scrollPane);
+		
+		JTextArea textAreaResultado = new JTextArea();
+		scrollPane.setViewportView(textAreaResultado);
+		
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Producto> aProductos;
+////				ArrayList<Producto> aayuda = new ArrayList<>();
+				aProductos = BD.obtenerListaProducto(con);
+
+				Double disponible = Double.parseDouble(JOptionPane.showInputDialog("Dinero disponible: "));
+				Double sobranteMax = Double.parseDouble(JOptionPane.showInputDialog("Dinero sobrante máximo: "));
+			
+				if(disponible != null && sobranteMax != null) {
+					if(disponible>sobranteMax) {
+						List<Producto> result = combinacionesProductos(aProductos, disponible, sobranteMax);
+						
+						for (int i=0; i<result.size(); i++) {
+							textAreaResultado.append("Opción nº " + i);
+							textAreaResultado.append(": "+result.get(i) + "\n");
+					
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "El valor sobrante, debe ser menor al disponible", "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Debe rellenar los campos (double)", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
+		
+		
+		
+		/*
 		 * PANEL SUR
 		 */
 		JPanel panelSur = new JPanel();
@@ -642,6 +727,8 @@ public class VentanaInventarioFinal extends JFrame{
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		panelSur.add(lblNewLabel_3);
 		
+		
+		
 		/*
 		 * ACABAN PANELES
 		 */
@@ -663,6 +750,10 @@ public class VentanaInventarioFinal extends JFrame{
 		});
 	}
 	
+	
+	/**
+	 * Método para cargar el comboBox en la pestaña de modificar un producto. El comboBox se carga con los códigos de producto disponibles
+	 */
 	private void cargarCB_Codigo_Modificar() {
 		ArrayList<Producto> lista = new ArrayList<>();
 		lista = BD.obtenerListaProducto(con);
@@ -671,7 +762,12 @@ public class VentanaInventarioFinal extends JFrame{
 		}
 	}
 
-	
+	/**
+	 * Método para actualizar la tabla trás haberse realizado algún cambio (insertar, borrar, modificar)
+	 * @param tablaGestionProductos - tabla que se va a actualizar
+	 * @param modelo - modelo de la tabla
+	 * @param aProductos - lista de los productos que hay en la tabla
+	 */
 	private void actualizarTabla(JTable tablaGestionProductos, DefaultTableModel modelo, ArrayList<Producto> aProductos) {
 		Object O[] = null;
 		// limpiar el modelo y volver a escribir
@@ -690,6 +786,10 @@ public class VentanaInventarioFinal extends JFrame{
 		}
 	}
 	
+	
+	/**
+	 * Método para insertar un producto en la tabla
+	 */
 	private void insertarProducto() {
 		//Creamos expreciones regulares para validar los datos(código, precio y cantidad) introducidos
 		
@@ -732,8 +832,10 @@ public class VentanaInventarioFinal extends JFrame{
 					"FORMATO ERRONEO", JOptionPane.ERROR_MESSAGE);		}
 	}
 	
+	/**
+	 * Método para modificar un producto de la tabla
+	 */
 	private void modificarProducto() {
-		
 		if (!(textFieldNombreModificar.getText().isEmpty()) || !(textFieldDescripcionModificar.getText().isEmpty()) ||
 			!(textFieldPrecioModificar.getText().isEmpty()) || !(textFieldCantidadModificar.getText().isEmpty())) {
 			
@@ -758,6 +860,9 @@ public class VentanaInventarioFinal extends JFrame{
 			
 	}
 	
+	/**
+	 * Método para borrar un prodcuto de la tabla
+	 */
 	private void borrarProducto() {
 		if(producto != null) {
 			BD.borrarProducto(con, producto);
@@ -769,8 +874,54 @@ public class VentanaInventarioFinal extends JFrame{
 		}
 	}
 	
+	/**
+	 * Método para generar posibles compras de productos
+	 * @param resultado - ArrayList<Producto> con el resultado de posibles opciones de compra
+	 * @param elementos - ArrayList<Producto> con los elementos que se van a utilizar para generar las combinaciones
+	 * @param DineroDisponible - Dinero que hay disponible para hacer las compras
+	 * @param DineroSobreanteMax - Cuánto dinero puede sobrar como máximo después de hacer una compra
+	 * @param provisional - List<Producto> que ayuda en el proceso de generación de combinaciones
+	 */
+	private static void combinacionesProductos(ArrayList<Producto> resultado,
+												ArrayList<Producto> elementos, 
+												double DineroDisponible, 
+												double DineroSobreanteMax, 
+												List<Producto> provisional) {
+		if (DineroDisponible < 0) {
+			return;
+		} else if (DineroDisponible < DineroSobreanteMax) {
+			provisional.sort((Producto p1, Producto p2) -> Integer.compare(p1.getCodigo(), p2.getCodigo()));
+			if (!resultado.contains(provisional)) {
+				resultado.addAll(new ArrayList<>(provisional));
+			}			
+		} else {
+			for (Producto p : elementos) {
+				provisional.add(p);
+				combinacionesProductos(resultado, elementos, DineroDisponible-p.getPrecio(), DineroSobreanteMax, provisional);
+				provisional.remove(provisional.size()-1);
+			}
+		}
+	
+	}
+
+	/**
+	 * Método para llamar a combinacionesProductos() y generar las combinaciones
+	 * @param elementos - ArrayList<Producto>, lista con los Productos que se van a utilizar para generar las combinaciones
+	 * @param DineroDisponible - Dinero que hay disponible para hacer las compras
+	 * @param DineroSobrante - Cuánto dinero puede sobrar como máximo después de hacer una compra
+	 * @return ArrayList<Producto>, devuelve un arrayList con las posibles compras a realizar con los valores que se han pasado como parámetro
+	 */
+	public static ArrayList<Producto> combinacionesProductos(ArrayList<Producto> elementos,
+																double DineroDisponible,
+																double DineroSobrante){
+		ArrayList<Producto> resultado = new ArrayList<>();
+		combinacionesProductos(resultado, elementos, DineroDisponible, DineroSobrante, new ArrayList<>());
+		return resultado;		
+	}
+
+	
+	
 	public void selectRows(String selectStr) {
 		logger.info("User selecting rows by product containing: " + selectStr);
-		
 	}
 }

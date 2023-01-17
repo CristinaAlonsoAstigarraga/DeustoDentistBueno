@@ -1144,3 +1144,47 @@
   <message>Usuario encontrado</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-17T10:59:59.147020900Z</date>
+  <millis>1673953199147</millis>
+  <nanos>20900</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Producto modificado</message>
+</record>
+<record>
+  <date>2023-01-17T11:00:28.005721100Z</date>
+  <millis>1673953228005</millis>
+  <nanos>721100</nanos>
+  <sequence>1</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Producto con codigo:11111 elimiando</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-01-17T11:03:31.286085100Z</date>
+  <millis>1673953411286</millis>
+  <nanos>85100</nanos>
+  <sequence>0</sequence>
+  <logger>ficheros-log</logger>
+  <level>INFO</level>
+  <class>BD.BD</class>
+  <method>log</method>
+  <thread>19</thread>
+  <message>Producto modificado</message>
+</record>
+</log>
