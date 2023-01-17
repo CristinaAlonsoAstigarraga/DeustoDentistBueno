@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JOptionPane;
@@ -993,6 +995,45 @@ public class BD {
 				String gen = rs.getString("gen");
 				Paciente p = new Paciente(dni, nom, apellidos, fechaDate, telf, gen, dir);
 				lista.add(p);
+
+			}
+			rs.close();
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log( Level.SEVERE, "ObtenerListaPacientes: error en la lista de citas", e );
+		}
+		return lista;
+	}
+	
+	
+	 
+	public static  Map<String, Paciente> obtenerMapaPaciente(Connection con) {
+
+		//ArrayList<Paciente> lista = new ArrayList<>();
+		Map<String, Paciente> lista = new HashMap<>();
+		Date fechaDate = new Date();
+
+		try {
+			Statement st = con.createStatement();
+			String sql = "SELECT * FROM paciente";
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				String dni = rs.getString("dni");
+				String nom = rs.getString("nom");
+				String apellidos = rs.getString("apellidos");
+				try {
+					SimpleDateFormat formato1 = new SimpleDateFormat("dd-MM-yyyy");
+					String fechaNacimiento = rs.getString("fechaNacimiento");
+					fechaDate = formato1.parse(fechaNacimiento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				String dir = rs.getString("dir");
+				int telf = rs.getInt("telf");
+				String gen = rs.getString("gen");
+				Paciente p = new Paciente(dni, nom, apellidos, fechaDate, telf, gen, dir);
+				lista.put(dni,p);
 
 			}
 			rs.close();

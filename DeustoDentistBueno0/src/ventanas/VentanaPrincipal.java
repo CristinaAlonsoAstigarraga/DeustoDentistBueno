@@ -229,21 +229,18 @@ public class VentanaPrincipal extends JFrame {
 			btnInventario.setEnabled(true);
 			btnGestionp.setEnabled(true);
 			btnAgenda.setEnabled(true);
-			btnImportarDatos.setEnabled(true);
 			btnHistorialClinico.setEnabled(true);
 			break;
 		case "RECEPCIONISTA":
 			btnInventario.setEnabled(true);
 			btnGestionp.setEnabled(true);
 			btnAgenda.setEnabled(true);
-			btnImportarDatos.setEnabled(true);
 			btnHistorialClinico.setEnabled(false);
 			break;
 		case "DENTISTA":
 			btnInventario.setEnabled(false);
 			btnGestionp.setEnabled(false);
 			btnAgenda.setEnabled(true);
-			btnImportarDatos.setEnabled(false);
 			btnHistorialClinico.setEnabled(true);
 			break;
 		default:

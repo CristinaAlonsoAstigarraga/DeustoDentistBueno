@@ -56,6 +56,12 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 
+/**
+ * clase Ventana Agenda en la cual se visualizara uns lista con todas las citas y 
+ * sus funcionalidades
+ * @author irene
+ *
+ */
 public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
@@ -615,7 +621,10 @@ public class VentanaAgenda extends JFrame {
 		CargarComboBoxCita();
 		CargarComBoxDentista();
 	}
-
+	/**
+	 * metodo para cargar el combobox de dni con una lista de todos los dni
+	 * obtenidos de bbdd
+	 */
 	private void CargarComboBoxDni() {
 		// TODO Auto-generated method stub
 		ArrayList<Paciente> lista = new ArrayList<>();
@@ -625,7 +634,10 @@ public class VentanaAgenda extends JFrame {
 			comboBoxDNII.addItem(p.getDni());
 		}
 	}
-
+	/**
+	 * metodo para cargar el combobox de dentista con una lista de todos los nombres de dentista
+	 * obtenidos de bbdd
+	 */
 	private void CargarComBoxDentista() {
 		// TODO Auto-generated method stub
 		ArrayList<Dentista> lista = new ArrayList<>();
@@ -641,7 +653,10 @@ public class VentanaAgenda extends JFrame {
 		}
 		comboBoxD.addItem("Todos");
 	}
-
+	/**
+	 * metodo para cargar el combobox de cita con una lista de todos loso tipos de citas
+	 * obtenidos de bbdd
+	 */
 	private void CargarComboBoxCita() {
 		// TODO Auto-generated method stub
 		for (TipoCita n : TipoCita.values()) {
@@ -651,7 +666,12 @@ public class VentanaAgenda extends JFrame {
 
 	}
 	
-	
+	/**
+	 * metodo para actualizar la tabla con nuevos valores
+	 * @param tablaGestionAgenda
+	 * @param modelo
+	 * @param aCitas
+	 */
 	private void actualizartabla(JTable tablaGestionAgenda, DefaultTableModel modelo, ArrayList<Cita> aCitas) {
 		Object O[] = null;
 		// limpiar el modelo y volver a escribir
@@ -676,7 +696,9 @@ public class VentanaAgenda extends JFrame {
 	
 	
 	/*----------OPERACIONES----------*/
-
+	/**
+	 * emtodo para borrar una cita de la bbdd y de la lista
+	 */
 	private void borrarCita() {
 		if(cita!=null) {
 			BD.borrarCita(con,cita);
@@ -689,7 +711,9 @@ public class VentanaAgenda extends JFrame {
 		
 	}
 	
-	
+	/**
+	 * metodo para modificar una cita de la bbdd y de la lista
+	 */
 	private void modificarCita() {
 		// comprobar campos no nulos
 		if (!(textFieldFecha.getText().isEmpty())) {
@@ -732,6 +756,9 @@ public class VentanaAgenda extends JFrame {
 	}
 
 	// METODOS BOTONES
+	/**
+	 * metodo para insertar una cita en la bbdd y refrescar la tabla
+	 */
 	private void insertarCita() {
 
 		// comprobar campos no nulos

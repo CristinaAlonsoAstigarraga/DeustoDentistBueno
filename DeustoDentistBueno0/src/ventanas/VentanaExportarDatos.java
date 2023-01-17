@@ -41,6 +41,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class VentanaExportarDatos extends JFrame {
@@ -314,7 +315,7 @@ public class VentanaExportarDatos extends JFrame {
 		
 		try(PrintWriter pw=new PrintWriter(fichero)) {
 			
-			ArrayList<Paciente> lista= BD.obtenerListaPaciente(con);
+			Map<String, Paciente> lista = BD.obtenerMapaPaciente(con);
 			pw.println("FICHERO PACIENTES GENERADO DE FORMA AUTOMATICA");
 			pw.println("");
 			
@@ -323,12 +324,17 @@ public class VentanaExportarDatos extends JFrame {
 				pw.println("NOMBRE;APELLIDO;FECHA NAC;DIRECCION;TELEFONO;GENERO");
 			}//fin if
 			
-			for(int i=0;i<lista.size();i++) {
-				Paciente p=lista.get(i);
+			for(Paciente p: lista.values()) {
 				pw.println(p.getNombre()+";"+p.getApellido()+";"+sdf.format( p.getFechaNacimiento())+";"+p.getDireccion()+";"+p.getTelefono()+";"+p.getGenero());
 				
 			}
 			
+//			for(int i=0;i<lista.size();i++) {
+//				Paciente p=lista.get(i);
+//				pw.println(p.getNombre()+";"+p.getApellido()+";"+sdf.format( p.getFechaNacimiento())+";"+p.getDireccion()+";"+p.getTelefono()+";"+p.getGenero());
+//				
+//			}
+//			
 			pw.println("");
 			
 			pw.println("OBSERVACIONES: "+textObserv.getText());
