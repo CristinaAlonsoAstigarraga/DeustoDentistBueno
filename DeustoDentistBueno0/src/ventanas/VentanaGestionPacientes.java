@@ -580,7 +580,7 @@ public class VentanaGestionPacientes extends JFrame{
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		//Meter la conexón con la Base de Datos
-		String [] columnas = {"DNI", "NOMBRE", "APELLIDO", "FECHA NACIMIENTO", "DIRECCION", "TELEFONO", "GENERO"};
+		String [] columnas = {"DNI", "NOMBRE", "APELLIDO", "F.NAC", "DIR", "TELF", "GENERO"};
 		ArrayList<Paciente> aPersonas = BD.obtenerListaPaciente(con);
 		
 		modelo = new DefaultTableModel(columnas, 0) {
@@ -605,11 +605,12 @@ public class VentanaGestionPacientes extends JFrame{
 		tablaGestionPacientes = new JTable(modelo);
 		tablaGestionPacientes.setBounds(100, 100, 450, 300);
 
-		tablaGestionPacientes.getColumnModel().getColumn(0).setMinWidth(50);
-		tablaGestionPacientes.getColumnModel().getColumn(1).setMinWidth(50);
-		tablaGestionPacientes.getColumnModel().getColumn(2).setMinWidth(70);
-		tablaGestionPacientes.getColumnModel().getColumn(3).setMinWidth(120);
-		tablaGestionPacientes.getColumnModel().getColumn(4).setMinWidth(70);
+//		tablaGestionPacientes.getColumnModel().getColumn(0).setMinWidth(50);
+//		tablaGestionPacientes.getColumnModel().getColumn(1).setMinWidth(50);
+//		tablaGestionPacientes.getColumnModel().getColumn(2).setMinWidth(70);
+//		tablaGestionPacientes.getColumnModel().getColumn(3).setMinWidth(120);
+//		tablaGestionPacientes.getColumnModel().getColumn(4).setMinWidth(70);
+		
 		Object O [] = null;
 		for (int i = 0; i < aPersonas.size(); i++) {
 			
